@@ -41,7 +41,7 @@ ggm.simulate.pcor(num.nodes, etaA=0.05)
 library(GeneTS)
 
 # generate random network with 40 nodes 
-# it contains 780=40*39/2 edges of which 5% (=39) are non-zero
+# it contains 780=40*39/2 edges of which 5 percent (=39) are non-zero
 true.pcor <- ggm.simulate.pcor(40)
   
 # simulate data set with 40 observations

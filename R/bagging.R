@@ -1,4 +1,4 @@
-### bagging.R  (2004-01-15)
+### bagging.R  (2004-02-15)
 ###
 ###     Bagged estimators of cov, cor, and pcor
 ###
@@ -63,11 +63,16 @@ bag.fun <- function(fun, data, R, diag, ...)
   lo <- lower.tri(matrix(NA, nrow=p, ncol=p), diag=diag)
 
   # bootstrap function
-  boot.fun <- function(data, i)
-    {
-      return( as.vector( fun(data[i,], ...)[lo] ))
-    }
-  
+  boot.fun <- function(data, i) 
+  {
+    vec <- as.vector( fun(data[i,], ...)[lo] )
+      
+    # if we get NAs flag result as being erroneous
+    if (sum(is.na(vec)) > 0) class(vec) <- "try-error"
+
+    return( vec )
+  }   
+     
   #bag variable 
   #boot.out <- boot(data=data, statistic=boot.fun, R=R)
   boot.out <- robust.boot(data=data, statistic=boot.fun, R=R)

@@ -15,7 +15,6 @@ ibeta(z, a, b)
 
 \arguments{
 	\item{x,q}{vector of sample correlations}
-	\item{p}{vector of probabilities}
 	\item{kappa}{the degree of freedom of the distribution}
 	\item{n}{number of values to generate. If n is a vector, length(n)
                 values will be generated}

@@ -1,4 +1,4 @@
-### fisher.g.test.R (2004-01-15)
+### fisher.g.test.R (2004-02-15)
 ###
 ###     Fisher's exact g test
 ###
@@ -55,18 +55,14 @@ fisher.g.test.single <- function(x, ...)
 # Fishers exact g test (multiple time series)
 fisher.g.test <- function(x, ...) 
 {
-  if (is.matrix(x))
+  xm <- as.matrix(x)
+  
+  num.series <- dim(xm)[2] # number of columns
+  pvalues <- rep(NA, length=num.series)
+  for (i in 1:num.series)
   {
-    num.series <- dim(x)[2] # number of columns
-    pvalues <- rep(NA, length=num.series)
-    for (i in 1:num.series)
-    {
-       pvalues[i] <- fisher.g.test.single(x[,i], ...)
-    }
-    return(pvalues)
+     pvalues[i] <- fisher.g.test.single(xm[,i], ...)
   }
-  else # single time series
-  {
-    return(fisher.g.test.single(x, ...))
-  }
+  
+  return(pvalues)
 }

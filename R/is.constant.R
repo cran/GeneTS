@@ -1,4 +1,4 @@
-### is.constant.R  (2004-01-15)
+### is.constant.R  (2004-02-15)
 ###
 ###     Simple check for constant time series
 ###
@@ -43,8 +43,5 @@ is.constant.single <- function(v)
 # dito, but also for an array of time series
 is.constant <- function(x)
 {
-   if(is.matrix(x))
-     return( apply(x,2,is.constant.single) )
-   else
-     return( is.constant.single(x) )  
+  return( apply(as.matrix(x), 2, is.constant.single) )    
 } 

@@ -1,6 +1,34 @@
 
 
+		CHANGES IN GeneTS VERSION 2.0.1
+		
+		
+This is a bug-fix release that corrects several small problems present in
+GeneTS 2.0.  It also contains changes to make GeneTS more compatible with
+the upcoming version 1.9 release of R.
 
+CHANGES
+
+    o help pages for ggm.estimate.pcor, ggm.simulate.pcor, ggm.simulate
+      data were changed (5% replaced with 5 percent), the unused argument
+      "p" from documenentation in dcor0 was removed, and a reference in
+      fdr.control was corrected
+    
+    o the example session for inferring GGMs was slightly changed (to fix a
+      bug and to make it easier to run a similar analysis for own data)
+
+    o in bag.fun results containing NAs are now flagged as erroneous so that
+      the corresponding bootstrap draws are repeated in robust.boot
+
+    o a confusing warning message in robust.boot was removed
+    
+    o the robust bootstrap is now halted when there are more than R errors
+    
+    o the functions fisher.g.test, is.constant, dominant.freqs,
+      periodogram.spec, and periodogram.freq now also take data frames
+      (and not just matrices and vectors)
+   
+    
 		CHANGES IN GeneTS VERSION 2.0
 
 

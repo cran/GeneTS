@@ -10,7 +10,7 @@ fdr.control(p, Q=0.05, eta0=1.0, robust=FALSE)
   and Storey (2002).  The FDR is the expected proportion
   of false positives (erroneous rejections) among the significant tests (rejections).
   For a given vector of p-values and the desired FDR level Q the corresponding p-value
-  cut-off and the q-values for each hypothesis (see Storey (2002) ) are computed. 
+  cut-off and the q-values for each hypothesis (see Storey, 2002) are computed. 
 }
 
 \arguments{

@@ -1,4 +1,4 @@
-### avgp.R  (2004-01-15)
+### avgp.R  (2004-02-15)
 ###
 ###    Average periodogram and related stuff
 ###
@@ -54,32 +54,25 @@ periodogram.spec.single <- function(x, method="builtin")
 # periodogram  of multiple time series x
 periodogram.spec <- function(x, method="builtin")
 {
-     if (is.matrix(x) == FALSE) # only one time series
-     {
-       return(periodogram.spec.single(x, method=method))
-     } 
-     else
-     {     
-       num.series <- dim(x)[2] # number of columns
-       f <- periodogram.freq(x)
-       spec.matrix <- matrix(NA, nrow=length(f), ncol=num.series)
-       for (i in 1:num.series)
-       {
-          spec.matrix[,i] <- periodogram.spec.single(x[,i], method=method)
-       }
-       return(spec.matrix)
-     }
+    f <- periodogram.freq(x)
+     
+    xm <- as.matrix(x)
+     
+    num.series <- dim(xm)[2] # number of columns
+    spec.matrix <- matrix(NA, nrow=length(f), ncol=num.series)
+    for (i in 1:num.series)
+    {
+       spec.matrix[,i] <- periodogram.spec.single(xm[,i], method=method)
+    }
+    return(spec.matrix)
 }
 
  
 # corresponding frequencies (ranging from 0 to 1/frequency(x))
 periodogram.freq <- function(x,  method="builtin")
 {
-    if (is.matrix(x) == TRUE)
-      z <- x[,1]   # use first time series (in first column)
-    else
-      z <- x
-
+    z <- as.matrix(x)[,1] # use first time series (in first column)
+    
     if (method=="builtin")
     {
       # demean but do not detrend to avoid artefacts around zero
@@ -144,20 +137,16 @@ dominant.freqs.single <- function(x, m=1, ...)
 # dito, but now also for multiple time series
 dominant.freqs <- function(x, m=1, ...)
 {
-     if (is.matrix(x) == FALSE) # only one time series
-     {
-       return(dominant.freqs.single(x, m=m, ...))
-     } 
-     else
-     {
-       num.series <- dim(x)[2] # number of columns
-       freq.matrix   <- matrix(NA, nrow=m, ncol=num.series)
-       for (i in 1:num.series)
-       {
-          freq.matrix[,i] <- dominant.freqs.single(x[,i], m=m, ...)
-       }
-       return(freq.matrix)
-     }
+    xm <- as.matrix(x)
+     
+    num.series <- dim(xm)[2] # number of columns
+    freq.matrix <- matrix(NA, nrow=m, ncol=num.series)
+    for (i in 1:num.series)
+    {
+       freq.matrix[,i] <- dominant.freqs.single(xm[,i], m=m, ...)
+    }
+    
+    return(freq.matrix)
 }
 
 

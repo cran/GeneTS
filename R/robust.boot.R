@@ -1,4 +1,4 @@
-### robust.boot.R  (2004-01-15)
+### robust.boot.R  (2004-02-15)
 ###
 ###     Reobust error resistant bootstrap algorithm
 ###
@@ -48,7 +48,9 @@ robust.boot <- function(data, statistic, R)
     if (class(val) == "try-error") # if we get a numerical error we simply repeat the draw ..
     {
       error.count <- error.count+1
-      cat("Bootstrapping continues, drawing an alternative bootstrap sample ...\n")
+      #cat("Bootstrapping continues, drawing an alternative bootstrap sample ...\n")
+      
+      if (error.count > R) stop("Too many errors encountered during the bootstrap.")
     }
     else
     {
