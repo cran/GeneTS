@@ -1,3 +1,41 @@
+
+
+
+		CHANGES IN GeneTS VERSION 2.4
+
+	
+NEW FUNCTIONS
+
+    o when fitting the empirical null distribution f0 for the
+      correlation coefficients with cor.fit.mixture() the alternative
+      hypothesis fA can now also be estimated *non-parametrically*.
+      Previously, it was assumed that fA is a uniform distribution.
+      
+      For this estimation "GeneTS" relies on the external "locfdr"
+      package (available on CRAN). 
+
+
+CHANGES		
+    
+    o many parts of the documentation have been rewritten to
+      clarify details and correct some minor errors. The notation
+      has also been changed to conform to statistical standards
+      (e.g., p is used instead of G, n instead of N, etc.).
+      References were also updated.
+    
+    o a bug was fixed in make.positive.definite(): pmax() instead
+      of max() is now used (bug fix kindly pointed out by Leslie Cope).
+      
+    o in the function avgp() the title is now taken from the name
+      of the data object, rather than simply using "untitled".
+      (This was suggested by Benno Putz).
+      
+    o the function cor.prob.nonzero() is removed - this functionality
+      is now available in cor.fit.mixture().
+      
+
+
+
 		CHANGES IN GeneTS VERSION 2.3
 		
 This release introduces substantial (factor 2-20!) speed improvements

@@ -8,9 +8,9 @@
 
 # for details see:
 #
-# Schaefer, J., and K. Strimmer. 2004.
+# Schaefer, J., and K. Strimmer. 2005.
 # An empirical Bayes approach to inferring large-scale gene
-# association networks. Bioinformatics, in press.
+# association networks. Bioinformatics 21:754-764.
 
 
 
@@ -89,17 +89,23 @@ inferred.pcor <- pcor.pi2
 ### Test edges in the network:
 
 # p-values, q-values and posterior probabilities for each edge 
-test.results <- ggm.test.edges(inferred.pcor)
+test.results <- ggm.test.edges(inferred.pcor, fA.type="nonparametric")
 
 # show best 20 edges
 test.results[1:20,]
 
-# how many are significant for Q=0.05 ?
-num.significant <- sum(test.results$qval <= 0.05)
-test.results[1:num.significant,]
+# how many are significant based on FDR cutoff Q=0.05 ?
+num.significant.1 <- sum(test.results$qval <= 0.05)
+test.results[1:num.significant.1,]
+
+# how many are significant based on "local fdr" cutoff (prob > 0.95) ?
+num.significant.2 <- sum(test.results$prob > 0.95)
+test.results[1:num.significant.2,]
 
 # parameters of the mixture distribution used to compute p-values etc.
-cor.fit.mixture(sm2vec(inferred.pcor))
+c <- cor.fit.mixture(sm2vec(inferred.pcor), fA.type="nonparametric")
+c$eta0
+c$kappa
 
 
 #######################################################################
@@ -109,7 +115,7 @@ cor.fit.mixture(sm2vec(inferred.pcor))
 # Note: this requires the "graph" and "Rgraphviz" packages from www.bioconductor.org 
 
 # generate graph object with all significant edges
-gr <- ggm.make.graph( test.results[1:num.significant,], num.nodes) 
+gr <- ggm.make.graph( test.results[1:num.significant.2,], num.nodes) 
 gr 
 
 # print vector of edge weights

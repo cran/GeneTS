@@ -22,11 +22,11 @@ bagged.pcor(x, R=1000, \dots)
   the bootstrap aggregated (=bagged) versions of the covariance and
   (partial) covariance estimators.  
   
-  Theses estimators are advantageous especially for small sample size
-  problems. For example, the bagged correlation matrix typically remains positive
+  The bagged covariance and correlation estimators are advantageous especially
+  for small sample size problems. For example, the bagged correlation matrix typically remains positive
   definite even when the sample size is much smaller than the number of variables.
   
-  In Schaefer and Strimmer (2004) the inverse of the bagged correlation matrix
+  In Schaefer and Strimmer (2005) the inverse of the bagged correlation matrix
   is used to estimate graphical Gaussian models from sparse microarray data - 
   see also \code{\link{ggm.estimate.pcor}} for various strategies to
   estimate partial correlation coefficients.
@@ -35,8 +35,10 @@ bagged.pcor(x, R=1000, \dots)
 \details{
   Bagging was first suggested by Breiman (1996) as a means to improve
   and estimator using the bootstrap. The bagged estimate is simply the
-  mean of the bootstrap sampling distribution. Thus, bagging is essentially
-  a variance reduction method. The bagged estimate may also be interpreted
+  mean of the bootstrap sampling distribution. 
+  
+  Bagging is essentially a non-parametric variance reduction method.
+  The bagged estimate can also be interpreted
   as (approximate) posterior mean estimate assuming some implicit prior.
   
 }
@@ -50,8 +52,13 @@ bagged.pcor(x, R=1000, \dots)
 \references{
   Breiman, L. (1996). Bagging predictors. \emph{Machine Learning}, \bold{24}, 123--140.
 
- Schaefer, J., and Strimmer, K. (2004).  An empirical Bayes approach to inferring
-  large-scale gene association networks. \emph{Bioinformatics} in press.
+  Schaefer, J., and Strimmer, K. (2005).  An empirical Bayes approach to inferring
+  large-scale gene association networks. \emph{Bioinformatics} \bold{21}:754-764.
+  
+  Schaefer, J., and Strimmer, K. (2005). Learning large-scale graphical Gaussian 
+  models from genomic data. Proceedings of CNET 2004, Aveiro, Pt. (AIP)
+  
+  
 }
 \seealso{\code{\link{cov}}, \code{\link{cor}}, \code{\link{partial.cor}},
           \code{\link{ggm.estimate.pcor}}, \code{\link{robust.boot}}.}

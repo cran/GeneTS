@@ -1,6 +1,6 @@
-### kappa2N.R (2004-01-15)
+### kappa2n.R (2004-01-20)
 ###
-###    Conversion of kappa to N and vice versaa 
+###    Conversion of kappa to n and vice versaa 
 ###    
 ###
 ### Copyright 2003-04 Juliane Schaefer and Korbinian Strimmer
@@ -24,15 +24,15 @@
 
 
 # sample size corresponding to kappa and G
-kappa2N <- function(kappa, G=2)
+kappa2n <- function(kappa, p=2)
 {
-  return( kappa+G-1 )
+  return( kappa+p-1 )
 }
 
 # sample size corresponding to N and G
-N2kappa <- function(N, G=2)
+n2kappa <- function(n, p=2)
 {
-  return( N-G+1 )
+  return( n-p+1 )
 }
 
 

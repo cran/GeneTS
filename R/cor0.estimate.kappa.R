@@ -40,7 +40,7 @@ cor0.estimate.kappa <- function(r, method=c("fisher", "likelihood", "robust"), M
 
   if(method == "robust") # Fisher's rule with robust estimate of variance
   {   
-    library(MASS)
+    require(MASS)
     v <- (hubers(z, mu=0, k=w)$s)^2 # robust estimate
     kappa <- 1/v +2
   }

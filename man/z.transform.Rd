@@ -19,10 +19,10 @@ hotelling.transform(r, kappa)
   After the transformation the data follows approximately a
   normal distribution  with constant variance (i.e. independent of the mean). 
   
-  Hotelling's transformation requires the specification of the degree of freedom kappa of
-  the underlying distribution. This depends on the sample size N used to compute the
+  Hotelling's transformation requires the specification of the degree of freedom \code{kappa} of
+  the underlying distribution. This depends on the sample size n used to compute the
   sample correlation and whether simple ot partial correlation coefficients are considered.
-  If there are G variables, with G-2 variables eliminated, the degree of freedom is kappa=N-G+1.
+  If there are p variables, with p-2 variables eliminated, the degree of freedom is \code{kappa=n-p+1}.
   (cf. also \code{\link{cor0.estimate.kappa}} and \code{\link{dcor0}}). 
 }
 
@@ -41,7 +41,7 @@ hotelling.transform(r, kappa)
    \emph{J. Roy. Statist. Soc. B}, \bold{15}, 193--232.
 
 }
-\seealso{\code{\link{cor0.estimate.kappa}}, \code{\link{dcor0}},  \code{\link{kappa2N}}.}
+\seealso{\code{\link{cor0.estimate.kappa}}, \code{\link{dcor0}},  \code{\link{kappa2n}}.}
 
 \examples{
 # load GeneTS library

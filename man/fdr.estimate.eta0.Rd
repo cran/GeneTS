@@ -49,7 +49,7 @@ approach in Storey and Tibshirani (2003).
  discovery rates.
  \emph{J. Roy. Statist. Soc. B.}, \bold{64}, 479--498.
  
- \emph{"bootstrap" procedure:} Storey, J. D., and R. Tibshirani (2003)
+ \emph{"smoother" procedure:} Storey, J. D., and R. Tibshirani (2003)
   Statistical significance for genome-wide experiments. 
  \emph{Proc. Nat. Acad. Sci. USA}, \bold{100}, 9440-9445.
 

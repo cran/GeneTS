@@ -1,7 +1,7 @@
 \name{ggm.simulate.data}
 \alias{ggm.simulate.data}
 
-\title{Graphical Gaussian Models: Simulation of of Data}
+\title{Graphical Gaussian Models: Simulation of Data}
 
 \usage{
 ggm.simulate.data(sample.size, pcor)
@@ -26,8 +26,8 @@ ggm.simulate.data(sample.size, pcor)
   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
 }
 \references{
- Schaefer, J., and Strimmer, K. (2004).  An empirical Bayes approach to inferring
-  large-scale gene association networks. \emph{Bioinformatics} in press.
+  Schaefer, J., and Strimmer, K. (2005).  An empirical Bayes approach to inferring
+  large-scale gene association networks. \emph{Bioinformatics} \bold{21}:754-764.
 }
 \seealso{\code{\link{ggm.simulate.pcor}}, \code{\link{ggm.estimate.pcor}}.}
 

@@ -6,12 +6,12 @@
   Wichert, Fokianos and Strimmer (2004).
 }
 \usage{
-avgp(x, title = "untitled", plot = TRUE, angular = FALSE, \dots)
+avgp(x, title = deparse(substitute(x)), plot = TRUE, angular = FALSE, \dots)
 }
 \arguments{
-  \item{x}{multiple (genetic) time series data (=matrix where each column
-           corresponds to one time series)}
-  \item{title}{name of the data set}
+  \item{x}{multiple (genetic) time series data. Each \bold{column} of this
+          matrix corresponds to a separate variable/time series}
+  \item{title}{name of the data set (default is the name of the data object)}
   \item{plot}{plot the average periodogram?}
   \item{angular}{convert frequencies to angular frequencies?}
   \item{\dots}{arguments passed to \code{\link{plot}}

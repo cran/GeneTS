@@ -20,7 +20,7 @@ ggm.simulate.pcor(num.nodes, etaA=0.05)
 \details{
   The output of \code{ggm.simulate.pcor} is always positive definite. This is ensured
   by using diagonally dominant matrices when generating the random GGM model.  For
-  the full algorithm see Schaefer and Strimmer (2004).
+  the full algorithm see Schaefer and Strimmer (2005).
 }
 \value{
   A positive definite partial correlation matrix.
@@ -30,8 +30,8 @@ ggm.simulate.pcor(num.nodes, etaA=0.05)
   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
 }
 \references{
-Schaefer, J., and Strimmer, K. (2004).  An empirical Bayes approach to inferring
-  large-scale gene association networks. \emph{Bioinformatics} in press.
+  Schaefer, J., and Strimmer, K. (2005).  An empirical Bayes approach to inferring
+  large-scale gene association networks. \emph{Bioinformatics} \bold{21}:754-764.
 }
 \seealso{\code{\link{ggm.simulate.data}},\code{\link{ggm.estimate.pcor}}.}
 

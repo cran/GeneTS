@@ -44,7 +44,7 @@ partial.cor(x, tol)
 }
 
 \details{
-\code{partial.cor(x, tol)} is *numerically* the same as 
+\code{partial.cor(x, tol)} is \emph{numerically} the same as 
   \code{cor2pcor(cor(x), exact.inversion=FALSE, tol)}.  However, the actually employed algorithm is much faster 
   for small sample size and large number of variables due the use
   of \code{\link{fast.svd}} on x rather than on cor(x)).
@@ -59,7 +59,6 @@ partial.cor(x, tol)
 
 
 \author{
-  Juliane Schaefer (\url{http://www.stat.uni-muenchen.de/~schaefer/}) and
   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
 }
 \references{

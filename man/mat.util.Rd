@@ -55,15 +55,15 @@ is.symmetric(m, eps = .Machine$double.eps)
 }
 
 \value{
-  For \code{is.positive.definite}, \code{is.square}, and \code{is.symmetric}
+  \code{is.positive.definite}, \code{is.square}, and \code{is.symmetric} return
   a logical value (\code{TRUE} or \code{FALSE}).
   
-  For \code{rank.condition} a list object with the following components:
+  \code{rank.condition} returns a list object with the following components:
   \item{rank}{Rank of the matrix.}
   \item{condition}{Condition number.}
   \item{tol}{Tolerance.}
   
-  For \code{make.positive.definite} a symmetric positive definite matrix.
+  \code{make.positive.definite} returns a symmetric positive definite matrix.
 }
 
 

@@ -5,8 +5,8 @@
 dominant.freqs(x, m=1, \dots)
 }
 \arguments{
-  \item{x}{multivariate (genetic) time series (=matrix where each column
-           corresponds to one time series), or a vector with a single
+  \item{x}{multivariate (genetic) time series (each \bold{column} of this
+          matrix corresponds to a separate variable/time series), or a vector with a single
 	   time series}
   \item{m}{number of dominant frequences}
   \item{\dots}{arguments passed to \code{\link{periodogram}}}

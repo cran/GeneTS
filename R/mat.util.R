@@ -1,4 +1,4 @@
-### mat.util.R  (2004-09-25)
+### mat.util.R  (2004-11-18)
 ###
 ###     Some matrix utility functions
 ###
@@ -64,9 +64,9 @@ make.positive.definite <- function(m, tol)
   if (missing(tol))
       tol <- d*max(abs(esv))*.Machine$double.eps 
   delta <-  2*tol # factor to is just to make sure the resulting
-                  # matrix passes all numerical tests of positive definitess
+                  # matrix passes all numerical tests of positive definiteness
   
-  tau <- max(0, delta - esv)
+  tau <- pmax(0, delta - esv)
   dm <- es$vectors %*% diag(tau, d) %*% t(es$vectors)    
   
   #print(max(DA))

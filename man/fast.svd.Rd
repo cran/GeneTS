@@ -61,7 +61,7 @@ fast.svd(m, tol)
 
 \value{
   A list with the following components:
-  \item{d}{a vector containing the *positive* singular values }
+  \item{d}{a vector containing the \emph{positive} singular values }
   \item{u}{a matrix with the corresponding left singular vectors}
   \item{v}{a matrix with the corresponding left singular vectors}
 }

@@ -1,4 +1,4 @@
-### avgp.R  (2004-02-15)
+### avgp.R  (2004-12-11)
 ###
 ###    Average periodogram and related stuff
 ###
@@ -102,7 +102,7 @@ periodogram <- function(x,  method="builtin")
 
 
 # Average Periodogram:
-avgp <- function(x, title="untitled", plot=TRUE, angular = FALSE, ...)
+avgp <- function(x, title=deparse(substitute(x)), plot=TRUE, angular = FALSE, ...)
 {
     f <- periodogram.freq(x, ...)   
     if (angular) f <- 2*pi*f  # use angular frequencies

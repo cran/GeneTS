@@ -39,7 +39,7 @@ cor0.test(r, kappa, method=c("student", "dcor0", "ztransform"))
 }
 
 \seealso{\code{\link{dcor0}}, \code{\link{cor0.estimate.kappa}},
-         \code{\link{kappa2N}}, \code{\link{z.transform}}.}
+         \code{\link{kappa2n}}, \code{\link{z.transform}}.}
 
 \examples{
 # load GeneTS library
@@ -59,7 +59,7 @@ m.pcor
 
 # corresponding p-values 
 # assuming a sample size of 25, i.e. kappa=22
-kappa2N(22, 4)
+kappa2n(22, 4)
 cor0.test(m.pcor, kappa=22)
 cor0.test(m.pcor, kappa=22) < 0.05
 

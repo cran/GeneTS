@@ -4,14 +4,15 @@
 \title{Graphical Gaussian Models: Testing Edges}
 
 \usage{
-ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL)
+ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL, fA.type=c("nonparametric", "uniform"))
 }
 
 \arguments{
   \item{r.mat}{matrix of partial correlations}
   \item{kappa}{the degree of freedom of the null distribution (will be estimated if left unspecified)}
   \item{eta0}{the proportion of true null values (will be estimated if left unspecified)}
-  \item{MAXKAPPA}{upper bound for the estimated kappa - see \code{\link{cor.fit.mixture}} (default: MAXKAPPA=5000)}
+  \item{fA.type}{assumed type of alternative distribution - see also \code{\link{cor.fit.mixture}}}
+  \item{MAXKAPPA}{upper bound for the estimated \code{kappa} - see \code{\link{cor.fit.mixture}} (default: MAXKAPPA=5000)}
 }
 \description{
   \code{ggm.test.edges} assigns statistical significance to the edges in a GGM network by computing
@@ -23,11 +24,11 @@ ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL)
   (this estimate can be overridden if values for both \code{kappa} and \code{eta0} are specified).
   Subsequently, two-sided p-values to test non-zero correlation are computed for each edge using 
   \code{\link{cor0.test}}. In addition, corresponding posterior probabilities are
-  computed using \code{\link{cor.prob.nonzero}}.  Finally, to simplify multiple testing q-values
+  computed (also using \code{\link{cor.fit.mixture}}.  Finally, to simplify multiple testing q-values
   are computed via  \code{\link{fdr.control}} whith the specified value of \code{eta0} taken
   into account.
 
-  Theoretical details are explained in Schaefer and Strimmer (2004), along with a simulation
+  Theoretical details are explained in Schaefer and Strimmer (2005), along with a simulation
   study and an application to gene expression data.
 }
 \value{
@@ -48,13 +49,12 @@ ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL)
   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
 }
 \references{
- Schaefer, J., and Strimmer, K. (2004).  An empirical Bayes approach to inferring
-  large-scale gene association networks. \emph{Bioinformatics} in press.
+  Schaefer, J., and Strimmer, K. (2005).  An empirical Bayes approach to inferring
+  large-scale gene association networks. \emph{Bioinformatics} \bold{21}:754-764.
 }
 \seealso{
 \code{\link{cor.fit.mixture}},
 \code{\link{cor0.test}},
-\code{\link{cor.prob.nonzero}},
 \code{\link{fdr.control}},
 \code{\link{ggm.estimate.pcor}}.
 }
@@ -73,16 +73,25 @@ sim.dat <- ggm.simulate.data(100, true.pcor)
 inferred.pcor <- ggm.estimate.pcor(sim.dat)
 
 # p-values, q-values and posterior probabilities for each edge 
-test.results <- ggm.test.edges(inferred.pcor)
+#
+# try both options for fA!
+#test.results <- ggm.test.edges(inferred.pcor, fA.type="nonparametric")
+test.results <- ggm.test.edges(inferred.pcor, fA.type="uniform")
 
-# show best 20 edges
+# show best 20 edges (strongest correlation)
 test.results[1:20,]
 
-# how many are significant for Q=0.05 ?
-num.significant <- sum(test.results$qval <= 0.05)
-test.results[1:num.significant,]
+# how many are significant based on FDR cutoff Q=0.05 ?
+num.significant.1 <- sum(test.results$qval <= 0.05)
+test.results[1:num.significant.1,]
+
+# how many are significant based on "local fdr" cutoff (prob > 0.95) ?
+num.significant.2 <- sum(test.results$prob > 0.95)
+test.results[1:num.significant.2,]
 
 # parameters of the mixture distribution used to compute p-values etc.
-cor.fit.mixture(sm2vec(inferred.pcor))
+c <- cor.fit.mixture(sm2vec(inferred.pcor), fA.type="uniform")
+c$eta0
+c$kappa
 }
 \keyword{htest}

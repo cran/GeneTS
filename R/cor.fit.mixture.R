@@ -1,4 +1,4 @@
-### cor.fit.mixture.R  (2004-03-15)
+### cor.fit.mixture.R  (2005-01-15)
 ###
 ###    Fit mixture model to empirical distribution of (partial)
 ###    correlation coefficients.
@@ -25,61 +25,81 @@
 
 
 # fit mixture to empirical (partial) correlations
-cor.fit.mixture <- function(r, MAXKAPPA=5000)
+cor.fit.mixture <- function(r, MAXKAPPA=5000, fA.type=c("nonparametric", "uniform"))
 {
-  # ML estimate based on mixture distribution
+  if ( any(r > 1) || any(r < -1) )
+      stop("Data out of range: input correlations must be in [-1; 1]")
   
-  MINLOGL = -sqrt(.Machine$double.xmax)
-     
-  logL.fun <- function(x)
+  fA.type <- match.arg(fA.type) 
+
+  if (fA.type == "nonparametric")
   {
-    kappa <- x[1]
-    eta0 <- x[2]
-    
-    if (kappa < 1 || kappa > MAXKAPPA || eta0 < 0 || eta0 > 1)
+     require("locfdr")
+     
+     out <- locfdr(z.transform(r))
+     eta0 <- as.double( out$f0.p0[3] )
+     sigma <- as.double( out$f0.p0[2] )
+     kappa <- 1/(sigma*sigma) + 2 # Fisher's rule
+     logL <- NA
+     prob.nonzero <- 1-out$fdr
+  }
+
+
+  if (fA.type == "uniform")
+  {
+  
+    # ML estimate based on mixture distribution
+  
+    MINLOGL = -sqrt(.Machine$double.xmax)
+     
+    logL.fun <- function(x)
     {
-      logL <- MINLOGL
-    }
-    else
-    {
-      logL <- sum(  log(eta0*dcor0(r,kappa)+0.5*(1-eta0)) ) # mixture distribution
+      kappa <- x[1]
+      eta0 <- x[2]
+      
+      if (kappa < 1 || kappa > MAXKAPPA || eta0 < 0 || eta0 > 1)
+      {
+        logL <- MINLOGL
+      }
+      else
+      {
+        logL <- sum(  log(eta0*dcor0(r,kappa)+0.5*(1-eta0)) ) # mixture distribution
+      }
+         
+      return(logL)
     }
        
-    return(logL)
-  }
-     
-  # find ML estimate 
-  kappa.guess <- cor0.estimate.kappa(r)
-  xstart <- c(kappa.guess, 0.9)
-          
-  #out <- optim(xstart, logL.fun, method="BFGS",
-  #    control=list(fnscale=-1))   
+    # find ML estimate 
+    kappa.guess <- cor0.estimate.kappa(r)
+    xstart <- c(kappa.guess, 0.9)
             
-  #out <- optim(xstart, logL.fun, method="BFGS",
-  #   control=list(fnscale=-1, parscale=c(1,0.05)))   
+    #out <- optim(xstart, logL.fun, method="BFGS",
+    #    control=list(fnscale=-1))   
               
-  out <- optim(xstart, logL.fun, method="Nelder-Mead",
-      control=list(fnscale=-1))   
+    #out <- optim(xstart, logL.fun, method="BFGS",
+    #   control=list(fnscale=-1, parscale=c(1,0.05)))   
+                
+    out <- optim(xstart, logL.fun, method="Nelder-Mead",
+        control=list(fnscale=-1))   
+      
+    kappa <- out$par[1]
+    eta0 <- out$par[2]
+    logL<- out$value
     
-  kappa <- out$par[1]
-  eta0 <- out$par[2]
-  logL<- out$value
-  
-  if (abs(kappa - MAXKAPPA) < 0.1) warning("Estimated kappa close to given MAXKAPPA.")
-
-  return( list(kappa=kappa, eta0=eta0, logL=logL) )
-}
+    if (abs(kappa - MAXKAPPA) < 0.1) warning("Estimated kappa close to given MAXKAPPA.")
 
 
-
-# posterior probability that true correlation is non-zero
-cor.prob.nonzero <- function(r, kappa, eta0)
-{
+    # compute empirical posterior probability that true correlation is non-zero
     p0 <- eta0*dcor0(r, kappa)
     pA <- (1-eta0)*0.5 # (1-eta0)*unif(r, -1, 1)
        
-    prob <- pA/(p0+pA)
-    
-    return(prob) 
+    prob.nonzero <- pA/(p0+pA)
+  }
+  
+  
+  return( list(kappa=kappa, eta0=eta0, logL=logL, prob.nonzero=prob.nonzero) )
 }
+
+
+
 

@@ -18,27 +18,37 @@ cor0.estimate.kappa(r, method=c("fisher", "likelihood", "robust"), MAXKAPPA=5000
 }
 \description{
 
-  \code{cor0.estimate.kappa} estimates the degree of freedom \code{kappa} in the
-  null-distribution of the correlation coefficient (i.e. assuming that rho=0).
+  \code{cor0.estimate.kappa} estimates the degree of freedom \code{kappa} of the
+  null-distribution of the correlation coefficient \code{r} using a variety
+  of methods. 
   
-  According to Fisher's rule \code{kappa = round(1/var(z) + 2)} the degree of freedom
-  can be estimated from the variance of the z-transformed sample correlations. 
+  If \code{method="fisher"} is selected then \code{kappa} is estimated according
+  to Fisher's rule, i.e. \code{kappa = round(1/var(z.transform(r)) + 2)}.
   
-  Maximum-likelihood estimates of the degree of freedom is obtained 
-  on the basis of the null distribution of the sample correlation coefficient
-  (i.e. assuming rho = 0) using \code{method="likelihood"}. This results
-  almost always in the same estimate of kappa as with the simple Fisher's rule.
+  If \code{method="likelihood"} is selected then the ML estimate is computed
+  by optimizing \code{kappa} in the null distribution of the sample correlation
+  coefficient. This results almost always in the same estimate of \code{kappa}
+  as with the simple Fisher's rule.
   
   If \code{method="robust"} then the variance employed in Fisher's rule
   is estimated using the Huber M-estimate of the scale.  This is useful
   if the null-distribution is slightly "contaminated". 
   
-  The degree of freedom \code{kappa} depends both on the sample size N and the number 
-  G of investigated variables, 
-  i.e. whether simple or partial correlation coefficients are being considered.
-  For G=2 (simple correlation coefficient) the degree of freedom equals kappa = N-1,
-  whereas for arbitrary G (with G-2 variables eliminated in the partial correlation coefficient)
-  kappa = N-G+1 (see also \code{\link{dcor0}} and \code{\link{kappa2N}}).
+  
+  
+ }
+ 
+\details{ 
+    
+   The degree of freedom \code{kappa} of the distribution of the sample correlation
+   coefficient depends both on the sample size n and the number 
+  p of investigated variables. For \code{rho=0} the degree of freedom
+  \code{kappa} equals the inverse of the variance of \code{r}.
+   
+  For p=2 (simple correlation coefficient) the degree of freedom equals kappa = n-1,
+  whereas for arbitrary p (with p-2 variables eliminated in the partial correlation
+  coefficient)
+  kappa = n-p+1 (see also \code{\link{dcor0}} and \code{\link{kappa2n}}).
 
   If the empirical sampling distribution is a mixture
   distribution then use of \code{cor0.estimate.kappa} may not be appropriate;
@@ -46,7 +56,7 @@ cor0.estimate.kappa(r, method=c("fisher", "likelihood", "robust"), MAXKAPPA=5000
 }
 
 \value{
-  The estimated degree of freedom kappa.
+  The estimated degree of freedom \code{kappa}.
 }
 
 
@@ -56,7 +66,7 @@ cor0.estimate.kappa(r, method=c("fisher", "likelihood", "robust"), MAXKAPPA=5000
 }
 
 \seealso{\code{\link{dcor0}}, \code{\link{z.transform}}, 
-  \code{\link{hubers}}, \code{\link{kappa2N}}, \code{\link{cor.fit.mixture}}.}
+  \code{\link{hubers}}, \code{\link{kappa2n}}, \code{\link{cor.fit.mixture}}.}
 
 \examples{
 # load GeneTS library

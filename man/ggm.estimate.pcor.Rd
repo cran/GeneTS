@@ -20,24 +20,27 @@ ggm.estimate.pcor(x, method = c("observed.pcor", "partial.bagged.cor", "bagged.p
 \description{
   \code{ggm.estimate.pcor} implements various small-sample point estimators of partial
   correlation that can be employed also for small sample data sets. Their statistical
-  properties are investigated in detail in Schaefer and Strimmer (2004).
+  properties are investigated in detail in Schaefer and Strimmer (2005).
 
 
 }
 
 \details{
-  The result can be summarized as follows (with N being the sample size, and G being the
+  The result can be summarized as follows (with n being the sample size, and p being the
   number of variables): 
 
-\emph{observed.pcor:} Observed partial correlation (Pi-1). Should be used preferentially for N >> G. 
+\emph{observed.pcor:} Observed partial correlation (Pi-1). Should be used preferentially for n >> p. 
  In this region  the other two estimators perform equally well but are slower due to bagging.
 
-\emph{partial.bagged.cor:}  Partial bagged correlation (Pi-2). Best used for small sample applications with N < G.
+\emph{partial.bagged.cor:}  Partial bagged correlation (Pi-2). Best used for small sample applications 
+  with n < p.
  Here the advantages of Pi-2 are its small variance, its high accuracy as a point estimate,
- and its overall best power and positive predictive value (PPV). In addition it is computationally less expensive than Pi-3.
+ and its overall best power and positive predictive value (PPV). In addition it is
+  computationally less expensive than Pi-3.
 
-\emph{bagged.pcor:} Bagged partial correlation (Pi-3). May be used in the critical zone (N = G) and for sample sizes N slightly
- larger than the number of variables G.
+\emph{bagged.pcor:} Bagged partial correlation (Pi-3). May be used in the critical zone (n approx. p)
+and for sample sizes n slightly
+ larger than the number of variables p.
 
 As a result, this  particularly promotes the partial bagged correlation Pi-3 as estimator of choice for the inference of GGM networks from small-sample
  (gene expression) data.
@@ -51,8 +54,11 @@ As a result, this  particularly promotes the partial bagged correlation Pi-3 as 
   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
 }
 \references{
-Schaefer, J., and Strimmer, K. (2004).  An empirical Bayes approach to inferring
-  large-scale gene association networks. \emph{Bioinformatics} in press.
+  Schaefer, J., and Strimmer, K. (2005).  An empirical Bayes approach to inferring
+  large-scale gene association networks. \emph{Bioinformatics} \bold{21}:754-764.
+  
+  Schaefer, J., and Strimmer, K. (2005). Learning large-scale graphical Gaussian 
+  models from genomic data. Proceedings of CNET 2004, Aveiro, Pt. (AIP)
 }
 \seealso{\code{\link{ggm.simulate.data}},\code{\link{ggm.estimate.pcor}}.}
 
