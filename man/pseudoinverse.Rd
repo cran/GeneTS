@@ -18,19 +18,22 @@ pseudoinverse(m, tol)
   generalize the inverse using singular value decomposition.
   Any rectangular real matrix M can be decomposed as
 
-                             M = U diag(D[i] V',
+                  \deqn{M = U D V^{'},}{M = U D V',}
 
   where U and V are orthogonal, V' means V transposed, and 
-  D is a diagonal matrix with the singular values (see \code{\link{svd}}).
-  The pseudoinverse (also known as Moore­Penrose inverse) is then
-  obtained as
+  D is a diagonal matrix containing only the positive singular values
+  (as determined by \code{tol}, see also \code{\link{fast.svd}}). 
   
-                            IM = V diag(1/D[i]) U' .
-			    
-  If the matrix M is singular or ill-conditioned the inverse is approximated
-  by setting 1/D[i] <- 0 for small singular values (D[i] <= tol).  
+   The pseudoinverse, also known as Moore­Penrose or generalized inverse
+   is then obtained as
+  
+                  \deqn{iM = V D^{-1} U^{'}}{iM = V D^(-1) U' .}
+			
+}
+
+\details{  
   The pseudoinverse has the property that the sum of the squares of all
-  the entries in \code{IM \%*\% M - I}, where I is an appropriate
+  the entries in \code{iM \%*\% M - I}, where I is an appropriate
   identity matrix, is minimized. For non-singular matrices the
   pseudoinverse is equivalent to the standard inverse.
 }
@@ -43,7 +46,7 @@ pseudoinverse(m, tol)
 \author{
   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
 }
-\seealso{\code{\link{svd}}, \code{\link{solve}}, \code{\link{ginv}}.}
+\seealso{\code{\link{solve}}, \code{\link{fast.svd}}}
 
 \examples{
 # load GeneTS library

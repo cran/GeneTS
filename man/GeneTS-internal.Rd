@@ -7,6 +7,11 @@
 \alias{is.constant.single}
 \alias{bag.fun}
 \alias{myrmvnorm}
+\alias{positive.svd}
+\alias{nsmall.svd}
+\alias{psmall.svd}
+\alias{inverse.cor}
+
 
 \title{Internal GeneTS Functions}
 \description{

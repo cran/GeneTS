@@ -1,4 +1,4 @@
-### pcor.R  (2004-03-15)
+### partial.cor.R  (2004-09-25)
 ###
 ###    Partial Correlation computed by Inversion 
 ###    of the Covariance or Correlation Matrix
@@ -32,7 +32,7 @@
 cor2pcor <- function(m, exact.inversion=FALSE, ...)
 {
   # standardize
-  m <- standardize.cov(m)
+  m <- cov2cor(m)
   
   # invert, then negate off-diagonal entries
   if (exact.inversion)
@@ -46,7 +46,7 @@ cor2pcor <- function(m, exact.inversion=FALSE, ...)
   diag(m) <- -diag(m)
 
   # standardize and return  
-  return(standardize.cov(m))
+  return(cov2cor(m))
 }
 
 
@@ -58,7 +58,7 @@ cor2pcor <- function(m, exact.inversion=FALSE, ...)
 pcor2cor <- function(m, exact.inversion=FALSE, ...)
 {
   # standardize
-  m <- standardize.cov(m)
+  m <- cov2cor(m)
 
   # negate off-diagonal entries, then invert
   m <- -m
@@ -72,23 +72,58 @@ pcor2cor <- function(m, exact.inversion=FALSE, ...)
     m <- pseudoinverse(m, ...)
   }
   
-  
   # standardize and return 
-  return(standardize.cov(m))
+  return(cov2cor(m))
+}
+
+
+#
+# compute inverse correlation matrix
+#
+# this is numerically equivalent to pseudoinverse(cor(x)) but much
+# faster for n << p 
+#
+inverse.cor <- function (x, tol)
+{
+    n <- dim(x)[1]
+    p <- dim(x)[2]
+    
+    xs <- scale(x) # standardize
+   
+    if (n < p)
+    {
+        # the following is *much* faster than inverting the
+	# p x p cor matrix directly
+         
+        xsvd <- fast.svd(xs, tol)   # fast svd on "fat" matrix (using svd on n x n matrix)
+        if (length(xsvd$d) == 0)
+        {
+           ic <- array(0, c(p,p))
+        }
+        else
+        {
+           ic <- xsvd$v %*% ((n-1)/xsvd$d^2 * t(xsvd$v))
+        }
+        
+    }
+    else
+    {
+	ic <- pseudoinverse(crossprod(xs)/(n-1), tol)   # invert p x p matrix using svd	
+    }
+      
+    return(ic)
 }
 
 
 #
 # compute partial correlations given the data x 
 #
-partial.cor <- function(x, 
-   use=c("all.obs", "complete.obs", "pairwise.complete.obs"),
-   method=c("pearson", "kendall", "spearman"),
-   exact.inversion=FALSE, ...)
+
+partial.cor <- function(x, tol)
 {
-  use <- match.arg(use)
-  method <- match.arg(method)
+  pc <- -inverse.cor(x, tol)
+  diag(pc) <- -diag(pc)
   
-  return( cor2pcor(cor(x, use=use, method=method), exact.inversion, ...) )
+  return(cov2cor(pc)) 
 }
 

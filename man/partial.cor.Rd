@@ -7,19 +7,20 @@
 \usage{
 cor2pcor(m, exact.inversion=FALSE, \dots)
 pcor2cor(m, exact.inversion=FALSE, \dots)
-partial.cor(x, use=c("all.obs", "complete.obs", "pairwise.complete.obs"),
-   method=c("pearson", "kendall", "spearman"), exact.inversion=FALSE, \dots)
+partial.cor(x, tol)
 }
 \arguments{
   \item{m}{covariance matrix or (partial) correlation matrix}
   \item{x}{data matrix or data frame}
   \item{exact.inversion}{determines whether the inverse is computed
         exactly (using \code{\link{solve}}) or via \code{\link{pseudoinverse}}  }
-  \item{use}{an optional character string giving a method for computing covariances in the
-             presence of missing values. This must be one of the strings "all.obs" (default),
-	     "complete.obs" or "pairwise.complete.obs".}
-  \item{method}{a character string indicating which correlation coefficient (or covariance) is to be computed.
-                One of "pearson" (default), "kendall", or "spearman".}
+ 
+ \item{tol}{tolerance for \code{\link{pseudoinverse}} - singular values larger than
+             tol are considered non-zero (default value:
+	     \code{tol = max(dim(m))*max(D)*.Machine$double.eps})
+	     }		
+  
+  
   \item{\dots}{options passed to \code{\link{pseudoinverse}}}
 }
 \description{
@@ -33,7 +34,7 @@ partial.cor(x, use=c("all.obs", "complete.obs", "pairwise.complete.obs"),
   the corresponding correlation matrix.
   
   \code{partial.cor} computes a partial correlation matrix directly from the
-  data (\code{partial.cor(x)} is the same as \code{cor2pcor(cor(x))}).
+  data.
   
   The underlying algorithms are based on computing the inverse of the
   covariance or correlation matrix - see Whittaker (1990) for details.
@@ -41,6 +42,14 @@ partial.cor(x, use=c("all.obs", "complete.obs", "pairwise.complete.obs"),
   matrix inversion is obtained via the function  \code{\link{pseudoinverse}} 
   rather than using \code{\link{solve}}.
 }
+
+\details{
+\code{partial.cor(x, tol)} is *numerically* the same as 
+  \code{cor2pcor(cor(x), exact.inversion=FALSE, tol)}.  However, the actually employed algorithm is much faster 
+  for small sample size and large number of variables due the use
+  of \code{\link{fast.svd}} on x rather than on cor(x)).
+}
+
 
 \value{
   A matrix with the pairwise partial correlation coefficients
@@ -74,7 +83,7 @@ m.cov <- rbind(
 m.cov
 
 # corresponding correlation matrix
-m.cor.1 <- standardize.cov(m.cov)
+m.cor.1 <- cov2cor(m.cov)
 m.cor.1
 
 # compute partial correlations (from covariance matrix)
@@ -91,5 +100,18 @@ zapsmall( m.pcor.1 ) == zapsmall( m.pcor.2 )
 m.cor.2 <- pcor2cor(m.pcor.1)
 m.cor.2
 zapsmall( m.cor.1 ) == zapsmall( m.cor.2 )
+
+# speed comparison
+n <- 20
+p <- 800
+X <- matrix(rnorm(n*p), n, p)
+
+system.time( p1 <- cor2pcor(cor(X)) )
+system.time( p2 <- partial.cor(X) )
+
+# p2 is much faster but still the same as p1!
+eps <- 1e-10
+sum(abs(p1-p2) > eps)
+
 }
 \keyword{multivariate}

@@ -1,4 +1,4 @@
-### mat.util.R  (2004-09-15)
+### mat.util.R  (2004-09-25)
 ###
 ###     Some matrix utility functions
 ###
@@ -90,6 +90,10 @@ rank.condition <- function (m, tol)
         tol <- max(dim(m))*max.d*.Machine$double.eps
     
     r <- sum(d > tol) # rank: number of singular values larger than tol
+    
+    if (r < min(dim(m)) ) min.d <- 0 # if matrix is singular then set the  smallest
+                                     # singular value to 0, and hence condition = INF
+    
     c <- max.d/min.d
     
     return(list(rank = r, condition = c, tol=tol))

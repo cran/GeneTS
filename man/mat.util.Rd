@@ -46,10 +46,10 @@ is.symmetric(m, eps = .Machine$double.eps)
   singular value.
 
      
-  \code{is.square} tests whether a matrix
+  \code{is.square} checks whether a matrix
   has squared form.
   
-  \code{is.symmetric} tests whether a matrix is symmetric.
+  \code{is.symmetric} checks whether a matrix is symmetric.
   
 
 }

@@ -1,29 +1,26 @@
-\name{standardize.cov}
-\alias{standardize.cov}
+\name{rebuild.cov}
 \alias{rebuild.cov}
 
-\title{Standardize Covariance Matrix}
+\title{Rebuild Covariance Matrix from Correlation Matrix}
 \usage{
-standardize.cov(m)
 rebuild.cov(r, v)
 }
 \arguments{
-  \item{m}{covariance matrix}
   \item{r}{correlation matrix}
   \item{v}{variance vector}
 }
 \description{
-  \code{standardize.cov} takes a covariance matrix and turns it into
-  a correlation matrix by standardizing each entry with the product of the 
-  corresponding standard deviations (so that all diagonal entries equal 1).
   
   \code{rebuild.cov} takes a correlation matrix and a vector with variances
   and reconstructs the corresponding covariance matrix.
+  
+   For the inverse operation use \code{\link{cov2cor}}.
+
 }
 
 \value{
 
-  A matrix (correlation or covariance matrix).
+  A covariance matrix.
 }
 
 
@@ -53,7 +50,7 @@ m.cor.1 <- cor(m)
 m.cor.1
 
 # correlation matrix via covariance matrix
-m.cor.2 <- standardize.cov(m.cov)
+m.cor.2 <- cov2cor(m.cov)
 m.cor.2
 
 zapsmall(m.cor.1) == zapsmall(m.cor.2)

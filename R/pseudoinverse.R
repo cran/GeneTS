@@ -1,4 +1,4 @@
-### pseudoinverse.R  (2004-09-15)
+### pseudoinverse.R  (2004-09-25)
 ###
 ###    Computation of the Pseudoinverse of a Matrix
 ###
@@ -23,33 +23,20 @@
 
 
 
-# pseudoinverse of a matrix
 pseudoinverse <- function (m, tol)
 {
-    if (length(dim(m)) > 2 || !(is.numeric(m) || is.complex(m)))
-        stop("m must be a numeric or complex matrix")
-    if (!is.matrix(m))
-        m <- as.matrix(m)
+    msvd <- fast.svd(m, tol)
     
-    msvd <- svd(m)
-    if (is.complex(m))
-        msvd$u <- Conj(msvd$u)
-    
-    if( missing(tol) )
-        tol <- max(dim(m))*msvd$d[1]*.Machine$double.eps
-     
-    Positive <- msvd$d > tol  # use only singular values larger than tol
-    if (all(Positive))
-        return( 
+    if (length(msvd$d) == 0)
+    {
+       return(
+            array(0, dim(m)[2:1])
+            )
+    }
+    else
+    {
+       return( 
             msvd$v %*% (1/msvd$d * t(msvd$u))
             )
-    else if (!any(Positive)) 
-        return(
-	    array(0, dim(m)[2:1])
-	    )
-    else 
-        return(
-            msvd$v[, Positive, drop = FALSE] %*%
-	    ((1/msvd$d[Positive]) * t(msvd$u[, Positive, drop = FALSE]))
-	    )
+     }    
 }

@@ -1,4 +1,4 @@
-### ggm.simulate.pcor  (2004-01-15)
+### ggm.simulate.pcor  (2004-09-15)
 ###
 ###     Simulate GGM Networks
 ###
@@ -62,7 +62,7 @@ ggm.simulate.pcor <- function(num.nodes, etaA=0.05)
   {
     diag(precision)[i] <- sum(abs(precision[,i]))+eps	
   }	
-  pcor <- standardize.cov(precision)
+  pcor <- cov2cor(precision)
 
  
   return(pcor)

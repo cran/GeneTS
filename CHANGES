@@ -1,3 +1,32 @@
+		CHANGES IN GeneTS VERSION 2.3
+		
+This release introduces substantial (factor 2-20!) speed improvements
+in the computation of the parameters of graphical Gaussian models.
+
+
+CHANGES		
+
+    o installation requirements have been rolled back to R 1.9.0
+      and Bioconductor 1.4 (instead of R 2.0 and BioC 1.5).
+
+    o standardize.cov() has been removed, in favor of the native
+      and faster cor2pcor() function.
+      
+    o for (numerically) singular matrices rank.condition() now returns
+      condition number "INF". 
+
+    o the function partial.cor(x) is now *much* faster due to a new algorithm,
+      especially for small n, large p.
+
+
+NEW FUNCTIONS
+
+    o fast.svd() computes the singular decomposition *much* faster
+      for "fat" or "thin" matrices.
+    
+    
+     
+
 		CHANGES IN GeneTS VERSION 2.2
 		
 CHANGES		
@@ -18,11 +47,12 @@ CHANGES
     o is.positive.definite() now has an option to employ the Cholesky
       decompostion for testing positve definiteness.
    
-    o manual pages have been updated (e.g., reference to Schaefer and Strimmer 2004)
+    o the manual pages have been updated (e.g., reference to Schaefer and
+      Strimmer 2004)
     
     o GeneTS now requires R version 2.0 and only works with the "Rgraphviz"
-      and "graph" packages from Bioconductor version 1.5.  Legacy code that made
-      GeneTS work with older versions was removed.   
+      and "graph" packages from Bioconductor version 1.5.  Legacy code that
+      made GeneTS work with older versions of BioC was removed.   
 
 NEW FUNCTIONS
  	

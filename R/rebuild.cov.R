@@ -1,6 +1,5 @@
-### standardize.cov.R (2004-01-15)
+### rebuild.cov.R (2004-01-15)
 ###
-###    Determine Correlation Matrix from Covariance Matrix, and
 ###    Rebuild Covariance Matrix from Correlation Matrix and Variances
 ###    
 ###
@@ -22,39 +21,6 @@
 ### Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
 ### MA 02111-1307, USA
 
-
-#
-# standardize covariance matrix
-#
-# input:  covariance matrix    m(ij)
-# output: correlation matrix   m(ij)/sqrt(m(ii)*m(jj))
-#
-standardize.cov <- function(m)
-{
-  d <- diag(m)
-    
-  if( sum(d == 1.0) == length(d) )
-    return(m) # already standardized
-    
-    if (sum(d > 0) != length(d))
-    {
-       	warning("zero/negative diagonal elements present - check numerical accuracy")
-	
-	# workaround - be careful with results!
-        d[d == 0] <- .Machine$double.eps  # make zero entries positive	
-	d[d < 0] <- -d[d < 0] # take absolute value of negative entries
-    }
-    
-  # standardize
-  resid.sd <- 1/sqrt(diag(m))
-  cr <- sweep(sweep(m, 1, resid.sd, "*"), 2, resid.sd, "*") 
-  
-  # correct numerical glitches
-  cr[cr > 1] <- 1
-  cr[cr < -1] <- -1
-  
-  return(cr)
-}
 
 
 #
