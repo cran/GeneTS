@@ -108,7 +108,12 @@ gr
 # print vector of edge weights
 show.edge.weights(gr)
 
-# plot network with given labels
+# plot network
+X11(width=12, height=9)
+ggm.plot.graph(gr, node.labels, show.edge.labels=FALSE)
+
+# with partial correlations as edge labels
+X11(width=12, height=9)
 ggm.plot.graph(gr, node.labels)
 
 
@@ -126,6 +131,7 @@ test.results2
 # plot network
 gr2 <- ggm.make.graph( test.results2, 20) 
 gr2
+X11(width=8, height=8)
 ggm.plot.graph(gr2)
 
 

@@ -28,7 +28,7 @@
   
   # for R = 1.8.1: we need to load the "ts" and "modereg" packages (used in fdr.estimate.eta0)
   # from R 1.9 on "ts" and "modreg" are merged into the "stats" package 
-  if (R.version$major == "1" &&  R.version$minor == "8.1")
+  if (isR181())
   {
      library(ts)
      library(modreg)
@@ -41,21 +41,24 @@
   # load the MASS package (for pseudoinverse and robust variance estimates)
   library(MASS)
   
+  #my.require <- function(pkg) # pkg must be a string
+  #{
+  #   cat(paste("Loading the \"", pkg, "\" package ...\n", sep=""))
+  #   return(class(try(library(pkg, character.only=TRUE), silent=TRUE)) != "try-error")
+  #}
   
-  # try to load the Biobase and graph package
-  cat("Loading the \"Biobase\" and \"graph\" packages ...\n")
+  # try to load the graph package
   GRAPH.LIB <- TRUE
-  if (class(try( {library(Biobase);library(graph)}, silent=TRUE)) == "try-error")
+  if (require("graph") == FALSE)
   {
-    cat("The \"Biobase\" respectively the \"graph\" package from Bioconductor is not installed, therefore network plotting is unavailable in GeneTS.\n")
+    cat("The \"graph\" package from Bioconductor is not installed, therefore network plotting is unavailable in GeneTS.\n")
     GRAPH.LIB <- FALSE   
   }
   
   # try to load the Rgraphviz library
   if (GRAPH.LIB)
   {
-    cat("Loading the \"Rgraphviz\" package ...\n")    
-    if (class(try(library(Rgraphviz), silent=TRUE)) == "try-error")
+    if (require("Rgraphviz") == FALSE)
     {
       cat("The \"Rgraphviz\" package is not installed, therefore network plotting is not available in GeneTS.\n")
     } 

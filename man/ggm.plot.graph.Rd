@@ -8,7 +8,7 @@
 \usage{
 ggm.make.graph(edge.list, num.nodes)
 show.edge.weights(gr)
-ggm.plot.graph(gr, node.labels=NULL, \dots)
+ggm.plot.graph(gr, node.labels=NULL, show.edge.labels=TRUE, col.pos="black", col.neg="grey", \dots)
 }
 
 \arguments{
@@ -16,7 +16,10 @@ ggm.plot.graph(gr, node.labels=NULL, \dots)
           edges to be included in the graph}
   \item{num.nodes}{the total number of nodes in the network}
   \item{gr}{a graph object}
-  \item{node.labels}{a vector with labels for each node (optional)}
+  \item{node.labels}{a vector with labels for each node (optional)} 
+  \item{show.edge.labels}{plot correlation values as edge labels (default: TRUE)}
+  \item{col.pos}{edge color for positive correlation (default: "black")}
+  \item{col.neg}{edge color for positive correlation (default: "grey")}
   \item{\dots}{options passed to \code{plot.graph}}
 }
 \description{

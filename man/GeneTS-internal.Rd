@@ -7,7 +7,10 @@
 \alias{is.constant.single}
 \alias{bag.fun}
 \alias{myrmvnorm}
-\alias{isBioC13}
+\alias{isR181}
+\alias{getPackageVersion}
+\alias{is.graph.from.BioC13}
+\alias{is.Rgraphviz.from.BioC13}
 \alias{is.graph.loaded}
 \alias{is.Rgraphviz.loaded}
 \alias{.First.lib}

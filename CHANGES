@@ -1,4 +1,27 @@
 
+		CHANGES IN GeneTS VERSION 2.1.2
+
+CHANGES
+
+    o edge colors associated with positive and negative correlation
+      can now be specified in ggm.plot.graph().
+      
+    o plotting of edge labels can now be turned off on request.
+
+    o internal detection of the version of the installed graph and Rgraphviz
+      libraries is improved.
+
+
+
+		CHANGES IN GeneTS VERSION 2.1.1
+
+CHANGES
+
+    o in ggm.plot.graph() a small change is introduced to make it work
+      with Rgraphviz version 1.3.25 (layoutType is explicitly specfied
+      when getDefaultAttrs() is called).
+
+
 		CHANGES IN GeneTS VERSION 2.1
 		
 		

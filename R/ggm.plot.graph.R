@@ -60,13 +60,13 @@ show.edge.weights <- function(gr)
   }
   else
   {   
-    if(isBioC13())
+    if(is.graph.from.BioC13())
     {
-      edgeWeightVector(gr)
+      edgeWeightVector(gr, duplicates=FALSE)
     }
     else
     {
-      em <- edgeMatrix(gr)
+      em <- edgeMatrix(gr, duplicates=FALSE)
       eWV(gr, em)           
     }
   }
@@ -77,28 +77,49 @@ show.edge.weights <- function(gr)
 # requires installation of the "Rgraphviz" library
 
 # plot network 
-ggm.plot.graph <- function(gr, node.labels=NULL, ...)
+ggm.plot.graph <- function(gr, node.labels=NULL, show.edge.labels=TRUE, col.pos="black", col.neg="grey", ...)
 {
   if (!is.Rgraphviz.loaded())
   {
     stop("This function requires the installation of the \"Rgraphviz\" package from Bioconductor")
   }
   else
-  {   
-    if (isBioC13()) 
+  {      
+    if (is.Rgraphviz.from.BioC13()) 
     {
-      elab <- weightLabels(gr)
-      if (is.null(node.labels))
-        plot(gr, "neato", edgeLabels=elab,
-          fixedNodeSize=FALSE, nodeShape="ellipse", ...)
-      else
-        plot(gr, "neato", edgeLabels=elab, nodeLabels=node.labels,
-          fixedNodeSize=FALSE, nodeShape="ellipse", ...)
+      
+      if(show.edge.labels) # plot edge labels
+      {
+        elab <- weightLabels(gr)
+        if (is.null(node.labels))
+        {
+          plot(gr, "neato", edgeLabels=elab,
+            fixedNodeSize=FALSE, nodeShape="ellipse", ...)
+        }
+        else
+        {
+          plot(gr, "neato", edgeLabels=elab, nodeLabels=node.labels,
+            fixedNodeSize=FALSE, nodeShape="ellipse", ...)
+        }
+      }
+      else # don't plot edge labels
+      {
+        if (is.null(node.labels))
+        {
+          plot(gr, "neato", fixedNodeSize=FALSE, nodeShape="ellipse", ...)
+        }
+        else
+        {
+          plot(gr, "neato", nodeLabels=node.labels,
+            fixedNodeSize=FALSE, nodeShape="ellipse", ...)
+        }      
+      }
+
     }
     else
     {
       # general graph attributes
-      gAttrs <- getDefaultAttrs("neato")
+      gAttrs <- getDefaultAttrs(layoutType="neato")
       gAttrs$edge$color <- "black"    
       gAttrs$node$shape <- "ellipse"
       gAttrs$node$fixedsize <- FALSE
@@ -121,12 +142,16 @@ ggm.plot.graph <- function(gr, node.labels=NULL, ...)
       edge.labels <- as.character(emv)
       
       eAttrs <- list()
-      eAttrs$label <- edge.labels
-      names(eAttrs$label) <- edge.names
       
-      # negative correlation edges in grey
-      eAttrs$color <- rep("black", length(edge.labels))
-      eAttrs$color[emv < 0] <- "lightgrey"
+      if (show.edge.labels)
+      {
+        eAttrs$label <- edge.labels
+        names(eAttrs$label) <- edge.names
+      }
+      
+      # color edges according to positive and negative correlation
+      eAttrs$color <- rep(col.pos, length(edge.labels))
+      eAttrs$color[emv < 0] <- col.neg
       names(eAttrs$color) <- edge.names
   
       if (is.null(node.labels))

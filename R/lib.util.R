@@ -22,10 +22,9 @@
 ### MA 02111-1307, USA
 
 
-# check Rgraphviz/BioC version
-isBioC13 <- function()
+# check R version
+isR181 <- function()
 {
-  # if R = 1.8.1 we can't be running anything other than BioC 1.3
   if (R.version$major == "1" &&  R.version$minor == "8.1")
   {
      return(TRUE)
@@ -35,6 +34,37 @@ isBioC13 <- function()
      return(FALSE)
   }
 }
+
+
+# get package version
+getPackageVersion <- function(pkg)
+{
+  if(isR181())
+    return( package.description(pkg, fields="Version") )
+  else
+    return( packageDescription(pkg, fields="Version") )
+}
+
+
+# check graph/BioC version
+is.graph.from.BioC13 <- function()
+{
+  if ( getPackageVersion("graph") == "1.2.0")
+    return(TRUE)
+  else
+   return(FALSE)  
+}
+
+
+# check graph/BioC version
+is.Rgraphviz.from.BioC13 <- function()
+{
+  if ( getPackageVersion("Rgraphviz") == "1.3.0")
+    return(TRUE)
+  else
+   return(FALSE)  
+}
+
 
 # check whether graph package is loaded 
 is.graph.loaded <- function()
