@@ -1,0 +1,114 @@
+
+
+
+		CHANGES IN GeneTS VERSION 2.0
+
+
+NEW FEATURES
+
+    With version 2.0 GeneTS provides functions to infer large sparse graphical
+    Gaussian models, following an approach outlined in:
+
+    Schaefer, J., and K. Strimmer. 2003. A practical approach to inferring large
+    graphical models from sparse microarray data. Submitted to Bioinformatics.
+    [Preprint available from http://www.stat.uni-muenchen.de/~strimmer/]
+
+NEW FUNCTIONS
+ 
+    o ggm.simulate.pcor, ggm.estimate.pcor, ggm.simulate.data, ggm.test.edges
+    
+    o ggm.make.graph, ggm.plot.graph
+
+    o cor2pcor, pcor2cor, pcor
+ 
+    o bagged.cov, bagged.cor, bagged.pcor  
+   
+    o cor0.test, cor0.estimate.kappa, cor.fit.mixture, cor.prob.nonzero
+    
+    o kappa2N, N2kappa
+   
+    o dcor0, pcor0, rcor0, ibeta functions
+ 
+    o z.transform, hotelling.transform
+    
+    o robust.boot
+
+    o fdr.estimate.eta0
+
+    o pseudoinverse, rank.condition
+
+    o standardize.cov, rebuild.cov
+    
+    o sm2vec, sm.indices, vec2sm 
+ 
+    o is.positive.definite, is.symmetric, is.square
+   
+ 
+   
+    
+CHANGES
+
+    o bacteria renamed to caulobacter to avoid collision with MASS package.
+    
+    o fdr.control renamed from fdr.test,  significant hypothesis are 
+      now those with p <= cutoff rather than with p < cutoff,
+      q-values are computed, and pi0 < 1 is now allowed.
+ 
+   
+
+
+		CHANGES IN GeneTS VERSION 1.1
+
+
+NEW FEATURES
+
+    This version of GeneTS is a maintainance release only.
+
+CHANGES
+
+
+    o The functions periodogram.spec() and periodogram.freq() are now
+      combined in the single function periodogram(). 
+
+    o Rather than using angular frequencies between 0 and pi, GeneTS
+      by default now uses frequencies between 0 and the Nyquist critical
+      frequency fc = frequency()/2 (i.e. typically between 0 and 0.5). 
+
+    o Given a constant time series fisher.g.test() now returns a p-value
+      of 1 instead of issuing an error. The man page for fisher.g.test()
+      is changed and slightly extended.
+
+    o Previously, all methods in GeneTS assumed that the *rows* in a matrix
+      contain the time series data.  This convention is now changed so that
+      each *column* represents one time series (this follows the convention
+      used by the ts package).  All functions and data sets in GeneTS are
+      also changed accordingly.
+    
+
+
+
+		CHANGES IN GeneTS VERSION 1.0
+
+
+NEW FEATURES
+
+    First public release of GeneTS.  This version of GeneTS implements
+    all methods for cell cycle analysis described in:
+
+    Wichert, S., K. Fokianos, and K. Strimmer. 2004.  Identifying periodically
+    expressed transcripts in microarray time series data. Bioinformatics 20:5-20.
+
+NEW FUNCTIONS
+      
+      o the average periodogram for multiple time series (avgp)
+      
+      o Fisher's exact g test as gene selection method (fisher.g.test)
+      
+      o multiple testing using false discovery rate (fdr.test)
+      
+      o simplified interface to periodogram (periodogram)
+      
+      o some other utility function (is.constant, dominant.freqs)
+      
+      o parts of the bacterial data set by Laub et al. (2000) (caulobacter)
+ 

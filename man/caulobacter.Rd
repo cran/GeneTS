@@ -1,0 +1,50 @@
+\name{caulobacter}
+\alias{caulobacter}
+
+\title{Microarray Time Series Data for 1444 Caulobacter  Crescentus 
+       Genes}
+
+\description{
+  This data set describes the temporal expression of 1444 genes
+  (open reading frames) in the cell cycle of the bacterium
+  \emph{Caulobacter crescentus}.
+}
+
+\usage{
+data(caulobacter)
+}
+
+\format{
+  \code{caulobacter} is numerical matrix with 1444 columns (=genes) and
+  11 rows (=time points).
+}
+
+\source{
+  This data is described in Laub et al. (2000) and can be freely
+  downloaded from 
+  (\url{http://caulobacter.stanford.edu/CellCycle/DownloadData.htm}).
+}
+
+
+\references{
+  Laub, M.T., McAdams, H.H., Feldblyum, Fraser, C.M., and Shapiro, L.
+  (2000) Global analysis of the genetic network controlling
+  a bacterial cell cycle. \emph{Science}, \bold{290}, 2144--1248.
+}
+
+\examples{
+# load GeneTS library
+library(GeneTS)
+
+# load data set
+data(caulobacter)
+
+# how many samples and how many genes?
+dim(caulobacter)
+
+# compute and plot average periodogram
+avgp.caulobacter <- avgp(caulobacter, "Caulobacter")
+avgp.caulobacter
+}
+\keyword{datasets}
+

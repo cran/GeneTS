@@ -1,0 +1,77 @@
+\name{pseudoinverse}
+\alias{pseudoinverse}
+
+\title{Pseudoinverse of a Matrix}
+\usage{
+pseudoinverse(m, tol = sqrt(.Machine$double.eps))
+}
+\arguments{
+  \item{m}{matrix}
+  \item{tol}{tolerance - singular values larger than
+             tol times the maximum singular value are considered non-zero}
+}
+\description{
+  The standard definition for the inverse of a matrix fails 
+  if the matrix is not square or singular. However, one can
+  generalize the inverse using singular value decomposition.
+  Any rectangular real matrix M can be decomposed as
+
+                             M = U diag(D[i] V',
+
+  where U and V are orthogonal, V' means V transposed, and 
+  D is a diagonal matrix with the singular values (see \code{\link{svd}}).
+  The pseudoinverse (also known as Moore­Penrose inverse) is then
+  obtained as
+  
+                            IM = V diag(1/D[i]) U' .
+			    
+  If the matrix M is singular or ill-conditioned the inverse is approximated
+  by setting 1/D[i] <- 0 for small singular values (D[i] <= tol*max(D)).  
+  The pseudoinverse has the property that the sum of the squares of all
+  the entries in (IM \%*\% M - I), where I is an appropriate
+  identity matrix, is minimized. For non-singular matrices the
+  pseudoinverse is equivalent to the standard inverse.
+}
+
+\value{
+  A matrix (the pseudoinverse of m).
+}
+
+
+\author{
+  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+}
+\seealso{\code{\link{svd}}, \code{\link{solve}}, \code{\link{ginv}}.}
+
+\examples{
+# load GeneTS library
+library(GeneTS)
+
+# a singular matrix
+m <- rbind(
+c(1,2),
+c(1,2)
+)
+
+# not possible to invert exactly
+try(solve(m))
+
+# pseudoinverse
+p <- pseudoinverse(m)
+p
+
+# characteristics of the pseudoinverse
+zapsmall( m \%*\% p \%*\% m )  ==  zapsmall( m )
+zapsmall( p \%*\% m \%*\% p )  ==  zapsmall( p )
+zapsmall( p \%*\% m )  ==  zapsmall( t(p \%*\% m ) )
+zapsmall( m \%*\% p )  ==  zapsmall( t(m \%*\% p ) )
+
+
+# example with an invertable matrix
+m2 <- rbind(
+c(1,1),
+c(1,0)
+)
+zapsmall( solve(m2) ) == zapsmall( pseudoinverse(m2) )
+}
+\keyword{algebra}

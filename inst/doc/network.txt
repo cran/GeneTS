@@ -1,0 +1,121 @@
+#######################################################################
+# Note that this note can directly be run in R.
+#######################################################################
+
+#
+# EXAMPLE SESSION FOR INFERRING GENETIC NETWORKS
+# 
+
+
+# load GeneTS library
+library(GeneTS)
+
+#######################################################################
+
+# THE DATA:
+
+# the normalized data need to be ready in time series format, i.e. in
+# a matrix where each *column* corresponds to a gene, and where the
+# *rows* correspond to the individual measurements (time points).
+
+# Example: 42 selected genes from the Caulobacter data set
+data(caulobacter)
+pval.caulobacter <- fisher.g.test(caulobacter)
+fdr.conservative <- fdr.control(pval.caulobacter, Q = 0.05)
+data.matrix <- caulobacter[,fdr.conservative$significant]
+
+node.labels <- c("CheA", "CheR", "CheD", "ABC transporter", "hfaA",
+  "#06446", "#06901", "#02759", "peptidase (M23/M37)", "#03144",
+  "#04700", "fljO 1", "fljK", "fljN", "#4480",
+   "flbT", "LexA", "fljM 1", "fljO 2",  "#08039",
+   "#04977", "#04476", "#02998 (5-repeat)", "#02058 (S-transferase)",  "fljM 2",
+   "#02730" , "#02688", "divK",  "orfA",  "#03649",
+   "DnaA", "bacA",  "#01232 (regulator)",  "fljL",  "#05886 (GGDEF)",
+   "McpH", "#04700",  "#01720", "neuB",  "#02930",
+   "#03170",    "cheW",    "#01459 (receptor)",    "CtrA", "fliJ")
+
+# remove some unknow ORFs
+keep <- rep(TRUE,num.nodes)
+keep[7] <- FALSE #06901
+keep[22] <- FALSE #04476
+keep[27] <- FALSE #02688
+node.labels <- node.labels[keep]
+data.matrix <- data.matrix[,keep]
+num.nodes <- 42
+
+dim(data.matrix)
+
+#######################################################################
+
+# INFER GRAPHICAL GAUSSIAN MODEL:
+
+# Estimate partial correlation matrix
+# (we employ the partial bagged correlation as N << G)
+inferred.pcor <- ggm.estimate.pcor(data.matrix, method="partial.bagged.cor", R=10000)
+
+# p-values, q-values and posterior probabilities for each edge 
+test.results <- ggm.test.edges(inferred.pcor)
+
+# show best 20 edges
+test.results[1:20,]
+
+# how many are significant for Q=0.05 ?
+num.significant <- sum(test.results$qval <= 0.05)
+test.results[1:num.significant,]
+
+# parameters of the mixture distribution used to compute p-values etc.
+cor.fit.mixture(sm2vec(inferred.pcor))
+
+
+#######################################################################
+
+# PLOT GRAPHICAL GAUSSIAN MODEL:
+
+# Note: this requires the "graph" and "Rgraphviz" packages from www.bioconductor.org 
+
+# generate graph object with all significant edges
+gr <- ggm.make.graph( test.results[1:num.significant,], num.nodes) 
+gr 
+edgeWeightVector(gr)
+
+# plot network with given labels
+ggm.plot.graph(gr, node.labels)
+
+
+#######################################################################
+
+# GENERATE RANDOM GRAPHICAL GAUSSIAN MODEL:
+
+# generate random network with 20 nodes and 10 percent edges (=19 edges)
+true.pcor2 <- ggm.simulate.pcor(20, 0.1)
+
+# convert to edge list 
+test.results2 <- ggm.test.edges(true.pcor2)[1:19,]
+test.results2
+
+# plot network
+gr2 <- ggm.make.graph( test.results2, 20) 
+gr2
+ggm.plot.graph(gr2)
+
+
+#######################################################################
+
+# SIMULATE RANDOM GRAPHICAL GAUSSIAN MODEL, GENERATE DATA, 
+# AND RE-ESTIMATE PARTIAL CORRELATIONS:
+
+# generate random network with 40 nodes and 5 percent edges
+sim.pcor <- ggm.simulate.pcor(40, 0.05)
+  
+# simulate data set with 40 observations
+m.sim <- ggm.simulate.data(40, sim.pcor)
+
+# simple estimate of partial correlations
+estimated.pcor <- pcor(m.sim)
+
+# comparison of estimated and true model
+sum((sim.pcor-estimated.pcor)^2)
+
+# a slightly better estimate ...
+estimated.pcor.2 <- ggm.estimate.pcor(m.sim, method = c("bagged.pcor"))
+sum((sim.pcor-estimated.pcor.2)^2)

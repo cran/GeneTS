@@ -1,0 +1,61 @@
+#######################################################################
+# Note that this note can directly be run in R.
+#######################################################################
+
+#
+# EXAMPLE SESSION FOR CELL CYCLE ANALYSIS
+# 
+
+
+# load GeneTS library
+library(GeneTS)
+
+#######################################################################
+
+# THE DATA:
+
+# the normalized data need to be ready in time series format, i.e. in
+# a matrix where each *column* corresponds to a gene, and where the
+# *rows* correspond to the individual measurements (time points).
+
+# Example: the Caulobacter data set
+data(caulobacter)
+
+# how many samples (11) and how many genes (1444)?
+dim(caulobacter)
+
+
+#######################################################################
+
+# IDENTIFYING PERIODICALLY EXPRESSED GENES:
+
+# A statistical test developed by Fisher is used to detect 
+# periodically expressed genes, and the average periodogram
+# is used to visualize the dominant frequencies
+# (see Wichert, Fokianos, and Strimmer, 2003, for details). 
+
+# compute and plot average periodogram
+avgp.caulobacter <- avgp(caulobacter, "Caulobacter")
+avgp.caulobacter
+
+# p-values from Fisher's g test
+pval.caulobacter <- fisher.g.test(caulobacter)
+pval.caulobacter
+
+# test with FDR controlled at on the level 0.05
+fdr.out <- fdr.control(pval.caulobacter, Q = 0.05)
+fdr.out
+fdr.out$num.significant
+
+# proportion of null p-values for different methods
+fdr.estimate.eta0(pval.caulobacter)
+fdr.estimate.eta0(pval.caulobacter, method="adaptive")
+fdr.estimate.eta0(pval.caulobacter, method="bootstrap")
+fdr.estimate.eta0(pval.caulobacter, method="smoother")
+
+# FDR test with eta0 != 1
+fdr.control(pval.caulobacter, Q = 0.05, eta0=0.9)$num.significant
+
+#######################################################################
+
+
