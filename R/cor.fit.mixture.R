@@ -1,4 +1,4 @@
-### cor.fit.mixture.R  (2004-01-15)
+### cor.fit.mixture.R  (2004-03-15)
 ###
 ###    Fit mixture model to empirical distribution of (partial)
 ###    correlation coefficients.
@@ -25,56 +25,51 @@
 
 
 # fit mixture to empirical (partial) correlations
-cor.fit.mixture <- function(r)
+cor.fit.mixture <- function(r, MAXKAPPA=5000)
 {
   # ML estimate based on mixture distribution
   
-     logL.fun <- function(x)
-     {
-       kappa <- x[1]
-       eta0 <- x[2]
-       etaA <- 1-eta0
-       
-       logL <- sum(  log(eta0*dcor0(r,kappa)+0.5*etaA) ) # mixture distribution
-       
-       if (is.na(logL))
-       {
-         warning("log likelihood function produced NA or NaN!!")
-       }
-       
-       logL
-     }
+  MINLOGL = -sqrt(.Machine$double.xmax)
      
-     # find ML estimate 
-     LARGESTKAPPA <- 170 # otherwise dcor0 produces NaNs..
-     xstart <- c(10, 0.5)
-     lo <- c(2, 0)
-     up <- c(LARGESTKAPPA, 1)
-     
-     out <- optim(xstart, logL.fun, method="L-BFGS-B",
-       lower=lo, upper=up, control=list(fnscale=-1))   
-     
-     m <- out$par[1]
-     m1 <- floor(m)
-     m2 <- ceiling(m)
-     
-     l1 <- logL.fun(c(m1, out$par[2]))
-     l2 <- logL.fun(c(m2, out$par[2]))
-     if (l1 > l2)
-     {
-      kappa <- m1
-      logL <- l1
-     }
-     else
-     {
-      kappa <- m2
-      logL <- l2
-     }
-     eta0 <- out$par[2]
+  logL.fun <- function(x)
+  {
+    kappa <- x[1]
+    eta0 <- x[2]
     
+    if (kappa < 1 || kappa > MAXKAPPA || eta0 < 0 || eta0 > 1)
+    {
+      logL <- MINLOGL
+    }
+    else
+    {
+      logL <- sum(  log(eta0*dcor0(r,kappa)+0.5*(1-eta0)) ) # mixture distribution
+    }
+       
+    return(logL)
+  }
+     
+  # find ML estimate 
+  kappa.guess <- cor0.estimate.kappa(r)
+  xstart <- c(kappa.guess, 0.9)
+          
+  #out <- optim(xstart, logL.fun, method="BFGS",
+  #    control=list(fnscale=-1))   
+            
+  #out <- optim(xstart, logL.fun, method="BFGS",
+  #   control=list(fnscale=-1, parscale=c(1,0.05)))   
+              
+  out <- optim(xstart, logL.fun, method="Nelder-Mead",
+      control=list(fnscale=-1))   
+    
+  kappa <- out$par[1]
+  eta0 <- out$par[2]
+  logL<- out$value
   
+  if (abs(kappa - MAXKAPPA) < 0.1) warning("Estimated kappa close to given MAXKAPPA.")
+
   return( list(kappa=kappa, eta0=eta0, logL=logL) )
 }
+
 
 
 # posterior probability that true correlation is non-zero

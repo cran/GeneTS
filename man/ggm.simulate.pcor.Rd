@@ -48,7 +48,7 @@ true.pcor <- ggm.simulate.pcor(40)
 m.sim <- ggm.simulate.data(40, true.pcor)
 
 # simple estimate of partial correlations
-estimated.pcor <- pcor(m.sim)
+estimated.pcor <- partial.cor(m.sim)
 
 # comparison of estimated and true model
 sum((true.pcor-estimated.pcor)^2)

@@ -1,5 +1,5 @@
-\name{pcor}
-\alias{pcor}
+\name{partial.cor}
+\alias{partial.cor}
 \alias{cor2pcor}
 \alias{pcor2cor}
 
@@ -7,7 +7,7 @@
 \usage{
 cor2pcor(m, exact.inversion=FALSE, \dots)
 pcor2cor(m, exact.inversion=FALSE, \dots)
-pcor(x, use=c("all.obs", "complete.obs", "pairwise.complete.obs"),
+partial.cor(x, use=c("all.obs", "complete.obs", "pairwise.complete.obs"),
    method=c("pearson", "kendall", "spearman"), exact.inversion=FALSE, \dots)
 }
 \arguments{
@@ -32,8 +32,8 @@ pcor(x, use=c("all.obs", "complete.obs", "pairwise.complete.obs"),
   \code{pcor2cor} takes a partial correlation matrix and computes
   the corresponding correlation matrix.
   
-  \code{pcor} computes a partial correlation matrix directly from the
-  data (\code{pcor(x)} is the same as \code{cor2pcor(cor(x))}).
+  \code{partial.cor} computes a partial correlation matrix directly from the
+  data (\code{partial.cor(x)} is the same as \code{cor2pcor(cor(x))}).
   
   The underlying algorithms are based on computing the inverse of the
   covariance or correlation matrix - see Whittaker (1990) for details.

@@ -4,23 +4,28 @@
 \title{Graphical Gaussian Models: Testing Edges}
 
 \usage{
-ggm.test.edges(r.mat)
+ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL)
 }
 
 \arguments{
   \item{r.mat}{matrix of partial correlations}
+  \item{kappa}{the degree of freedom of the null distribution (will be estimated if left unspecified)}
+  \item{eta0}{the proportion of true null values (will be estimated if left unspecified)}
+  \item{MAXKAPPA}{upper bound for the estimated kappa - see \code{\link{cor.fit.mixture}} (default: MAXKAPPA=5000)}
 }
 \description{
-  \code{ggm.test.edges} assigns statistical significance to the GGM network by computing
+  \code{ggm.test.edges} assigns statistical significance to the edges in a GGM network by computing
   p-values, q-values and posterior probabilities for each potential edge.
 }
 
 \details{
-  A mixture model is fitted to the partial correlations using \code{\link{cor.fit.mixture}}.
-  Subsequently, two-sided p-values for test of non-zero correlation are computed using 
-  \code{\link{cor0.test}}. Simultaneously, corresponding posterior probabilities are
+  A mixture model is fitted to the partial correlations using \code{\link{cor.fit.mixture}}
+  (this estimate can be overridden if values for both \code{kappa} and \code{eta0} are specified).
+  Subsequently, two-sided p-values to test non-zero correlation are computed for each edge using 
+  \code{\link{cor0.test}}. In addition, corresponding posterior probabilities are
   computed using \code{\link{cor.prob.nonzero}}.  Finally, to simplify multiple testing q-values
-  are computed via  \code{\link{fdr.control}}.
+  are computed via  \code{\link{fdr.control}} whith the specified value of \code{eta0} taken
+  into account.
 
   Theoretical details are explained in Schaefer and Strimmer (2003), along with a simulation
   study and an application to gene expression data.

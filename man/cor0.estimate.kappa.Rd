@@ -4,7 +4,7 @@
 \title{Estimating the Degree of Freedom of the Null Distribution
        of the Correlation Coefficient }
 \usage{
-cor0.estimate.kappa(r, method=c("fisher", "likelihood", "robust"), w=1.0)
+cor0.estimate.kappa(r, method=c("fisher", "likelihood", "robust"), MAXKAPPA=5000, w=1.0)
 }
 \arguments{
   \item{r}{vector of sample correlations (assumed true value of rho=0)}
@@ -12,7 +12,9 @@ cor0.estimate.kappa(r, method=c("fisher", "likelihood", "robust"), w=1.0)
                 optimize likelihood function of null distribution (\code{likelihood}), or
 		use Fisher's rule with robust estimate of variance (\code{robust}),
 		}
-  \item{w}{winsorize at `w' standard deviations (only for robust estimate of variance)}		
+  \item{MAXKAPPA}{upper bound for the estimated kappa (default: MAXKAPPA=5000);
+                  only for likelihood estimate}
+  \item{w}{winsorize at `w' standard deviations; only for robust estimate}		
 }
 \description{
 
@@ -22,7 +24,7 @@ cor0.estimate.kappa(r, method=c("fisher", "likelihood", "robust"), w=1.0)
   According to Fisher's rule \code{kappa = round(1/var(z) + 2)} the degree of freedom
   can be estimated from the variance of the z-transformed sample correlations. 
   
-  Maximum-likelihood estimates of the degree of freedom can be obtained 
+  Maximum-likelihood estimates of the degree of freedom is obtained 
   on the basis of the null distribution of the sample correlation coefficient
   (i.e. assuming rho = 0) using \code{method="likelihood"}. This results
   almost always in the same estimate of kappa as with the simple Fisher's rule.

@@ -1,4 +1,4 @@
-### ggm.test.edges  (2004-01-15)
+### ggm.test.edges  (2004-03-15)
 ###
 ###   Compute p-values, q-values and posterior probabilities for GGM edges
 ###
@@ -26,18 +26,24 @@
 
 
 # assign p-values, q-values and posterior probabilities to each edge
-ggm.test.edges <- function(r.mat)
+ggm.test.edges <- function(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL)
 {
    pcor <- sm2vec(r.mat)
    indexes <- sm.indexes(r.mat)
    colnames(indexes) <- c("node1", "node2")
-
-   mfit <- cor.fit.mixture(pcor)
-
-   pval <- cor0.test(pcor, mfit$kappa)
-   fdr.out <- fdr.control(pval)
+   
+   if (is.null(kappa) || is.null(eta0))
+   {
+     # estimate kappa and eta0
+     mfit <- cor.fit.mixture(pcor)
+     kappa <-  mfit$kappa
+     eta0 <- mfit$eta0  
+   }
+      
+   pval <- cor0.test(pcor, kappa)
+   fdr.out <- fdr.control(pval, eta0=eta0)
    qval <- fdr.out$qvalues
-   prob <- cor.prob.nonzero(pcor, mfit$kappa, mfit$eta0)
+   prob <- cor.prob.nonzero(pcor, kappa, eta0)
 
    result <- cbind(pcor, indexes, pval, qval, prob)
 
@@ -48,5 +54,4 @@ ggm.test.edges <- function(r.mat)
    # return as data frame
    return(as.data.frame(result))
 }
-
 

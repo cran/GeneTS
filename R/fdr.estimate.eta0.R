@@ -1,4 +1,4 @@
-### fdr.estimate.eta0.R  (2004-01-15)
+### fdr.estimate.eta0.R  (2004-03-15)
 ###
 ###     Estimating the Proportion of Null p-Values
 ###
@@ -118,7 +118,6 @@ fdr.estimate.eta0 <- function(p,
  
     if(method == "smoother") # Storey and Tibshirani (2003) PNAS
     {
-            library(modreg)
             seta0 <- smooth.spline(lambda,eta0,df=3)
             eta0 <- predict(seta0,x=max(lambda))$y
             eta0 <- min(eta0,1)

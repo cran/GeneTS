@@ -1,4 +1,4 @@
-### ggm.plot.graph  (2004-01-15)
+### ggm.plot.graph  (2004-03-15)
 ###
 ###   Plotting the GGM network
 ###
@@ -21,37 +21,124 @@
 ### Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
 ### MA 02111-1307, USA
 
+
+
 # requires the installation of the "graph" library
 
 # generate a graph object from and edge list
 # (such as obtained from ggm.test.edges) 
 ggm.make.graph <- function(edge.list, num.nodes)
-{ 
-  # create empty graph with no edges
-  V <- as.character(1:num.nodes)
-  edL <- vector("list", length=num.nodes)
-  names(edL) <- V
-  gR <- new("graphNEL", nodes=V, edgeL=edL)
- 
-  # add edges and edge weights (correlations)
-  gX <- addEdge(as.character(edge.list[,2]),
-                as.character(edge.list[,3]),
-                gR,
-                round(edge.list[,1], digits=2) )
-
-  return(gX)
+{
+  if (!is.graph.loaded())
+  {
+    stop("This function requires the installation of the \"graph\" package from Bioconductor")
+  }
+  else
+  {   
+    # create empty graph with no edges
+    V <- as.character(1:num.nodes)
+    edL <- vector("list", length=num.nodes)
+    names(edL) <- V
+    gR <- new("graphNEL", nodes=V, edgeL=edL)
+   
+    # add edges and edge weights (correlations)
+    gX <- addEdge(as.character(edge.list[,2]),
+                  as.character(edge.list[,3]),
+                  gR,
+                  round(edge.list[,1], digits=2) )
+  
+    return(gX)
+  }
 }
+
+# print vector of edge weights
+show.edge.weights <- function(gr)
+{
+  if (!is.graph.loaded())
+  {
+    stop("This function requires the installation of the \"graph\" package from Bioconductor")
+  }
+  else
+  {   
+    if(isBioC13())
+    {
+      edgeWeightVector(gr)
+    }
+    else
+    {
+      em <- edgeMatrix(gr)
+      eWV(gr, em)           
+    }
+  }
+}
+
+
 
 # requires installation of the "Rgraphviz" library
 
 # plot network 
-ggm.plot.graph <- function(gr, node.labels=NULL)
+ggm.plot.graph <- function(gr, node.labels=NULL, ...)
 {
-  elab <- weightLabels(gr)
-  if (is.null(node.labels))
-    plot(gr, "neato", edgeLabels=elab,
-      fixedNodeSize=FALSE, nodeShape="ellipse")
+  if (!is.Rgraphviz.loaded())
+  {
+    stop("This function requires the installation of the \"Rgraphviz\" package from Bioconductor")
+  }
   else
-    plot(gr, "neato", edgeLabels=elab, nodeLabels=node.labels,
-      fixedNodeSize=FALSE, nodeShape="ellipse")
+  {   
+    if (isBioC13()) 
+    {
+      elab <- weightLabels(gr)
+      if (is.null(node.labels))
+        plot(gr, "neato", edgeLabels=elab,
+          fixedNodeSize=FALSE, nodeShape="ellipse", ...)
+      else
+        plot(gr, "neato", edgeLabels=elab, nodeLabels=node.labels,
+          fixedNodeSize=FALSE, nodeShape="ellipse", ...)
+    }
+    else
+    {
+      # general graph attributes
+      gAttrs <- getDefaultAttrs("neato")
+      gAttrs$edge$color <- "black"    
+      gAttrs$node$shape <- "ellipse"
+      gAttrs$node$fixedsize <- FALSE
+      
+      if (!is.null(node.labels))
+      {
+        # node attributes
+        # node.labels are given by the user
+        node.names <- nodes(gr)
+      
+        nAttrs <- list()
+        nAttrs$label <- node.labels
+        names(nAttrs$label) <- node.names
+      }
+  
+      #  edge attributes
+      em <- edgeMatrix(gr)
+      emv <- eWV(gr, em, sep="~")
+      edge.names <- names(emv)
+      edge.labels <- as.character(emv)
+      
+      eAttrs <- list()
+      eAttrs$label <- edge.labels
+      names(eAttrs$label) <- edge.names
+      
+      # negative correlation edges in grey
+      eAttrs$color <- rep("black", length(edge.labels))
+      eAttrs$color[emv < 0] <- "lightgrey"
+      names(eAttrs$color) <- edge.names
+  
+      if (is.null(node.labels))
+      {
+        plot(gr, "neato", attrs=gAttrs, edgeAttrs = eAttrs, ...)
+      }
+      else
+      {
+        plot(gr, "neato", attrs=gAttrs, nodeAttrs=nAttrs, edgeAttrs = eAttrs, ...)
+      }
+    }
+   
+  }
 }
+

@@ -1,4 +1,4 @@
-### zzz.R  (2004-01-15)
+### zzz.R  (2004-03-15)
 ###
 ###    Startup of GeneTS package
 ###    
@@ -26,21 +26,31 @@
 {
   # some startup stuff
   
-  # we need the time series library
-  library(ts)
- 
-  # and the MASS library
-  library(MASS)
-
-  # try to load the graph library
-  cat("Loading the \"graph\" package ...\n")
-  GRAPH.LIB <- TRUE
-  if (class(try(library(graph), silent=TRUE)) == "try-error")
+  # for R = 1.8.1: we need to load the "ts" and "modereg" packages (used in fdr.estimate.eta0)
+  # from R 1.9 on "ts" and "modreg" are merged into the "stats" package 
+  if (R.version$major == "1" &&  R.version$minor == "8.1")
   {
-    cat("The \"graph\" package is not installed, therefore network plotting is not available in GeneTS.\n")
+     library(ts)
+     library(modreg)
+  }
+  else
+  {
+     library(stats)
+  }
+ 
+  # load the MASS package (for pseudoinverse and robust variance estimates)
+  library(MASS)
+  
+  
+  # try to load the Biobase and graph package
+  cat("Loading the \"Biobase\" and \"graph\" packages ...\n")
+  GRAPH.LIB <- TRUE
+  if (class(try( {library(Biobase);library(graph)}, silent=TRUE)) == "try-error")
+  {
+    cat("The \"Biobase\" respectively the \"graph\" package from Bioconductor is not installed, therefore network plotting is unavailable in GeneTS.\n")
     GRAPH.LIB <- FALSE   
   }
-
+  
   # try to load the Rgraphviz library
   if (GRAPH.LIB)
   {

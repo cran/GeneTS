@@ -1,4 +1,4 @@
-### bagging.R  (2004-02-15)
+### bagging.R  (2004-03-15)
 ###
 ###     Bagged estimators of cov, cor, and pcor
 ###
@@ -45,7 +45,7 @@ bagged.cor <- function(x, R=1000, ...)
 
 bagged.pcor <- function(x, R=1000, ...)
 {
-  vec.out <- bag.fun(pcor, x, R=R, diag=FALSE, ...)
+  vec.out <- bag.fun(partial.cor, x, R=R, diag=FALSE, ...)
   mat.out <- vec2sm(vec.out, diag=FALSE)
   diag(mat.out) <- rep(1, dim(mat.out)[1]) # fill diagonal with 1
   

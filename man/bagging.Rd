@@ -14,7 +14,7 @@ bagged.pcor(x, R=1000, \dots)
 \arguments{
   \item{x}{data matrix or data frame}
   \item{R}{number of bootstrap replicates (default: 1000)}
-  \item{\dots}{options passed to \code{\link{cov}}, \code{\link{cor}}, and \code{\link{pcor}} 
+  \item{\dots}{options passed to \code{\link{cov}}, \code{\link{cor}}, and \code{\link{partial.cor}} 
              (e.g., to control handling of missing values) }
 }
 \description{
@@ -54,7 +54,7 @@ bagged.pcor(x, R=1000, \dots)
   large graphical models from sparse microarray data. Submitted to
   \emph{Bioinformatics} [preprint available online].
 }
-\seealso{\code{\link{cov}}, \code{\link{cor}}, \code{\link{pcor}},
+\seealso{\code{\link{cov}}, \code{\link{cor}}, \code{\link{partial.cor}},
           \code{\link{ggm.estimate.pcor}}, \code{\link{robust.boot}}.}
 
 \examples{
@@ -74,7 +74,7 @@ b.pcor <- bagged.pcor(dat)
 # total squared difference
 sum( (b.cov - cov(dat))^2  )
 sum( (b.cor - cor(dat))^2  )
-sum( (b.pcor - pcor(dat))^2  )
+sum( (b.pcor - partial.cor(dat))^2  )
 
 # positive definiteness of bagged correlation
 is.positive.definite(cor(dat))

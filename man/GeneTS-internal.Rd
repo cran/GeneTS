@@ -7,6 +7,9 @@
 \alias{is.constant.single}
 \alias{bag.fun}
 \alias{myrmvnorm}
+\alias{isBioC13}
+\alias{is.graph.loaded}
+\alias{is.Rgraphviz.loaded}
 \alias{.First.lib}
 
 \title{Internal GeneTS Functions}

@@ -5,7 +5,7 @@
   \code{fisher.g.test} calculates the p-value(s) according to Fisher's
   exact g test for one or more time series. This test is useful to detect hidden
   periodicities of unknown frequency in a data set.  For an application to
-  microarray data see Wichert, Fokianos, and Strimmer (2003). 
+  microarray data see Wichert, Fokianos, and Strimmer (2004). 
 }
 \usage{
 fisher.g.test(x, \dots)

@@ -1,12 +1,12 @@
 Package: GeneTS
-Version: 2.0.1
-Date: 2004-02-15
+Version: 2.1
+Date: 2004-04-01
 Title: Genetic Time Series Analysis
 Author: Konstantinos Fokianos <fokianos@ucy.ac.cy>,
         Juliane Schaefer <schaefer@stat.uni-muenchen.de>, and
         Korbinian Strimmer <strimmer@stat.uni-muenchen.de>.
 Maintainer: Korbinian Strimmer <strimmer@stat.uni-muenchen.de>
-Depends: MASS, ts
+Depends: R (>= 1.8.1), MASS
 Description: GeneTS is a package for analysing multiple gene expression
   time series data. Currently, GeneTS implements methods for cell cycle
   analysis and for inferring large sparse graphical Gaussian models.

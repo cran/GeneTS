@@ -104,7 +104,9 @@ cor.fit.mixture(sm2vec(inferred.pcor))
 # generate graph object with all significant edges
 gr <- ggm.make.graph( test.results[1:num.significant,], num.nodes) 
 gr 
-edgeWeightVector(gr)
+
+# print vector of edge weights
+show.edge.weights(gr)
 
 # plot network with given labels
 ggm.plot.graph(gr, node.labels)
@@ -118,7 +120,7 @@ ggm.plot.graph(gr, node.labels)
 true.pcor2 <- ggm.simulate.pcor(20, 0.1)
 
 # convert to edge list 
-test.results2 <- ggm.test.edges(true.pcor2)[1:19,]
+test.results2 <- ggm.test.edges(true.pcor2, eta0=0.9, kappa=1000)[1:19,]
 test.results2
 
 # plot network
@@ -139,7 +141,7 @@ sim.pcor <- ggm.simulate.pcor(40, 0.05)
 m.sim <- ggm.simulate.data(40, sim.pcor)
 
 # simple estimate of partial correlations
-estimated.pcor <- pcor(m.sim)
+estimated.pcor <- partial.cor(m.sim)
 
 # comparison of estimated and true model
 sum((sim.pcor-estimated.pcor)^2)

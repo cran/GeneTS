@@ -1,8 +1,8 @@
-### ggm.estimate.pcor  (2004-03-15)
+### mat.util.R  (2004-03-15)
 ###
-###     Various small-samples estimators of GGM partial correlation coefficients
+###     Library utility functions
 ###
-### Copyright 2003-04 Juliane Schaefer and Korbinian Strimmer
+### Copyright 2004 Korbinian Strimmer
 ###
 ###
 ### This file is part of the `GeneTS' library for R and related languages.
@@ -22,33 +22,35 @@
 ### MA 02111-1307, USA
 
 
-# estimate partial correlation coefficients
-ggm.estimate.pcor <- function(x, method=c("observed.pcor",
-  "partial.bagged.cor", "bagged.pcor"), R=1000, ...)
+# check Rgraphviz/BioC version
+isBioC13 <- function()
 {
-  method <- match.arg(method)
- 
-  ########
-  
-  if (method == "observed.pcor")
+  # if R = 1.8.1 we can't be running anything other than BioC 1.3
+  if (R.version$major == "1" &&  R.version$minor == "8.1")
   {
-    return( partial.cor(x, ...) )
-  } 
-
-  ########
-  
-  if (method == "partial.bagged.cor")
+     return(TRUE)
+  }
+  else
   {
-     cor.bag <- bagged.cor(x, R=R, ...)   
-     return( cor2pcor(cor.bag) )
-  } 
-  
-  ########
-
-  if (method == "bagged.pcor")
-  {  
-     return( bagged.pcor(x, R=R, ...) )
-  } 
+     return(FALSE)
+  }
 }
 
+# check whether graph package is loaded 
+is.graph.loaded <- function()
+{
+ if (sum(.packages() == "graph") > 0)
+   return(TRUE)
+ else
+   return(FALSE)
+}
+
+# check whether Rgraphviz package is loaded 
+is.Rgraphviz.loaded <- function()
+{
+ if (sum(.packages() == "Rgraphviz") > 0)
+   return(TRUE)
+ else
+   return(FALSE)
+}
 

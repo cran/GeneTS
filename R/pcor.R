@@ -1,4 +1,4 @@
-### pcor.R  (2004-01-15)
+### pcor.R  (2004-03-15)
 ###
 ###    Partial Correlation computed by Inversion 
 ###    of the Covariance or Correlation Matrix
@@ -81,7 +81,7 @@ pcor2cor <- function(m, exact.inversion=FALSE, ...)
 #
 # compute partial correlations given the data x 
 #
-pcor <- function(x, 
+partial.cor <- function(x, 
    use=c("all.obs", "complete.obs", "pairwise.complete.obs"),
    method=c("pearson", "kendall", "spearman"),
    exact.inversion=FALSE, ...)
@@ -91,3 +91,4 @@ pcor <- function(x,
   
   return( cor2pcor(cor(x, use=use, method=method), exact.inversion, ...) )
 }
+

@@ -13,7 +13,7 @@ ggm.estimate.pcor(x, method = c("observed.pcor", "partial.bagged.cor", "bagged.p
      Available options are "observed.pcor" (default),
     "partial.bagged.cor", and "bagged.pcor". }
   \item{R}{number of bootstrap replicates (bagged estimators only)}
-  \item{\dots}{options passed to \code{\link{pcor}}, \code{\link{bagged.cor}},
+  \item{\dots}{options passed to \code{\link{partial.cor}}, \code{\link{bagged.cor}},
         and \code{\link{bagged.pcor}}. }
    
 }
@@ -69,7 +69,7 @@ true.pcor <- ggm.simulate.pcor(40)
 m.sim <- ggm.simulate.data(40, true.pcor)
 
 # simple estimate of partial correlations
-estimated.pcor <- pcor(m.sim)
+estimated.pcor <- partial.cor(m.sim)
 
 # comparison of estimated and true model
 sum((true.pcor-estimated.pcor)^2)

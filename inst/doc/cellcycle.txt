@@ -32,7 +32,8 @@ dim(caulobacter)
 # A statistical test developed by Fisher is used to detect 
 # periodically expressed genes, and the average periodogram
 # is used to visualize the dominant frequencies
-# (see Wichert, Fokianos, and Strimmer, 2003, for details). 
+# (see S. Wichert, K. Fokianos, and K. Strimmer. 2004.
+# Bioinformatics 20:4-20, for details). 
 
 # compute and plot average periodogram
 avgp.caulobacter <- avgp(caulobacter, "Caulobacter")

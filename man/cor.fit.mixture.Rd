@@ -4,13 +4,14 @@
 
 \title{Graphical Gaussian Models: Fit Mixture Distribution to Sample Correlation Coefficients}
 \usage{
-cor.fit.mixture(r)
+cor.fit.mixture(r, MAXKAPPA=5000)
 cor.prob.nonzero(r, kappa, eta0)
 }
 \arguments{
   \item{r}{vector of sample correlations}
   \item{kappa}{the degree of freedom of the null distribution}
   \item{eta0}{the proportion of true null r-values (=the prior)}
+  \item{MAXKAPPA}{upper bound for the estimated kappa (default: MAXKAPPA=5000)}
 }
 \description{
 

@@ -33,7 +33,7 @@ kappa2N                 Determine the Sample Size from the Degree of
                         Freedom of Correlation Distribution
 mat.convert             Convert Symmetric Matrix to Vector and Back
 mat.util                Various Matrix Utilities
-pcor                    Partial Correlation from Correlation Matrix
+partial.cor             Partial Correlation from Correlation Matrix
                         (and Vice Versa)
 periodogram             Periodogram Power Spectral Density
 pseudoinverse           Pseudoinverse of a Matrix
