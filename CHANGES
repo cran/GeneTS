@@ -1,3 +1,36 @@
+		CHANGES IN GeneTS VERSION 2.2
+		
+CHANGES		
+
+    o in rank.condition(), is.positive.definite() and pseudoinverse()
+      the cut-off criterion for non-zero singular values (d) has
+      been changed in order to be in agreement with the definition used
+      in MATLAB, Octave etc. Now, the condition is
+         
+	 dpos > max(dim(m))*max(d)*.Machine$double.eps
+      
+      replacing the previously used 
+     
+         dpos > max(d)*sqrt(.Machine$double.eps)
+
+      Note that the latter criterion is used, e.g., in ginv() in MASS.
+
+    o is.positive.definite() now has an option to employ the Cholesky
+      decompostion for testing positve definiteness.
+   
+    o manual pages have been updated (e.g., reference to Schaefer and Strimmer 2004)
+    
+    o GeneTS now requires R version 2.0 and only works with the "Rgraphviz"
+      and "graph" packages from Bioconductor version 1.5.  Legacy code that made
+      GeneTS work with older versions was removed.   
+
+NEW FUNCTIONS
+ 	
+    o make.positive.definite() takes a real symmetric matrix and 
+      computes the nearest positive definite matrix, using the algorithm
+      of Higham (1998).
+
+
 
 		CHANGES IN GeneTS VERSION 2.1.2
 

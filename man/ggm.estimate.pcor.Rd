@@ -20,7 +20,7 @@ ggm.estimate.pcor(x, method = c("observed.pcor", "partial.bagged.cor", "bagged.p
 \description{
   \code{ggm.estimate.pcor} implements various small-sample point estimators of partial
   correlation that can be employed also for small sample data sets. Their statistical
-  properties are investigated in detail in Schaefer and Strimmer (2003).
+  properties are investigated in detail in Schaefer and Strimmer (2004).
 
 
 }
@@ -51,9 +51,8 @@ As a result, this  particularly promotes the partial bagged correlation Pi-3 as 
   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
 }
 \references{
-  Schaefer, J., and Strimmer, K. (2003).  A practical approach to inferring
-  large graphical models from sparse microarray data. Submitted to
-  \emph{Bioinformatics} [preprint available online].
+Schaefer, J., and Strimmer, K. (2004).  An empirical Bayes approach to inferring
+  large-scale gene association networks. \emph{Bioinformatics} in press.
 }
 \seealso{\code{\link{ggm.simulate.data}},\code{\link{ggm.estimate.pcor}}.}
 

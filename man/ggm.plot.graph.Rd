@@ -61,7 +61,7 @@ ggm.plot.graph(gr, node.labels=NULL, show.edge.labels=TRUE, col.pos="black", col
   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
 }
 \seealso{
-\code{\link{ggm.test.edges}},\code{plot.graph}.
+\code{\link{ggm.test.edges}}, \code{plot.graph}.
 }
 
 \examples{

@@ -27,7 +27,7 @@ ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL)
   are computed via  \code{\link{fdr.control}} whith the specified value of \code{eta0} taken
   into account.
 
-  Theoretical details are explained in Schaefer and Strimmer (2003), along with a simulation
+  Theoretical details are explained in Schaefer and Strimmer (2004), along with a simulation
   study and an application to gene expression data.
 }
 \value{
@@ -48,9 +48,8 @@ ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL)
   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
 }
 \references{
-  Schaefer, J., and Strimmer, K. (2003).  A practical approach to inferring
-  large graphical models from sparse microarray data. Submitted to
-  \emph{Bioinformatics} [preprint available online].
+ Schaefer, J., and Strimmer, K. (2004).  An empirical Bayes approach to inferring
+  large-scale gene association networks. \emph{Bioinformatics} in press.
 }
 \seealso{
 \code{\link{cor.fit.mixture}},

@@ -26,7 +26,7 @@ bagged.pcor(x, R=1000, \dots)
   problems. For example, the bagged correlation matrix typically remains positive
   definite even when the sample size is much smaller than the number of variables.
   
-  In Schaefer and Strimmer (2003) the inverse of the bagged correlation matrix
+  In Schaefer and Strimmer (2004) the inverse of the bagged correlation matrix
   is used to estimate graphical Gaussian models from sparse microarray data - 
   see also \code{\link{ggm.estimate.pcor}} for various strategies to
   estimate partial correlation coefficients.
@@ -50,9 +50,8 @@ bagged.pcor(x, R=1000, \dots)
 \references{
   Breiman, L. (1996). Bagging predictors. \emph{Machine Learning}, \bold{24}, 123--140.
 
-  Schaefer, J., and Strimmer, K. (2003).  A practical approach to inferring
-  large graphical models from sparse microarray data. Submitted to
-  \emph{Bioinformatics} [preprint available online].
+ Schaefer, J., and Strimmer, K. (2004).  An empirical Bayes approach to inferring
+  large-scale gene association networks. \emph{Bioinformatics} in press.
 }
 \seealso{\code{\link{cov}}, \code{\link{cor}}, \code{\link{partial.cor}},
           \code{\link{ggm.estimate.pcor}}, \code{\link{robust.boot}}.}

@@ -6,6 +6,13 @@
 # EXAMPLE SESSION FOR INFERRING GENETIC NETWORKS
 # 
 
+# for details see:
+#
+# Schaefer, J., and K. Strimmer. 2004.
+# An empirical Bayes approach to inferring large-scale gene
+# association networks. Bioinformatics, in press.
+
+
 
 # load GeneTS library
 library(GeneTS)
@@ -65,7 +72,7 @@ node.labels <- c("CheA", "CheR", "CheD", "ABC transporter", "hfaA",
 ### Estimate partial correlation matrix
 
 # the three estimators for partical correlation 
-# mentioned in Schaefer and Strimmer (2003)
+# used in Schaefer and Strimmer (2004)
 
 #pcor.pi1 <- ggm.estimate.pcor(data.matrix, method = "observed.pcor")
 pcor.pi2 <- ggm.estimate.pcor(data.matrix, method = "partial.bagged.cor", R=10000)

@@ -3,12 +3,14 @@
 
 \title{Pseudoinverse of a Matrix}
 \usage{
-pseudoinverse(m, tol = sqrt(.Machine$double.eps))
+pseudoinverse(m, tol)
 }
 \arguments{
   \item{m}{matrix}
   \item{tol}{tolerance - singular values larger than
-             tol times the maximum singular value are considered non-zero}
+             tol are considered non-zero (default value:
+	     \code{tol = max(dim(m))*max(D)*.Machine$double.eps})
+	     }
 }
 \description{
   The standard definition for the inverse of a matrix fails 
@@ -26,9 +28,9 @@ pseudoinverse(m, tol = sqrt(.Machine$double.eps))
                             IM = V diag(1/D[i]) U' .
 			    
   If the matrix M is singular or ill-conditioned the inverse is approximated
-  by setting 1/D[i] <- 0 for small singular values (D[i] <= tol*max(D)).  
+  by setting 1/D[i] <- 0 for small singular values (D[i] <= tol).  
   The pseudoinverse has the property that the sum of the squares of all
-  the entries in (IM \%*\% M - I), where I is an appropriate
+  the entries in \code{IM \%*\% M - I}, where I is an appropriate
   identity matrix, is minimized. For non-singular matrices the
   pseudoinverse is equivalent to the standard inverse.
 }

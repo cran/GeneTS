@@ -6,6 +6,13 @@
 # EXAMPLE SESSION FOR CELL CYCLE ANALYSIS
 # 
 
+# for details see:
+#
+# Wichert, S., K. Fokianos, and K. Strimmer. 2004.
+# Identifying periodically expressed transcripts in microarray
+# time series data. Bioinformatics 20:4-20 
+
+
 
 # load GeneTS library
 library(GeneTS)
@@ -32,8 +39,6 @@ dim(caulobacter)
 # A statistical test developed by Fisher is used to detect 
 # periodically expressed genes, and the average periodogram
 # is used to visualize the dominant frequencies
-# (see S. Wichert, K. Fokianos, and K. Strimmer. 2004.
-# Bioinformatics 20:4-20, for details). 
 
 # compute and plot average periodogram
 avgp.caulobacter <- avgp(caulobacter, "Caulobacter")

@@ -1,4 +1,4 @@
-### mat.util.R  (2004-01-15)
+### mat.util.R  (2004-09-15)
 ###
 ###     Some matrix utility functions
 ###
@@ -23,25 +23,76 @@
 
 
 # checks whether a matrix is positive definite
-is.positive.definite <- function(m, eps = .Machine$double.eps)
-{   
-  eval <- eigen(m)$values
+is.positive.definite <- function (m, tol, method=c("eigen", "chol"))
+{
+    method <- match.arg(method)
+    
+    if (method=="eigen")
+    {
+        eval <- eigen(m, symmetric=TRUE, only.values = TRUE)$values
+
+        if( missing(tol) )
+            tol <- max(dim(m))*max(abs(eval))*.Machine$double.eps
+   
+        if (sum(eval > tol) == length(eval))
+            return(TRUE)
+        else
+            return(FALSE)
+    }
+    
+    if (method=="chol")
+    {
+	val <- try(chol(m), silent=TRUE)
   
-  if ( sum(eval >= eps) == length(eval) )
-    return(TRUE)
-  else
-    return(FALSE)
+        if (class(val) == "try-error")
+            return(FALSE)
+        else
+            return(TRUE)    
+    }
 }
 
 
-# rank and condition of a matrix 
-rank.condition <- function (m, tol = sqrt(.Machine$double.eps))
+# Method by Higham 1988
+make.positive.definite <- function(m, tol)
 {
-    d <- svd(m, nv=0)$d
-    eps <- max(d) * tol
-    r <- sum(d > eps)
-    c <- max(d)/min(d)
-    return(list(rank = r, condition = c))
+  # assumption: A is symmetric!
+  d <- dim(m)[1]
+  
+  es <- eigen(m, symmetric=TRUE)
+  esv <- es$values
+  
+  if (missing(tol))
+      tol <- d*max(abs(esv))*.Machine$double.eps 
+  delta <-  2*tol # factor to is just to make sure the resulting
+                  # matrix passes all numerical tests of positive definitess
+  
+  tau <- max(0, delta - esv)
+  dm <- es$vectors %*% diag(tau, d) %*% t(es$vectors)    
+  
+  #print(max(DA))
+  #print(esv[1]/delta)
+      
+  return( m +  dm )
+}
+
+
+
+
+# rank and condition of a matrix 
+rank.condition <- function (m, tol)
+{
+    d <- svd(m, nv=0, nu=0)$d # compute only singular values
+    
+    max.d <- d[1]
+    min.d <- d[length(d)]
+    
+    if( missing(tol) ) 
+        tol <- max(dim(m))*max.d*.Machine$double.eps
+    
+    r <- sum(d > tol) # rank: number of singular values larger than tol
+    c <- max.d/min.d
+    
+    return(list(rank = r, condition = c, tol=tol))
 }
 
 

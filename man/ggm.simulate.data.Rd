@@ -26,9 +26,8 @@ ggm.simulate.data(sample.size, pcor)
   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
 }
 \references{
-  Schaefer, J., and Strimmer, K. (2003).  A practical approach to inferring
-  large graphical models from sparse microarray data. Submitted to
-  \emph{Bioinformatics} [preprint available online].
+ Schaefer, J., and Strimmer, K. (2004).  An empirical Bayes approach to inferring
+  large-scale gene association networks. \emph{Bioinformatics} in press.
 }
 \seealso{\code{\link{ggm.simulate.pcor}}, \code{\link{ggm.estimate.pcor}}.}
 

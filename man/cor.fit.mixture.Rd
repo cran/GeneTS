@@ -34,7 +34,7 @@ cor.prob.nonzero(r, kappa, eta0)
 
 \details{
   The above functions are useful to determine the null-distribution of edges in a sparse graphical
-  Gaussian model, see Schaefer and Strimmer (2003) for more details and an application to infer 
+  Gaussian model, see Schaefer and Strimmer (2004) for more details and an application to infer 
   genetic networks from microarray data.
 }
 
@@ -51,9 +51,8 @@ cor.prob.nonzero(r, kappa, eta0)
   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
 }
 \references{
-  Schaefer, J., and Strimmer, K. (2003).  A practical approach to inferring
-  large graphical models from sparse microarray data. Submitted to
-  \emph{Bioinformatics} [preprint available online].
+Schaefer, J., and Strimmer, K. (2004).  An empirical Bayes approach to inferring
+  large-scale gene association networks. \emph{Bioinformatics} in press.
 }
 
 \seealso{\code{\link{dcor0}}, \code{\link{cor0.estimate.kappa}}, 
