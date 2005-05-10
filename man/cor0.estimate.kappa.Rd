@@ -61,8 +61,8 @@ cor0.estimate.kappa(r, method=c("fisher", "likelihood", "robust"), MAXKAPPA=5000
 
 
 \author{
-  Juliane Schaefer (\url{http://www.stat.uni-muenchen.de/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 
 \seealso{\code{\link{dcor0}}, \code{\link{z.transform}}, 

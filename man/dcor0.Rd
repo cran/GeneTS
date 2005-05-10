@@ -64,7 +64,7 @@ ibeta(z, a, b)
 \seealso{\code{\link{cor}}, \code{\link{cor0.estimate.kappa}}, \code{\link{beta}}.}
 
 \author{
-   Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+   Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 
 \examples{

@@ -56,7 +56,7 @@ approach in Storey and Tibshirani (2003).
 }
 \author{
   Konstantinos Fokianos (\url{http://www.ucy.ac.cy/~fokianos/}) and
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://www.www.statistik.lmu.de/~strimmer/}).
   
   Adapted in part from S-PLUS code by  Y. Benjamini (\url{http://www.math.tau.ac.il/~roee/FDR_Splus.txt})
   and R code from J.D. Storey (\url{http://faculty.washington.edu/~jstorey/}). 

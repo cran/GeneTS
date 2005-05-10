@@ -22,8 +22,8 @@ ggm.simulate.data(sample.size, pcor)
   A multinormal data matrix.
 }
 \author{
-  Juliane Schaefer (\url{http://www.stat.uni-muenchen.de/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \references{
   Schaefer, J., and Strimmer, K. (2005).  An empirical Bayes approach to inferring

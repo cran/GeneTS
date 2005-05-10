@@ -35,7 +35,7 @@ avgp(x, title = deparse(substitute(x)), plot = TRUE, angular = FALSE, \dots)
 }
 \author{
   Konstantinos Fokianos (\url{http://www.ucy.ac.cy/~fokianos/}) and
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \references{
   Wichert, S., Fokianos, K., and Strimmer, K. (2004).  Identifying periodically expressed transcripts

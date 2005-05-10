@@ -34,8 +34,8 @@ cor0.test(r, kappa, method=c("student", "dcor0", "ztransform"))
 
 
 \author{
-  Juliane Schaefer (\url{http://www.stat.uni-muenchen.de/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 
 \seealso{\code{\link{dcor0}}, \code{\link{cor0.estimate.kappa}},

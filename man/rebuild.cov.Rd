@@ -25,7 +25,7 @@ rebuild.cov(r, v)
 
 
 \author{
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \seealso{\code{\link{cor}}, \code{\link{cov}}}
 

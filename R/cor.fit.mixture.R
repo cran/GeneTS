@@ -1,4 +1,4 @@
-### cor.fit.mixture.R  (2005-01-15)
+### cor.fit.mixture.R  (2005-05-11)
 ###
 ###    Fit mixture model to empirical distribution of (partial)
 ###    correlation coefficients.
@@ -37,8 +37,8 @@ cor.fit.mixture <- function(r, MAXKAPPA=5000, fA.type=c("nonparametric", "unifor
      require("locfdr")
      
      out <- locfdr(z.transform(r))
-     eta0 <- as.double( out$f0.p0[3] )
-     sigma <- as.double( out$f0.p0[2] )
+     eta0 <- as.double( out$fp0[3] ) # p0
+     sigma <- as.double( out$fp0[2] ) # sig
      kappa <- 1/(sigma*sigma) + 2 # Fisher's rule
      logL <- NA
      prob.nonzero <- 1-out$fdr

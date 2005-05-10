@@ -30,6 +30,12 @@ data(caulobacter)
 
 # how many samples (11) and how many genes (1444)?
 dim(caulobacter)
+summary(caulobacter)
+get.time.repeats(caulobacter)
+
+# plot first nine time series
+plot(caulobacter, 1:9)
+
 
 
 #######################################################################

@@ -46,8 +46,8 @@ bagged.pcor(x, R=1000, \dots)
   A symmetric matrix.
 }
 \author{
-  Juliane Schaefer (\url{http://www.stat.uni-muenchen.de/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \references{
   Breiman, L. (1996). Bagging predictors. \emph{Machine Learning}, \bold{24}, 123--140.

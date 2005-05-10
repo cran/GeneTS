@@ -59,7 +59,7 @@ partial.cor(x, tol)
 
 
 \author{
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \references{
   Whittaker J. (1990).  Graphical Models in Applied Multivariate Statistics.

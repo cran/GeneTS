@@ -37,7 +37,7 @@ vec2sm(vec, diag = FALSE, order = NULL)
 
 
 \author{
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 
 \seealso{\code{\link{lower.tri}}.}

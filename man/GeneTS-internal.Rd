@@ -11,6 +11,7 @@
 \alias{nsmall.svd}
 \alias{psmall.svd}
 \alias{inverse.cor}
+\alias{get.time.idx}
 
 
 \title{Internal GeneTS Functions}

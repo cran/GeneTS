@@ -57,8 +57,8 @@ ggm.plot.graph(gr, node.labels=NULL, show.edge.labels=TRUE, col.pos="black", col
   \code{ggm.plot.graph} plots  the network on the current graphic device.
 }
 \author{
-  Juliane Schaefer (\url{http://www.stat.uni-muenchen.de/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \seealso{
 \code{\link{ggm.test.edges}}, \code{plot.graph}.

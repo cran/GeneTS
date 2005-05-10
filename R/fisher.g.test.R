@@ -1,8 +1,8 @@
-### fisher.g.test.R (2004-02-15)
+### fisher.g.test.R (2005-04-11)
 ###
 ###     Fisher's exact g test
 ###
-### Copyright 2003-04 Konstantinos Fokianos and Korbinian Strimmer
+### Copyright 2003-05 Konstantinos Fokianos and Korbinian Strimmer
 ###
 ###
 ### This file is part of the `GeneTS' library for R and related languages.
@@ -44,7 +44,15 @@ fisher.g.test.single <- function(x, ...)
     compose  <- rep(NA, length=upper)
     for (j in 1:upper)
     {
-      compose[j]  <- (gamma(m+1)/(gamma(j+1)*gamma(m-j+1)))*((-1)^(j-1))*(1-j*fisher)^(m-1)
+      # original code
+      #compose[j]  <- (gamma(m+1)/(gamma(j+1)*gamma(m-j+1)))*((-1)^(j-1))*(1-j*fisher)^(m-1)
+      
+      # problem: the gamma function diverges for times series of length > 341
+      # this bug and the following solution (which allows to compute g-statistic 
+      # for long time series) was kindly suggested by Benjamin Tyner
+      
+      compose[j] <- (-1)^(j-1)*exp(lchoose(m,j)+(m-1)*log(1-j*fisher))
+
     }
     pval  <- sum(compose)  
     if (pval > 1) pval <- 1 # this may happen due to numerical error

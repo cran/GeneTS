@@ -31,7 +31,7 @@ hotelling.transform(r, kappa)
   The vector of transformed sample correlation coefficients.
 }
 \author{
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \references{
   Fisher, R.A. (1921). On the 'probable error' of a coefficient of correlation deduced from

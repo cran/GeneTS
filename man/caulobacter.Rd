@@ -15,8 +15,10 @@ data(caulobacter)
 }
 
 \format{
-  \code{caulobacter} is numerical matrix with 1444 columns (=genes) and
-  11 rows (=time points).
+  \code{caulobacter} is a \code{\link{longitudinal}} object
+  containing the data from the Laub et al. (2000) experiment.
+  Essentially, this is a matrix with with 1444 columns (=genes)
+  and 11 rows (=time points) 
 }
 
 \source{
@@ -38,13 +40,15 @@ library(GeneTS)
 
 # load data set
 data(caulobacter)
+is.longitudinal(caulobacter)
 
 # how many samples and how many genes?
 dim(caulobacter)
+summary(caulobacter)
+get.time.repeats(caulobacter)
 
-# compute and plot average periodogram
-avgp.caulobacter <- avgp(caulobacter, "Caulobacter")
-avgp.caulobacter
+# plot first nine time series
+plot(caulobacter, 1:9)
 }
 \keyword{datasets}
 

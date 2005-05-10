@@ -95,12 +95,14 @@ test.results <- ggm.test.edges(inferred.pcor, fA.type="nonparametric")
 test.results[1:20,]
 
 # how many are significant based on FDR cutoff Q=0.05 ?
-num.significant.1 <- sum(test.results$qval <= 0.05)
-test.results[1:num.significant.1,]
+significant1.idx <- test.results$qval <= 0.05
+num.significant.1 <- sum(significant1.idx)
+test.results[significant1.idx,]
 
-# how many are significant based on "local fdr" cutoff (prob > 0.95) ?
-num.significant.2 <- sum(test.results$prob > 0.95)
-test.results[1:num.significant.2,]
+# how many are significant based on "local fdr" 0.2 cutoff (prob > 0.80) ?
+significant2.idx <- test.results$prob > 0.80
+num.significant.2 <- sum(significant2.idx)
+test.results[significant2.idx,]
 
 # parameters of the mixture distribution used to compute p-values etc.
 c <- cor.fit.mixture(sm2vec(inferred.pcor), fA.type="nonparametric")
@@ -115,7 +117,7 @@ c$kappa
 # Note: this requires the "graph" and "Rgraphviz" packages from www.bioconductor.org 
 
 # generate graph object with all significant edges
-gr <- ggm.make.graph( test.results[1:num.significant.2,], num.nodes) 
+gr <- ggm.make.graph( test.results[significant2.idx,], num.nodes) 
 gr 
 
 # print vector of edge weights

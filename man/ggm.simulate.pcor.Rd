@@ -26,8 +26,8 @@ ggm.simulate.pcor(num.nodes, etaA=0.05)
   A positive definite partial correlation matrix.
 }
 \author{
-  Juliane Schaefer (\url{http://www.stat.uni-muenchen.de/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \references{
   Schaefer, J., and Strimmer, K. (2005).  An empirical Bayes approach to inferring

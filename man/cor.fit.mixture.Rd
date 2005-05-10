@@ -51,8 +51,8 @@ cor.fit.mixture(r, MAXKAPPA=5000, fA.type=c("nonparametric", "uniform"))
 
 
 \author{
-  Juliane Schaefer (\url{http://www.stat.uni-muenchen.de/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \references{
   Efron, B. (2004). Large-scale simulataneous hypothesis testing: the choice

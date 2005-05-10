@@ -1,5 +1,38 @@
 
+		CHANGES IN GeneTS VERSION 2.5
 
+NEW FUNCTIONS
+
+    o density.pr() enables semi-parametric density estimation
+      using a Poisson regression fit to histogram counts.
+
+    o new data structure "longitudinal" allows to store multiple time series
+      data with repeated measurements, irregular sampling, and unequally
+      spaced  time points.  Related basic input/output functions include
+      as.longitudinal(), is.longitudinal(), summary.longitudinal(),
+      print.longitudinal(), plot.longitudinal().
+      
+    o a number of utility function for the "longitudinal" data type 
+      were added: get.time.repeats(), is.equally.spaced(), is
+      is.regularily.sampled(), has.repeated.measurements(), 
+      combine.longitudinal(), condense.longitudinal(). 
+    
+    o the caulobacter data set was converted to type "longitudinal",
+      and another data sets (T cell activation) was added.  
+
+
+
+CHANGES		
+
+    o a bug was fixed in fisher.g.test(): for time series longer
+      than 341 time points a numerical problem occured due to
+      the divergence of the gamma function.  This has now been
+      fixed by using a more clever algorithm to compute the
+      g-statistic (bug fix kindly suggested by  Benjamin Tyner)
+      
+    o GeneTS now requires R 2.0.0 or later, and locfdr version 1.0-2
+    
+    
 
 		CHANGES IN GeneTS VERSION 2.4
 

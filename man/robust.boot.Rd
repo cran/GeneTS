@@ -35,7 +35,7 @@ robust.boot(data, statistic, R)
   
 }
 \author{
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 
 \seealso{\code{\link{boot}}, \code{\link{bagged.pcor}}.}

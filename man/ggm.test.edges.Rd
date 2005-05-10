@@ -45,8 +45,8 @@ ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL, fA.type=c("nonparame
   according the absolute strength of the correlation (from strongest to weakest)
 }
 \author{
-  Juliane Schaefer (\url{http://www.stat.uni-muenchen.de/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.stat.uni-muenchen.de/~strimmer/}).
+  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \references{
   Schaefer, J., and Strimmer, K. (2005).  An empirical Bayes approach to inferring
