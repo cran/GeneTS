@@ -35,6 +35,8 @@ density.pr(x, ncells=100, trim.lo=1/1000, trim.up=1/1000, df=7, plot=FALSE, \dot
   \item{bw}{ the bin width used in the underlying histogram.
   }
   \item{n}{  the original sample size (before elimination of missing and infinite values).   }
+ \item{dispersion}{  estimated dispersion (a warning is issued if dispersion > 1.5 - this can usually
+                      be fixed by increasing the \code{df} parameter).   }  
   \item{call}{ the call which produced the result.}
   \item{data.name}{ the deparsed name of the input data.   }
   \item{has.na}{ \code{TRUE} if input data contains missing data or infinite values.}

@@ -1,8 +1,8 @@
-### condition.R  (2004-11-18)
+### condition.R  (2005-06-10)
 ###
 ###     Rank, condition, and positive definiteness of a matrix
 ###
-### Copyright 2003-04 Korbinian Strimmer
+### Copyright 2003-05 Korbinian Strimmer
 ###
 ###
 ### This file is part of the `GeneTS' library for R and related languages.
@@ -27,6 +27,8 @@ is.positive.definite <- function (m, tol, method=c("eigen", "chol"))
 {
     method <- match.arg(method)
     
+    if (!is.matrix(m)) m <- as.matrix(m)
+
     if (method=="eigen")
     {
         eval <- eigen(m, symmetric=TRUE, only.values = TRUE)$values
@@ -55,7 +57,11 @@ is.positive.definite <- function (m, tol, method=c("eigen", "chol"))
 # Method by Higham 1988
 make.positive.definite <- function(m, tol)
 {
-  # assumption: A is symmetric!
+  if (!is.matrix(m)) m <- as.matrix(m)
+
+  if (dim(m)[1] != dim(m)[2]) stop("Input matrix is not symmetric")
+
+  # assumption: m is symmetric!
   d <- dim(m)[1]
   
   es <- eigen(m, symmetric=TRUE)

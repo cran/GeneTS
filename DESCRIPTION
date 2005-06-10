@@ -1,6 +1,6 @@
 Package: GeneTS
-Version: 2.5
-Date: 2005-05-10
+Version: 2.6
+Date: 2005-06-10
 Title: Microarray Time Series and Network Analysis
 Author: Konstantinos Fokianos <fokianos@ucy.ac.cy>,
         Juliane Schaefer <schaefer@stat.uni-muenchen.de>, and
@@ -11,14 +11,14 @@ Suggests: graph (>= 1.4.0), Rgraphviz (>= 1.4.0)
 Description: GeneTS provides methods for analyzing gene expression
   (time series) data. Examples are the analysis of cell cycle data
   and methods for inferring large sparse graphical Gaussian models
-  to identify gene association networks. GeneTS offers data structures
-  and functions for longitudinal data with multiple variables,
-  repeated measurements. The multiple time series data may also be
-  irregularily spaced. Other functions in GeneTS include fast svd,
-  density estimation, large-scale covariance resp. correlation
-  estimation etc.  For plotting the gene networks the
-  optional "graph" and "Rgraphviz" packages are required (available
-  from www.bioconductor.org).
+  to identify gene association networks. In addition, GeneTS offers
+  data structures and functions for longitudinal data with multiple
+  variables, repeated measurements, and irregularly spaced time points.
+  Other functions in GeneTS include fast SVD, density estimation
+  via poisson regression, large-scale covariance resp. correlation
+  matrix estimation via shrinkage etc.   For plotting the gene networks
+  GeneTS uses the "graph" and "Rgraphviz" packages, available from
+  http://www.bioconductor.org.
 License: GPL version 2 or newer
 URL: http://www.statistik.lmu.de/~strimmer/genets/
-Packaged: Wed May 11 19:13:45 2005; strimmer
+Packaged: Fri Jun 10 10:19:43 2005; strimmer

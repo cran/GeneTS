@@ -1,8 +1,8 @@
-### ggm.estimate.pcor  (2004-03-15)
+### ggm.estimate.pcor  (2005-06-06)
 ###
 ###     Various small-samples estimators of GGM partial correlation coefficients
 ###
-### Copyright 2003-04 Juliane Schaefer and Korbinian Strimmer
+### Copyright 2003-05 Juliane Schaefer and Korbinian Strimmer
 ###
 ###
 ### This file is part of the `GeneTS' library for R and related languages.
@@ -23,10 +23,17 @@
 
 
 # estimate partial correlation coefficients
-ggm.estimate.pcor <- function(x, method=c("observed.pcor",
+ggm.estimate.pcor <- function(x, method=c("shrinkage", "observed.pcor",
   "partial.bagged.cor", "bagged.pcor"), R=1000, ...)
 {
   method <- match.arg(method)
+
+  ########
+  
+  if (method == "shrinkage")
+  {  
+     return( cor2pcor( cov.shrink(x) ) )
+  } 
  
   ########
   

@@ -8,9 +8,18 @@
 
 # for details see:
 #
-# Schaefer, J., and K. Strimmer. 2005.
+# Schaefer, J., and K. Strimmer. 2005a.
 # An empirical Bayes approach to inferring large-scale gene
 # association networks. Bioinformatics 21:754-764.
+# 
+# Schaefer, J., and K. Strimmer. 2005b. Learning large-scale
+# graphical Gaussian models from genomic data.
+# Proceedings of CNET 2004, Aveiro, Pt. (AIP)
+# 
+# Schaefer, J., and K. Strimmer, K. 2005c.  A shrinkage approach
+# to large-scale covariance estimation and implications for
+# functional genomics.  Submitted to SAGMB.
+#
 
 
 
@@ -69,45 +78,59 @@ node.labels <- c("CheA", "CheR", "CheD", "ABC transporter", "hfaA",
 
 # INFER GRAPHICAL GAUSSIAN MODEL:
 
-### Estimate partial correlation matrix
 
-# the three estimators for partical correlation 
-# used in Schaefer and Strimmer (2004)
+###
+### Step 1: Estimate partial correlation matrix
+###
+
+# there are many options for estimation the partial correlations
+# - we recommend to use a shrinkage estimator (Schaefer and Strimmer 2005c)
+
+pcor.shrink <- ggm.estimate.pcor(data.matrix, method="shrinkage")
+
+# other possibilites include the three estimators for partical correlation 
+# employed in Schaefer and Strimmer (2005a,b)
 
 #pcor.pi1 <- ggm.estimate.pcor(data.matrix, method = "observed.pcor")
-pcor.pi2 <- ggm.estimate.pcor(data.matrix, method = "partial.bagged.cor", R=10000)
+#pcor.pi2 <- ggm.estimate.pcor(data.matrix, method = "partial.bagged.cor", R=10000)
 #pcor.pi3 <- ggm.estimate.pcor(data.matrix, method = "bagged.pcor")
 
-# here we employ pi2 (the partial bagged correlation) as N << G
-inferred.pcor <- pcor.pi2
 
-# note: if you have a better estimate of the partial correlations
-# (e.g. from another estimator, or from using some external information)
-# you may plug it in here as well - before testing the edges
+inferred.pcor <- pcor.shrink
 
 
-### Test edges in the network:
+###
+### Step 2: Assign p-values, q-values, empirical posterior probabilites to each edge
+###
 
-# p-values, q-values and posterior probabilities for each edge 
 test.results <- ggm.test.edges(inferred.pcor, fA.type="nonparametric")
 
-# show best 20 edges
+# show first 20 edges
 test.results[1:20,]
-
-# how many are significant based on FDR cutoff Q=0.05 ?
-significant1.idx <- test.results$qval <= 0.05
-num.significant.1 <- sum(significant1.idx)
-test.results[significant1.idx,]
-
-# how many are significant based on "local fdr" 0.2 cutoff (prob > 0.80) ?
-significant2.idx <- test.results$prob > 0.80
-num.significant.2 <- sum(significant2.idx)
-test.results[significant2.idx,]
 
 # parameters of the mixture distribution used to compute p-values etc.
 c <- cor.fit.mixture(sm2vec(inferred.pcor), fA.type="nonparametric")
 c$eta0
 c$kappa
+
+
+
+###
+### Step 3: Decide which edges to include in the network
+###
+
+
+# how many edges are significant based on FDR cutoff Q=0.05 ?
+significant1.idx <- test.results$qval <= 0.05
+num.significant.1 <- sum(significant1.idx)
+test.results[significant1.idx,]  # list significant edges
+
+
+# how many edges are significant based on "local fdr" 0.2 cutoff (prob > 0.80) ?
+significant2.idx <- test.results$prob > 0.80
+num.significant.2 <- sum(significant2.idx)
+test.results[significant2.idx,] # list significant edges
+
 
 
 #######################################################################
@@ -170,3 +193,8 @@ sum((sim.pcor-estimated.pcor)^2)
 # a slightly better estimate ...
 estimated.pcor.2 <- ggm.estimate.pcor(m.sim, method = c("bagged.pcor"))
 sum((sim.pcor-estimated.pcor.2)^2)
+
+# this is even better
+estimated.pcor.3 <- ggm.estimate.pcor(m.sim, method = c("shrinkage"))
+sum((sim.pcor-estimated.pcor.3)^2)
+

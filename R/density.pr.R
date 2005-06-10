@@ -1,4 +1,4 @@
-### density.pr.R  (2005-03-19)
+### density.pr.R  (2005-06-05)
 ###
 ###    Density estimation via Poisson regression
 ###
@@ -72,7 +72,8 @@ density.pr <- function(x, ncells=100,
     yy <- hist.x$counts
     
     # scale factor (= area under the histogram bars)
-    scale <- sum(diff(breaks)*yy)
+    # this is used turn f below into a density
+    scale <- sum(diff(breaks)*yy)    
             
     # fit Poisson model using a natural spline
     require("splines")
@@ -81,13 +82,25 @@ density.pr <- function(x, ncells=100,
     # some other possibilities
     #f <- glm(yy ~ poly(xx, df = df), poisson)$fit
     #f <- glm(yy ~ bs(xx, df = df), poisson)$fit
-             
+
+  
+    # check fit of Poisson model 
+    SSR <- (yy - f)^2/(f + 1) # squared studentized residuals
+    Phi <- sum(SSR)/(ncells - df) # estimated dispersion
+    if(Phi > 1.5)
+    {
+      warning(paste("Estimated dispersion =", round(Phi, 2),
+       "- increase df to improve fit of Poisson model?"))
+    }
+
+            
     # density object
     dx <- list(
               x = xx,
               y = f/scale,
 	      bw = bw,
 	      n = l.x,
+	      dispersion = Phi,
 	      call = match.call(),
 	      data.name = name,
 	      has.na = has.na,
@@ -99,7 +112,7 @@ density.pr <- function(x, ncells=100,
     if (plot)
     {
       plot(hist.x, freq=FALSE, ...)
-      lines(dx, col=2)
+      lines(dx, lwd = 3, col = 4)
     }
     
     return(dx)

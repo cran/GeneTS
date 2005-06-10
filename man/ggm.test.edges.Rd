@@ -4,7 +4,8 @@
 \title{Graphical Gaussian Models: Testing Edges}
 
 \usage{
-ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL, fA.type=c("nonparametric", "uniform"))
+ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL,
+fA.type=c("nonparametric", "uniform"), df=7)
 }
 
 \arguments{
@@ -13,6 +14,7 @@ ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL, fA.type=c("nonparame
   \item{eta0}{the proportion of true null values (will be estimated if left unspecified)}
   \item{fA.type}{assumed type of alternative distribution - see also \code{\link{cor.fit.mixture}}}
   \item{MAXKAPPA}{upper bound for the estimated \code{kappa} - see \code{\link{cor.fit.mixture}} (default: MAXKAPPA=5000)}
+  \item{df}{degrees of freedom for the spline fitting the density (only if fA.type="nonparametric")}
 }
 \description{
   \code{ggm.test.edges} assigns statistical significance to the edges in a GGM network by computing

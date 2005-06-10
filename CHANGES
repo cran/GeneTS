@@ -1,3 +1,35 @@
+		CHANGES IN GeneTS VERSION 2.6
+		
+
+NEW FUNCTIONS
+
+    o cov.shrink() and and cor.shrink() allow shrinkage estimation
+      of the covariance and correlation matrices.  This is especially
+      useful in high dimensions (small n, large p setting).
+    
+    o corresponding utility function varcov(): estimates variance of the
+      individual components of the empirical covariance matrix 
+    
+    
+CHANGES		
+
+    o ggm.estimate.pcor() now uses as default the shrinkage estimators.
+
+    o inclusion of pdf/ppt info slide in documentation section
+
+    o check of model fit added to density.pr()
+
+    o example script adopted to shrinkage function
+    
+    o some descriptions corrected
+    
+    o in cor.fit.mixture() and ggm.test.edges() now has a df parameter
+      (controlling the density fit)
+
+    o is.positive.definite() now checks if input is a matrix
+      (this also fixes the "is.positive.definite(-1)=TRUE" bug
+      pointed out by David Stoffer)
+		
 
 		CHANGES IN GeneTS VERSION 2.5
 
