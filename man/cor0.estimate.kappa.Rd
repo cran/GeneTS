@@ -66,7 +66,7 @@ cor0.estimate.kappa(r, method=c("fisher", "likelihood", "robust"), MAXKAPPA=5000
 }
 
 \seealso{\code{\link{dcor0}}, \code{\link{z.transform}}, 
-  \code{\link{hubers}}, \code{\link{kappa2n}}, \code{\link{cor.fit.mixture}}.}
+  \code{\link[MASS]{hubers}}, \code{\link{kappa2n}}, \code{\link{cor.fit.mixture}}.}
 
 \examples{
 # load GeneTS library

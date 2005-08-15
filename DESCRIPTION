@@ -1,5 +1,5 @@
 Package: GeneTS
-Version: 2.7
+Version: 2.8.0
 Date: 2005-08-15
 Title: Microarray Time Series and Network Analysis
 Author: Miika Ahdesmaki <miika.ahdesmaki@tut.fi>,
@@ -22,4 +22,5 @@ Description: GeneTS is a package for analyzing gene expression
   http://www.bioconductor.org.
 License: GPL version 2 or newer
 URL: http://www.statistik.lmu.de/~strimmer/software/genets/
-Packaged: Sun Aug 21 18:42:03 2005; strimmer
+biocViews: TimeCourse, GraphsAndNetworks, MultipleComparisons, Visualization
+Packaged: Wed Oct 12 20:35:59 2005; biocbuild
