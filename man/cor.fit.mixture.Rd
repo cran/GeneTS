@@ -3,13 +3,14 @@
 
 \title{Graphical Gaussian Models: Fit Mixture Distribution to Sample Correlation Coefficients}
 \usage{
-cor.fit.mixture(r, MAXKAPPA=5000, fA.type=c("nonparametric", "uniform"), df=7)
+cor.fit.mixture(r, MAXKAPPA=5000, fA.type=c("nonparametric", "uniform"), df=7, plot.locfdr=0)
 }
 \arguments{
   \item{r}{vector of sample correlations}
   \item{fA.type}{assumed type of alternative distribution}
   \item{MAXKAPPA}{upper bound for the estimated \code{kappa} (default: MAXKAPPA=5000)}
   \item{df}{degrees of freedom for the spline fitting the density (only if fA.type="nonparametric")}
+  \item{plot.locfdr}{controls plot option in \code{locfdr} }
 }
 \description{
 
@@ -68,7 +69,7 @@ cor.fit.mixture(r, MAXKAPPA=5000, fA.type=c("nonparametric", "uniform"), df=7)
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # simulate mixture distribution
 r <- rcor0(700, kappa=10)

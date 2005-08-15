@@ -43,7 +43,7 @@ cor0.test(r, kappa, method=c("student", "dcor0", "ztransform"))
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # covariance matrix
 m.cov <- rbind(

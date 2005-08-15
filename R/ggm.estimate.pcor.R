@@ -1,4 +1,4 @@
-### ggm.estimate.pcor  (2005-06-06)
+### ggm.estimate.pcor  (2005-06-07)
 ###
 ###     Various small-samples estimators of GGM partial correlation coefficients
 ###
@@ -32,29 +32,31 @@ ggm.estimate.pcor <- function(x, method=c("shrinkage", "observed.pcor",
   
   if (method == "shrinkage")
   {  
-     return( cor2pcor( cov.shrink(x) ) )
+     return( pcor.shrink(x, ...) )  
   } 
  
   ########
   
   if (method == "observed.pcor")
-  {
-    return( partial.cor(x, ...) )
+  {    
+    return( cor2pcor( cor(x), 
+            exact.inversion=FALSE, check.eigenvalues=FALSE))
   } 
 
   ########
   
   if (method == "partial.bagged.cor")
   {
-     cor.bag <- bagged.cor(x, R=R, ...)   
-     return( cor2pcor(cor.bag) )
+     cor.bag <- cor.bagged(x, R=R, ...)   
+     return( cor2pcor(cor.bag, 
+             exact.inversion=FALSE, check.eigenvalues=FALSE))
   } 
   
   ########
 
   if (method == "bagged.pcor")
   {  
-     return( bagged.pcor(x, R=R, ...) )
+     return( pcor.bagged(x, R=R, ...) )
   } 
 }
 

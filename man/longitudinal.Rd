@@ -77,7 +77,7 @@ plot.longitudinal(x, series=1, type=c("median", "mean"), autolayout=TRUE, \ldots
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # load data set
 data(caulobacter)

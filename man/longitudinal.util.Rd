@@ -71,7 +71,7 @@ condense.longitudinal(x, s, func=median)
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 
 # load tcell data set

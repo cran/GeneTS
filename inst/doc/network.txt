@@ -1,9 +1,10 @@
 #######################################################################
 # Note that this note can directly be run in R.
+# Version: GeneTS 2.7.0 (August 2005)
 #######################################################################
 
 #
-# EXAMPLE SESSION FOR INFERRING GENETIC NETWORKS
+# EXAMPLE SESSION FOR INFERRING GENE ASSOCIATION NETWORKS
 # 
 
 # for details see:
@@ -22,56 +23,30 @@
 #
 
 
-
 # load GeneTS library
-library(GeneTS)
-
-#######################################################################
-
-# GET DATA:
-
-# As an example we select 42 genes from the Caulobacter data set
-data(caulobacter)
-
-# test for periodicity
-pval.caulobacter <- fisher.g.test(caulobacter)
-fdr.conservative <- fdr.control(pval.caulobacter, Q = 0.05)
-data.matrix <- caulobacter[,fdr.conservative$significant]
-
-# remove some unknow ORFs
-keep <- rep(TRUE,45)
-keep[7] <- FALSE #06901
-keep[22] <- FALSE #04476
-keep[27] <- FALSE #02688
-data.matrix <- data.matrix[,keep]
+library("GeneTS")
 
 
 #######################################################################
 
 # THE DATA:
 
-# the normalized data need to be ready in time series format, i.e. in
-# a matrix where each *column* corresponds to a gene, and where the
-# *rows* correspond to the individual measurements (time points).
+# the normalized data need to be ready in a matrix where each 
+# *column* corresponds to a gene, and where the *rows* correspond to 
+# the individual measurements (e.g. time points).
 
-# our example data is stored in "data.matrix"
-data.matrix
+# Example E. Coli data set (102 genes, 9 time points)
+data(ecoli)
+data.matrix <- ecoli
 
-# 42 genes with 11 time points
+# 102 genes with 9 time points
 dim(data.matrix)
 
 # number of nodes
 num.nodes <- dim(data.matrix)[2]
 
 # node.labels
-node.labels <- c("CheA", "CheR", "CheD", "ABC transporter", "hfaA",
-  "#06446",  "#02759", "peptidase (M23/M37)", "#03144", "#04700",
-   "fljO 1", "fljK", "fljN", "#4480", "flbT", "LexA", "fljM 1",
-   "fljO 2",  "#08039", "#04977", "#02998 (5-repeat)",
-   "#02058 (S-transferase)",  "fljM 2", "#02730" , "divK",  "orfA",
-   "#03649", "DnaA", "bacA",  "#01232 (regulator)",  "fljL", 
-   "#05886 (GGDEF)", "McpH", "#04700",  "#01720", "neuB",  "#02930",
-   "#03170",    "cheW",    "#01459 (receptor)",    "CtrA", "fliJ")
+node.labels <- colnames(ecoli)
 
 
 #######################################################################
@@ -94,7 +69,6 @@ pcor.shrink <- ggm.estimate.pcor(data.matrix, method="shrinkage")
 #pcor.pi1 <- ggm.estimate.pcor(data.matrix, method = "observed.pcor")
 #pcor.pi2 <- ggm.estimate.pcor(data.matrix, method = "partial.bagged.cor", R=10000)
 #pcor.pi3 <- ggm.estimate.pcor(data.matrix, method = "bagged.pcor")
-
 
 inferred.pcor <- pcor.shrink
 
@@ -185,7 +159,7 @@ sim.pcor <- ggm.simulate.pcor(40, 0.05)
 m.sim <- ggm.simulate.data(40, sim.pcor)
 
 # simple estimate of partial correlations
-estimated.pcor <- partial.cor(m.sim)
+estimated.pcor <- ggm.estimate.pcor(m.sim, method = c("observed.pcor"))
 
 # comparison of estimated and true model
 sum((sim.pcor-estimated.pcor)^2)

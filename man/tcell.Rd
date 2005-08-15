@@ -50,7 +50,7 @@ data(tcell)
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # load data sets
 data(tcell)

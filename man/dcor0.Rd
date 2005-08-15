@@ -69,7 +69,7 @@ ibeta(z, a, b)
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # distribution of r for various degrees of freedom
 x <- seq(-1,1,0.01)

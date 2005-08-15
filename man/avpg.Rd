@@ -45,7 +45,7 @@ avgp(x, title = deparse(substitute(x)), plot = TRUE, angular = FALSE, \dots)
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # load data set
 data(caulobacter)

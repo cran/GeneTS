@@ -45,7 +45,7 @@ n2kappa(n, p=2)
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 
 # sample sizes corresponding to kappa=7

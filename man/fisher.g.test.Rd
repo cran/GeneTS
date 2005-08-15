@@ -47,8 +47,10 @@ fisher.g.test(x, \dots)
 \seealso{\code{\link{fdr.control}}.}
 
 \examples{
+\dontrun{
+
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # load data set
 data(caulobacter)
@@ -62,5 +64,7 @@ pval.caulobacter
 
 # test with FDR controlled at on the level 0.05
 fdr.control(pval.caulobacter, Q = 0.05)
+
+}
 }
 \keyword{htest}

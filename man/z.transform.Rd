@@ -19,6 +19,9 @@ hotelling.transform(r, kappa)
   After the transformation the data follows approximately a
   normal distribution  with constant variance (i.e. independent of the mean). 
   
+  The Fisher transformation is simply \code{z.transform(r) = atanh(r)}.
+  
+  
   Hotelling's transformation requires the specification of the degree of freedom \code{kappa} of
   the underlying distribution. This depends on the sample size n used to compute the
   sample correlation and whether simple ot partial correlation coefficients are considered.
@@ -45,7 +48,7 @@ hotelling.transform(r, kappa)
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # small example data set 
 r <- c(-0.26074194, 0.47251437, 0.23957283,-0.02187209,-0.07699437,

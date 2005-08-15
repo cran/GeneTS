@@ -13,8 +13,9 @@ ggm.simulate.data(sample.size, pcor)
 }
 \description{
   \code{ggm.simulate.data} takes a positive definite partial correlation matrix and
-  generates an iid sample from the corresponding standard multinormal distribution 
-  (with mean 0 and variance 1).
+  generates an i.i.d. sample from the corresponding standard multinormal distribution 
+  (with mean 0 and variance 1).  If the input matrix \code{pcor} is not positive definite
+  an error is thrown.
 }
 
 
@@ -32,8 +33,10 @@ ggm.simulate.data(sample.size, pcor)
 \seealso{\code{\link{ggm.simulate.pcor}}, \code{\link{ggm.estimate.pcor}}.}
 
 \examples{
+\dontrun{
+
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # generate random network with 40 nodes 
 # it contains 780=40*39/2 edges of which 5 percent (=39) are non-zero
@@ -43,7 +46,7 @@ true.pcor <- ggm.simulate.pcor(40)
 m.sim <- ggm.simulate.data(40, true.pcor)
 
 # simple estimate of partial correlations
-estimated.pcor <- partial.cor(m.sim)
+estimated.pcor <- ggm.estimate.pcor(m.sim, method = c("observed.pcor"))
 
 # comparison of estimated and true model
 sum((true.pcor-estimated.pcor)^2)
@@ -51,5 +54,7 @@ sum((true.pcor-estimated.pcor)^2)
 # a slightly better estimate ...
 estimated.pcor.2 <- ggm.estimate.pcor(m.sim, method = c("bagged.pcor"))
 sum((true.pcor-estimated.pcor.2)^2)
+
+}
 }
 \keyword{multivariate}

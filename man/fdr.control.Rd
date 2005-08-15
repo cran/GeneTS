@@ -6,11 +6,7 @@ fdr.control(p, Q=0.05, eta0=1.0, robust=FALSE)
 }
 \description{
   \code{fdr.control} controls the False Discovery Rate (FDR) at a
-  given level Q using the algorithms described in Benjamini and Hochberg (1995)
-  and Storey (2002).  The FDR is the expected proportion
-  of false positives (erroneous rejections) among the significant tests (rejections).
-  For a given vector of p-values and the desired FDR level Q the corresponding p-value
-  cut-off and the q-values for each hypothesis (see Storey, 2002) are computed. 
+  given level Q.
 }
 
 \arguments{
@@ -20,6 +16,13 @@ fdr.control(p, Q=0.05, eta0=1.0, robust=FALSE)
   \item{robust}{use small sample approximation for estimating q-values (default: robust=FALSE)}
 }
 \details{
+  The FDR is the expected proportion
+  of false positives (erroneous rejections) among the significant tests (rejections).
+ \code{fdr.control} uses the algorithms described in Benjamini and Hochberg (1995)
+  and Storey (2002).  
+  For a given vector of p-values and the desired FDR level Q the corresponding p-value
+  cut-off and the q-values for each hypothesis (see Storey, 2002) are computed. 
+
 Notes:
 \enumerate{
  \item the default settings correspond to the step-up procedure to control the FDR 
@@ -64,19 +67,38 @@ Notes:
 \seealso{\code{\link{fdr.estimate.eta0}}.}
 
 \examples{
-# load GeneTS library
-library(GeneTS)
+# load mixfdr library
+library("GeneTS")
 
-# load data set
-data(caulobacter)
 
-# how many genes and how many samples?
-dim(caulobacter)
+# simulate case-control data
+p <- 100 # total number of variables
+d <- 20  # number of cases where case and control differs
+n <- 5   # sample size per group
 
-# p-values from Fisher's g test
-pval.caulobacter <- fisher.g.test(caulobacter)
+r1a <- rnorm(d*n,     mean = 3, sd = 1)
+r1b <- rnorm((p-d)*n, mean = 0, sd = 1)
+r2 <- rnorm(p*n, mean = 0, sd = 1)
+x1 <- matrix(c(r1a, r1b), nrow = p, byrow = TRUE) # group 1.
+x2 <- matrix(r2, nrow = p, byrow = TRUE) # group 2.
 
-# FDR test on the level 0.05
-fdr.control(pval.caulobacter, Q = 0.05)
+# p-values from t-test
+pval <- numeric(p)
+for(i in 1:p) pval[i] <- t.test(x1[i, ], x2[i, ])$p.value
+
+
+# Proportion of null p-values for different methods
+fdr.estimate.eta0(pval)
+fdr.estimate.eta0(pval, method="adaptive")
+fdr.estimate.eta0(pval, method="bootstrap")
+fdr.estimate.eta0(pval, method="smoother")
+
+
+# FDR test on the level 0.05 (assuming eta0=0
+fdr.control(pval, Q = 0.05)  
+
+# FDR test on the level 0.05 (estimating eta0)
+e0 <- fdr.estimate.eta0(pval, method="adaptive")
+fdr.control(pval, Q = 0.05, eta0=e0)  
 }
 \keyword{htest}

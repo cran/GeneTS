@@ -1,3 +1,34 @@
+		CHANGES IN GeneTS VERSION 2.7
+
+NEW FUNCTIONS
+
+    o new functions robust.g.test(), g.statistic(), and robust.spectrum()
+      implementing the periodicity testing approach by Ahdesmaki et al.
+      (BMC Bioinformatics 2005). 
+
+    o new data set "ecoli" for illustration of network inference
+    
+
+CHANGES
+
+    o GeneTS now relies on the external package "corpcor" for 
+      computation of partial correlations. 
+      
+      Note that "corpcor" is a spin-off  of GeneTS to bundle generic 
+      functions like shrinkage estimation of large-scale covariance
+      matrices and correlations.
+        
+    o ggm.simulate.data() now throws an error if the input (pcor) matrix 
+      is not positive definite
+    o cor.fit.mixture() and ggm.test.edges() now have a plot.locfdr" 
+      option to control the plots produced by locfdr
+    o The example scripts were updated (to use the E. Coli data for
+      network inference, and to employ local fdr for the g-test) 
+    o The functions is.square() and is.symmetric() were removed and
+      sime of the documentation was cleaned up.
+
+
+
 		CHANGES IN GeneTS VERSION 2.6
 		
 

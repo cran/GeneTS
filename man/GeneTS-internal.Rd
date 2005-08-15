@@ -5,13 +5,13 @@
 \alias{periodogram.freq}
 \alias{fisher.g.test.single}
 \alias{is.constant.single}
-\alias{bag.fun}
 \alias{myrmvnorm}
-\alias{positive.svd}
-\alias{nsmall.svd}
-\alias{psmall.svd}
-\alias{inverse.cor}
 \alias{get.time.idx}
+
+\alias{robust.spectrum.single}
+\alias{spearman}
+\alias{gPopCreate}
+\alias{myresample}
 
 
 \title{Internal GeneTS Functions}

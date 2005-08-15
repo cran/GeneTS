@@ -66,7 +66,7 @@ ggm.plot.graph(gr, node.labels=NULL, show.edge.labels=TRUE, col.pos="black", col
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
  
 # generate random network with 20 nodes and 10 percent edges (=19 edges)
 true.pcor <- ggm.simulate.pcor(20, 0.1)

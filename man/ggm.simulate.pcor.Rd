@@ -36,8 +36,10 @@ ggm.simulate.pcor(num.nodes, etaA=0.05)
 \seealso{\code{\link{ggm.simulate.data}},\code{\link{ggm.estimate.pcor}}.}
 
 \examples{
+\dontrun{
+
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # generate random network with 40 nodes 
 # it contains 780=40*39/2 edges of which 5 percent (=39) are non-zero
@@ -47,7 +49,7 @@ true.pcor <- ggm.simulate.pcor(40)
 m.sim <- ggm.simulate.data(40, true.pcor)
 
 # simple estimate of partial correlations
-estimated.pcor <- partial.cor(m.sim)
+estimated.pcor <-ggm.estimate.pcor(m.sim, method = c("observed.pcor"))
 
 # comparison of estimated and true model
 sum((true.pcor-estimated.pcor)^2)
@@ -55,5 +57,7 @@ sum((true.pcor-estimated.pcor)^2)
 # a slightly better estimate ...
 estimated.pcor.2 <- ggm.estimate.pcor(m.sim, method = c("bagged.pcor"))
 sum((true.pcor-estimated.pcor.2)^2)
+
+}
 }
 \keyword{multivariate}

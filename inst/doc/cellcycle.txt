@@ -1,5 +1,6 @@
 #######################################################################
 # Note that this note can directly be run in R.
+# Version: GeneTS 2.7.0 (August 2005)
 #######################################################################
 
 #
@@ -15,7 +16,7 @@
 
 
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 #######################################################################
 
@@ -54,6 +55,10 @@ avgp.caulobacter
 pval.caulobacter <- fisher.g.test(caulobacter)
 pval.caulobacter
 
+
+#######################################################################
+# multiple testing with tail-area based FDR
+
 # test with FDR controlled at on the level 0.05
 fdr.out <- fdr.control(pval.caulobacter, Q = 0.05)
 fdr.out
@@ -67,6 +72,20 @@ fdr.estimate.eta0(pval.caulobacter, method="smoother")
 
 # FDR test with eta0 != 1
 fdr.control(pval.caulobacter, Q = 0.05, eta0=0.9)$num.significant
+
+
+#######################################################################
+# multiple testing with local fdr
+
+library(locfdr)
+
+# transform exact p-values to z-scores
+z.caulobacter <- qnorm(pval.caulobacter)
+plot(density.pr(z.caulobacter))
+
+lfdr <- locfdr(z.caulobacter)$fdr
+sum(lfdr < 0.2)
+
 
 #######################################################################
 

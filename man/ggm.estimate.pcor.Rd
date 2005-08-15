@@ -14,8 +14,9 @@ ggm.estimate.pcor(x, method = c("shrinkage", "observed.pcor",
      Available options are "shrinkage" (the default), "observed.pcor",
     "partial.bagged.cor", and "bagged.pcor". }
   \item{R}{number of bootstrap replicates (bagged estimators only)}
-  \item{\dots}{options passed to \code{\link{partial.cor}}, \code{\link{bagged.cor}},
-        and \code{\link{bagged.pcor}}. }
+  \item{\dots}{options passed to  \code{\link[corpcor]{cor.bagged}},
+     \code{\link[corpcor]{pcor.bagged}}, and
+        \code{\link[corpcor]{pcor.shrink}}.}
    
 }
 \description{
@@ -32,7 +33,7 @@ ggm.estimate.pcor(x, method = c("shrinkage", "observed.pcor",
   The result can be summarized as follows (with n being the sample size, and p being the
   number of variables): 
 
-\emph{shrinkage:} This employs \code{\link{cov.shrink}} to estimate an optimal positive definite
+\emph{shrinkage:} This employs \code{\link[corpcor]{cov.shrink}} to estimate an optimal positive definite
      covariance matrix that subsequently serves as basis to compute the partial correlation
      coefficients.
      This method is very fast (compared to the bootstrap procedures) yet it also produces highly
@@ -77,11 +78,13 @@ correlation Pi-2 (see Schaefer and Strimmer 2005a,b).
   covariance estimation and implications for functional genomics.  Submitted.
   
 }
-\seealso{\code{\link{ggm.simulate.data}}, \code{\link{ggm.estimate.pcor}}, \code{\link{cov.shrink}}.}
+\seealso{\code{\link{ggm.simulate.data}}, \code{\link{ggm.estimate.pcor}}, \code{\link[corpcor]{cov.shrink}}.}
 
 \examples{
+\dontrun{
+
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # generate random network with 40 nodes 
 # it contains 780=40*39/2 edges of which 5 percent (=39) are non-zero
@@ -91,7 +94,7 @@ true.pcor <- ggm.simulate.pcor(40)
 m.sim <- ggm.simulate.data(40, true.pcor)
 
 # simple estimate of partial correlations
-estimated.pcor <- partial.cor(m.sim)
+estimated.pcor <- ggm.estimate.pcor(m.sim, method = c("observed.pcor"))
 
 # comparison of estimated and true model
 sum((true.pcor-estimated.pcor)^2)
@@ -105,9 +108,7 @@ estimated.pcor.3 <- ggm.estimate.pcor(m.sim, method = c("shrinkage"))
 sum((true.pcor-estimated.pcor.3)^2)
 
 }
-
 }
-
 
 
 \keyword{htest}

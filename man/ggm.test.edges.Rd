@@ -5,7 +5,7 @@
 
 \usage{
 ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL,
-fA.type=c("nonparametric", "uniform"), df=7)
+fA.type=c("nonparametric", "uniform"), df=7, plot.locfdr=1)
 }
 
 \arguments{
@@ -15,6 +15,7 @@ fA.type=c("nonparametric", "uniform"), df=7)
   \item{fA.type}{assumed type of alternative distribution - see also \code{\link{cor.fit.mixture}}}
   \item{MAXKAPPA}{upper bound for the estimated \code{kappa} - see \code{\link{cor.fit.mixture}} (default: MAXKAPPA=5000)}
   \item{df}{degrees of freedom for the spline fitting the density (only if fA.type="nonparametric")}
+  \item{plot.locfdr}{controls plot option in \code{locfdr} }
 }
 \description{
   \code{ggm.test.edges} assigns statistical significance to the edges in a GGM network by computing
@@ -63,7 +64,7 @@ fA.type=c("nonparametric", "uniform"), df=7)
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
  
 # generate random network with 20 nodes and 5 percent edges
 true.pcor <- ggm.simulate.pcor(20, 0.05)

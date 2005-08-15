@@ -70,7 +70,7 @@ cor0.estimate.kappa(r, method=c("fisher", "likelihood", "robust"), MAXKAPPA=5000
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # distribution of r for kappa=7
 x <- seq(-1,1,0.01)

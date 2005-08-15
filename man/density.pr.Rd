@@ -65,7 +65,7 @@ density.pr(x, ncells=100, trim.lo=1/1000, trim.up=1/1000, df=7, plot=FALSE, \dot
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # load data 
 data(faithful)

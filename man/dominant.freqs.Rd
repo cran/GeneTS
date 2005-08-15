@@ -30,7 +30,7 @@ dominant.freqs(x, m=1, \dots)
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # load data set
 data(caulobacter)

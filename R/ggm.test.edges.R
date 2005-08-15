@@ -1,4 +1,4 @@
-### ggm.test.edges  (2005-01-15)
+### ggm.test.edges  (2005-06-22)
 ###
 ###   Compute p-values, q-values and posterior probabilities for GGM edges
 ###
@@ -27,7 +27,7 @@
 
 # assign p-values, q-values and posterior probabilities to each edge
 ggm.test.edges <- function(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL, 
-       fA.type=c("nonparametric", "uniform"), df=7)
+       fA.type=c("nonparametric", "uniform"), df=7, plot.locfdr=1)
 {
    fA.type <- match.arg(fA.type) 
 
@@ -39,7 +39,7 @@ ggm.test.edges <- function(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL,
    if (is.null(kappa) || is.null(eta0))
    {
      # estimate kappa and eta0
-     mfit <- cor.fit.mixture(pcor, fA.type=fA.type, df=df)
+     mfit <- cor.fit.mixture(pcor, fA.type=fA.type, df=df, plot.locfdr=plot.locfdr)
      kappa <-  mfit$kappa
      eta0 <- mfit$eta0  
    }

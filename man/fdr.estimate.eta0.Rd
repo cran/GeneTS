@@ -7,11 +7,7 @@ fdr.estimate.eta0(p, method=c("conservative", "adaptive", "bootstrap", "smoother
 }
 \description{
   \code{fdr.estimate.eta0} estimates the proportion eta0 of null p-values in a given
-  vector of p-values. This quantity is an important parameter 
-  when controlling  the false discovery rate (FDR).  A conservative choice is
-  eta0 = 1 but a choice closer to the true value will increase efficiency
-  and power 
-  - see   Benjamini and Hochberg (1995, 2000) and Storey (2002) for details.
+  vector of p-values. 
 }
 
 \arguments{
@@ -25,6 +21,14 @@ fdr.estimate.eta0(p, method=c("conservative", "adaptive", "bootstrap", "smoother
   }
 
 \details{
+
+This quantity \code{eta0}, i.e.  the proportion eta0 of null p-values in a given
+  vector of p-values, is an important parameter 
+  when controlling  the false discovery rate (FDR).  A conservative choice is
+  eta0 = 1 but a choice closer to the true value will increase efficiency
+  and power 
+  - see   Benjamini and Hochberg (1995, 2000) and Storey (2002) for details.
+
 The function \code{fdr.estimate.eta0} provides four algorithms: the "conservative"
 method always returns eta0 = 1  (Benjamini and Hochberg, 1995), "adaptive"
 uses the approach suggested in Benjamini and Hochberg (2000), "bootstrap"
@@ -64,22 +68,38 @@ approach in Storey and Tibshirani (2003).
 \seealso{\code{\link{fdr.control}}.}
 
 \examples{
-# load GeneTS library
-library(GeneTS)
+# load mixfdr library
+library("GeneTS")
 
-# load data set
-data(caulobacter)
 
-# how many genes and how many samples?
-dim(caulobacter)
+# simulate case-control data
+p <- 100 # total number of variables
+d <- 20  # number of cases where case and control differs
+n <- 5   # sample size per group
 
-# p-values from Fisher's g test
-pval.caulobacter <- fisher.g.test(caulobacter)
+r1a <- rnorm(d*n,     mean = 3, sd = 1)
+r1b <- rnorm((p-d)*n, mean = 0, sd = 1)
+r2 <- rnorm(p*n, mean = 0, sd = 1)
+x1 <- matrix(c(r1a, r1b), nrow = p, byrow = TRUE) # group 1.
+x2 <- matrix(r2, nrow = p, byrow = TRUE) # group 2.
+
+# p-values from t-test
+pval <- numeric(p)
+for(i in 1:p) pval[i] <- t.test(x1[i, ], x2[i, ])$p.value
+
 
 # Proportion of null p-values for different methods
-fdr.estimate.eta0(pval.caulobacter)
-fdr.estimate.eta0(pval.caulobacter, method="adaptive")
-fdr.estimate.eta0(pval.caulobacter, method="bootstrap")
-fdr.estimate.eta0(pval.caulobacter, method="smoother")
+fdr.estimate.eta0(pval)
+fdr.estimate.eta0(pval, method="adaptive")
+fdr.estimate.eta0(pval, method="bootstrap")
+fdr.estimate.eta0(pval, method="smoother")
+
+
+# FDR test on the level 0.05 (assuming eta0=0
+fdr.control(pval, Q = 0.05)  
+
+# FDR test on the level 0.05 (estimating eta0)
+e0 <- fdr.estimate.eta0(pval, method="adaptive")
+fdr.control(pval, Q = 0.05, eta0=e0)  
 }
 \keyword{htest}

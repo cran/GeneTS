@@ -36,7 +36,7 @@ data(caulobacter)
 
 \examples{
 # load GeneTS library
-library(GeneTS)
+library("GeneTS")
 
 # load data set
 data(caulobacter)

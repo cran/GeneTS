@@ -1,4 +1,4 @@
-### cor.fit.mixture.R  (2005-05-11)
+### cor.fit.mixture.R  (2005-06-22)
 ###
 ###    Fit mixture model to empirical distribution of (partial)
 ###    correlation coefficients.
@@ -25,7 +25,7 @@
 
 
 # fit mixture to empirical (partial) correlations
-cor.fit.mixture <- function(r, MAXKAPPA=5000, fA.type=c("nonparametric", "uniform"), df=7)
+cor.fit.mixture <- function(r, MAXKAPPA=5000, fA.type=c("nonparametric", "uniform"), df=7, plot.locfdr=0)
 {
   if ( any(r > 1) || any(r < -1) )
       stop("Data out of range: input correlations must be in [-1; 1]")
@@ -36,7 +36,7 @@ cor.fit.mixture <- function(r, MAXKAPPA=5000, fA.type=c("nonparametric", "unifor
   {
      require("locfdr")
      
-     out <- locfdr(z.transform(r), df=df)
+     out <- locfdr(z.transform(r), df=df, plot=plot.locfdr)
      eta0 <- as.double( out$fp0[3] ) # p0
      sigma <- as.double( out$fp0[2] ) # sig
      kappa <- 1/(sigma*sigma) + 2 # Fisher's rule
