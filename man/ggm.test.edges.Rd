@@ -1,30 +1,29 @@
 \name{ggm.test.edges}
 \alias{ggm.test.edges}
+\alias{ggm.list.edges}
 
 \title{Graphical Gaussian Models: Testing Edges}
 
 \usage{
-ggm.test.edges(r.mat, MAXKAPPA=5000, kappa=NULL, eta0=NULL,
-fA.type=c("nonparametric", "uniform"), df=7, plot.locfdr=1)
+ggm.list.edges(r.mat)
+ggm.test.edges(r.mat, df=7, plot.locfdr=1)
 }
 
 \arguments{
   \item{r.mat}{matrix of partial correlations}
-  \item{kappa}{the degree of freedom of the null distribution (will be estimated if left unspecified)}
-  \item{eta0}{the proportion of true null values (will be estimated if left unspecified)}
-  \item{fA.type}{assumed type of alternative distribution - see also \code{\link{cor.fit.mixture}}}
-  \item{MAXKAPPA}{upper bound for the estimated \code{kappa} - see \code{\link{cor.fit.mixture}} (default: MAXKAPPA=5000)}
   \item{df}{degrees of freedom for the spline fitting the density (only if fA.type="nonparametric")}
   \item{plot.locfdr}{controls plot option in \code{locfdr} }
 }
 \description{
-  \code{ggm.test.edges} assigns statistical significance to the edges in a GGM network by computing
+ \code{ggm.list.edges} returns a table with all correlations sorted according to magnitude,
+  as well as the two node numbers associated with each edge.
+
+  \code{ggm.test.edges} in addition assigns statistical significance to the edges in a GGM network by computing
   p-values, q-values and posterior probabilities for each potential edge.
 }
 
 \details{
   A mixture model is fitted to the partial correlations using \code{\link{cor.fit.mixture}}
-  (this estimate can be overridden if values for both \code{kappa} and \code{eta0} are specified).
   Subsequently, two-sided p-values to test non-zero correlation are computed for each edge using 
   \code{\link{cor0.test}}. In addition, corresponding posterior probabilities are
   computed (also using \code{\link{cor.fit.mixture}}.  Finally, to simplify multiple testing q-values
@@ -37,18 +36,20 @@ fA.type=c("nonparametric", "uniform"), df=7, plot.locfdr=1)
 \value{
   A sorted data frame with the following columns:
   
-  \item{pcor}{partial correlation (from r.mat)}
+  \item{pcor}{correlation (from r.mat)}
   \item{node1}{first node connected to edge}
   \item{node2}{second node connected to edge}
   \item{pval}{p-value}
   \item{qval}{q-value}
-  \item{prob}{probability that edge is nonzero}
+  \item{prob}{probability that edge is nonzero (= 1-local fdr}
 
   Each row in the data frame corresponds to one edge, and the rows are sorted
   according the absolute strength of the correlation (from strongest to weakest)
+  
+  \code{ggm.list.edges} returns only the first three columns.
 }
 \author{
-  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Juliane Schaefer (\url{http://www.stat.math.ethz.ch/~schaefer/}) and
   Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \references{
@@ -66,20 +67,15 @@ fA.type=c("nonparametric", "uniform"), df=7, plot.locfdr=1)
 # load GeneTS library
 library("GeneTS")
  
-# generate random network with 20 nodes and 5 percent edges
-true.pcor <- ggm.simulate.pcor(20, 0.05)
+# ecoli data 
+data(ecoli)
 
-# simulate data set of length 100
-sim.dat <- ggm.simulate.data(100, true.pcor)
-
-# estimate partial correlation matrix (simple estimator)
-inferred.pcor <- ggm.estimate.pcor(sim.dat)
+# estimate partial correlation matrix 
+inferred.pcor <- ggm.estimate.pcor(ecoli)
 
 # p-values, q-values and posterior probabilities for each edge 
 #
-# try both options for fA!
-#test.results <- ggm.test.edges(inferred.pcor, fA.type="nonparametric")
-test.results <- ggm.test.edges(inferred.pcor, fA.type="uniform")
+test.results <- ggm.test.edges(inferred.pcor)
 
 # show best 20 edges (strongest correlation)
 test.results[1:20,]
@@ -93,7 +89,7 @@ num.significant.2 <- sum(test.results$prob > 0.95)
 test.results[1:num.significant.2,]
 
 # parameters of the mixture distribution used to compute p-values etc.
-c <- cor.fit.mixture(sm2vec(inferred.pcor), fA.type="uniform")
+c <- cor.fit.mixture(sm2vec(inferred.pcor))
 c$eta0
 c$kappa
 }

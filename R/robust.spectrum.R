@@ -49,7 +49,10 @@ robust.spectrum <- function(x)
     if (!is.equally.spaced(x))
       warning("Function assumes equally spaced time points")
   }
-
+  else
+  {
+    x <- as.matrix(x)
+  }
 
   noTS <- ncol(x) #number of time series
   y <- matrix(NA,nrow(x),ncol(x))
@@ -73,6 +76,8 @@ robust.spectrum <- function(x)
 #################################################################
 robust.spectrum.single <- function(x) 
 {
+  
+  if( is.constant.single(x) ) warning("Constant time series!")
   
   ##############################################
   # Some adjustable parameters

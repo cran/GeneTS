@@ -34,11 +34,11 @@ cor0.test(r, kappa, method=c("student", "dcor0", "ztransform"))
 
 
 \author{
-  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Juliane Schaefer (\url{http://www.stat.math.ethz.ch/~schaefer/}) and
   Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 
-\seealso{\code{\link{dcor0}}, \code{\link{cor0.estimate.kappa}},
+\seealso{\code{\link{dcor0}}, 
          \code{\link{kappa2n}}, \code{\link{z.transform}}.}
 
 \examples{

@@ -1,8 +1,8 @@
-### ggm.estimate.pcor  (2005-06-07)
+### ggm.estimate.pcor  (2006-03-10)
 ###
-###     Various small-samples estimators of GGM partial correlation coefficients
+###     Small-samples estimate of GGM partial correlation coefficients
 ###
-### Copyright 2003-05 Juliane Schaefer and Korbinian Strimmer
+### Copyright 2003-06 Juliane Schaefer, Rainer Opgen-Rhein, and Korbinian Strimmer
 ###
 ###
 ### This file is part of the `GeneTS' library for R and related languages.
@@ -23,41 +23,48 @@
 
 
 # estimate partial correlation coefficients
-ggm.estimate.pcor <- function(x, method=c("shrinkage", "observed.pcor",
-  "partial.bagged.cor", "bagged.pcor"), R=1000, ...)
+ggm.estimate.pcor <- function(x, method=c("static", "dynamic"), ...)
 {
   method <- match.arg(method)
 
   ########
-  
-  if (method == "shrinkage")
+ 
+ 
+  if (method == "dynamic")
+  {  
+     return( dyn.pcor(x, ...) )  
+  } 
+   
+  if (method == "static")
   {  
      return( pcor.shrink(x, ...) )  
   } 
  
+ 
   ########
   
-  if (method == "observed.pcor")
-  {    
-    return( cor2pcor( cor(x), 
-            exact.inversion=FALSE, check.eigenvalues=FALSE))
-  } 
+  #if (method == "observed.pcor")
+  #{    
+  #  return( pcor.shrink(x, lambda=0) )
+  #} 
 
   ########
   
-  if (method == "partial.bagged.cor")
-  {
-     cor.bag <- cor.bagged(x, R=R, ...)   
-     return( cor2pcor(cor.bag, 
-             exact.inversion=FALSE, check.eigenvalues=FALSE))
-  } 
+  #if (method == "partial.bagged.cor")
+  #{
+  #   cor.bag <- cor.bagged(x, R=R, ...)   
+  #   return( cor2pcor(cor.bag) )
+  #} 
   
   ########
 
-  if (method == "bagged.pcor")
-  {  
-     return( pcor.bagged(x, R=R, ...) )
-  } 
+  #if (method == "bagged.pcor")
+  #{  
+  #   return( pcor.bagged(x, R=R, ...) )
+  #} 
 }
+
+
+
 
 

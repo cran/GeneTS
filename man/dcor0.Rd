@@ -37,7 +37,7 @@ ibeta(z, a, b)
   of investigated variables.  If a simple correlation coefficient is considered (p=2)
   then the degree of freedom equals \code{kappa = n-1}.
   For p  variables and a partial correlation coefficient conditioned on p-2 variables
-  \code{kappa = n-p+1} (see also \code{\link{cor0.estimate.kappa}}).
+  \code{kappa = n-p+1}.
          
   The incomplete beta function \code{ibeta} is needed to compute the distribution function. For
   z=1 the incomplete beta function reduces to the beta function
@@ -61,7 +61,7 @@ ibeta(z, a, b)
   The function \code{ibeta} returns a numeric value.
 }
 
-\seealso{\code{\link{cor}}, \code{\link{cor0.estimate.kappa}}, \code{\link{beta}}.}
+\seealso{\code{\link{cor}}, \code{\link{beta}}.}
 
 \author{
    Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).

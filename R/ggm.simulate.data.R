@@ -29,8 +29,7 @@ ggm.simulate.data <- function(sample.size, pcor)
 {
     mu <- rep(0, dim(pcor)[1])
   
-    cor.mat <- pcor2cor(pcor, 
-                  exact.inversion=TRUE, check.eigenvalues=TRUE)
+    cor.mat <- pcor2cor(pcor)
   
     return( myrmvnorm(sample.size, mu, cor.mat) )
 }

@@ -6,7 +6,6 @@
 \alias{fisher.g.test.single}
 \alias{is.constant.single}
 \alias{myrmvnorm}
-\alias{get.time.idx}
 
 \alias{robust.spectrum.single}
 \alias{spearman}

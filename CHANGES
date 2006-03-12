@@ -1,3 +1,66 @@
+
+		CHANGES IN GeneTS VERSION 2.9.0
+
+In this versions some of the functions were cleaned up, obsolete
+methods were removed, the plotting method and the computational
+procedures were improved.
+
+
+CHANGES
+    
+    o robust.spectrum() now  gives a warning if a constant time series 
+      is being analyzed.  It now also works with a single time series.
+      
+    o documentation was updated (new addresses etc.)
+    
+    o dependency on "corpcor" revised to version 1.2.0.  This versions
+      offers much faster computation of partical correlations.
+    
+    o the infrastructure for longitudinal data and the tcell data 
+      set was moved into the separate package "longitudinal".  GeneTS
+      now depends on this package.
+
+
+REMOVED
+
+    o the option "fA.type" was removed in cor.fit.mixture() and 
+      ggm.test.edges(). The previous default "nonparametric" is now standard.
+    
+    o in ggm.estimate.pcor() the options for the estimators 
+      "observed.pcor", "partial.bagged.cor", and "bagged.pcor" have been 
+      removed.
+      
+    o the function cor0.estimate.kappa() was removed.
+      
+         
+NEW FUNCTIONALITY
+
+    o ggm.list.edges() is a new utility function.
+    
+    o ggm.estimate.pcor() now offers a possibility to compute dynamic 
+      correlation. 
+
+    o there is a new example script illustrating the network inference
+      for the tcell data.
+
+    o the plotting functions have been simplified and greatly improved:
+      In ggm.make.graph() now node.lables can be specified, and unconnected
+      nodes are removed if desired.  show.edge.weights() now displays 
+      the clear names of the nodes, not just node indices. The plots
+      output by ggm.plot.graph() visualize the strength of the association
+      by color and by line width.  Negative correlation is indicated by
+      dotted lines. Different layout types can be selected.
+
+
+
+
+		CHANGES IN GeneTS VERSION 2.8.0
+
+
+No change, expect for version number (due to new scheme on the Bioconductor side).
+
+
+
 		CHANGES IN GeneTS VERSION 2.7
 
 NEW FUNCTIONS

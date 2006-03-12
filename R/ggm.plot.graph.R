@@ -1,8 +1,8 @@
-### ggm.plot.graph  (2004-09-15)
+### ggm.plot.graph  (2006-03-10)
 ###
 ###   Plotting the GGM network
 ###
-### Copyright 2003-04 Juliane Schaefer and Korbinian Strimmer
+### Copyright 2003-06 Juliane Schaefer and Korbinian Strimmer
 ###
 ###
 ### This file is part of the `GeneTS' library for R and related languages.
@@ -27,25 +27,42 @@
 
 # generate a graph object from and edge list
 # (such as obtained from ggm.test.edges) 
-ggm.make.graph <- function(edge.list, num.nodes)
+ggm.make.graph <- function(edge.list, node.labels, drop.singles=FALSE)
 {
     library(graph) # requires the "graph" package from BioC >= 1.5
-  
+      
+    V <- unique(node.labels)  
+    if ( length(V) != length(node.labels) )
+    {
+       stop("Duplicate node labels encountered. Node labels must be unique!")
+    }   
+    V <- as.character(V)
+     
+    
     # create empty graph with no edges
-    V <- as.character(1:num.nodes)
-    edL <- vector("list", length=num.nodes)
+    edL <- vector("list", length=length(V))
     names(edL) <- V
     gR <- new("graphNEL", nodes=V, edgeL=edL)
    
     # add edges and edge weights (correlations)
-    gX <- addEdge(as.character(edge.list[,2]),
-                  as.character(edge.list[,3]),
+    gX <- addEdge(V[edge.list[,2]],
+                  V[edge.list[,3]],
                   gR,
                   round(edge.list[,1], digits=2) )
+ 
+ 
+    if(drop.singles) # remove unconnected nodes
+    {
+      # nodes with degree > 0
+      nd <- nodes(gX)[ degree(gX) > 0 ]
+    
+      gX <- subGraph(nd, gX)
+    }
   
     return(gX)
-  
 }
+
+
 
 # print vector of edge weights
 show.edge.weights <- function(gr)
@@ -54,7 +71,7 @@ show.edge.weights <- function(gr)
   
     em <- edgeMatrix(gr, duplicates=FALSE)
       
-    return( eWV(gr, em) )           
+    return( eWV(gr, em, useNNames = TRUE) )       
    
 }
 
@@ -62,9 +79,13 @@ show.edge.weights <- function(gr)
 
 # requires installation of the "Rgraphviz" library
 
-# plot network 
-ggm.plot.graph <- function(gr, node.labels=NULL, show.edge.labels=TRUE, col.pos="black", col.neg="grey", ...)
+
+ggm.plot.graph <- function(gr, 
+    layoutType=c("fdp", "neato", "circo", "dot", "twopi"), 
+    show.edge.labels=FALSE,  ...)
 {
+    layoutType = match.arg(layoutType)
+    
     library(Rgraphviz) # requires the "Rgraphviz" package from BioC >= 1.5
   
     # general graph attributes
@@ -73,43 +94,68 @@ ggm.plot.graph <- function(gr, node.labels=NULL, show.edge.labels=TRUE, col.pos=
     gAttrs$node$shape <- "ellipse"
     gAttrs$node$fixedsize <- FALSE
     
-    if (!is.null(node.labels))
-    {
-      # node attributes
-      # node.labels are given by the user
-      node.names <- nodes(gr)
     
-      nAttrs <- list()
-      nAttrs$label <- node.labels
-      names(nAttrs$label) <- node.names
-    }
-   
     #  edge attributes
     em <- edgeMatrix(gr)
-    emv <- eWV(gr, em, sep="~")
+    emv <- eWV(gr, em, sep="~", useNNames = TRUE)
     edge.names <- names(emv)
     edge.labels <- as.character(emv)
-    
     eAttrs <- list()
+    eAttrs$label <- edge.labels
+    names(eAttrs$label) <- edge.names
     
-    if (show.edge.labels)
+                
+    # get Ragraph object (=perform graph layout)
+    lg <- agopen(gr, name="test", attrs=gAttrs, edgeAttrs = eAttrs, layoutType=layoutType)
+    
+    
+    # modify Ragraph object to allow different line types
+    
+    # thresholds for line width and coloring
+    cutoff <- quantile(abs(emv), c(0.2, 0.8)) 
+
+    eg <- AgEdge(lg)
+    # loop through all edges   
+    for (i in 1:length(eg))
     {
-      eAttrs$label <- edge.labels
-      names(eAttrs$label) <- edge.names
-    }
+      # modify parameters  (it is important to set params for all edges)
       
-    # color edges according to positive and negative correlation
-    eAttrs$color <- rep(col.pos, length(edge.labels))
-    eAttrs$color[emv < 0] <- col.neg
-    names(eAttrs$color) <- edge.names
-  
-    if (is.null(node.labels))
-    {
-        plot(gr, "neato", attrs=gAttrs, edgeAttrs = eAttrs, ...)
+      w <- as.double( eg[[i]]@txtLabel@labelText )
+      
+      if (w < 0 )
+        eg[[i]]@lty <- 3  # negative values: dotted lines
+      else
+        eg[[i]]@lty <- 1  # positive values: solid lines
+
+      
+      # line thickness and color depends on relative strengh	
+      if (abs(w) < cutoff[1]) # lower 20% quantile
+      {
+         eg[[i]]@lwd <- 1
+	 eg[[i]]@color <- "grey"
+      }
+      else if (abs(w) < cutoff[2]) # from 20%-80%
+      {
+         eg[[i]]@lwd <- 1
+	 eg[[i]]@color <- "black"
+      }
+      else # top 80%-100%
+      {
+         eg[[i]]@lwd <- 2
+         eg[[i]]@color <- "black"
+      }
+	 
+      # remove edge weight
+      if (!show.edge.labels)
+        eg[[i]]@txtLabel@labelText <- "" 
+	 
+	 
     }
-    else
-    {
-        plot(gr, "neato", attrs=gAttrs, nodeAttrs=nAttrs, edgeAttrs = eAttrs, ...)
-    }
+    AgEdge(lg) <- eg
+   
+   
+    # finally, plot Ragraph object
+   
+    plot(lg, ...)
 }
 

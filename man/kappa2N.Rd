@@ -20,7 +20,7 @@ n2kappa(n, p=2)
 
 \details{ 
         
-  The degree of freedom kappa of the sample distribution of the correlation
+  The degree of freedom kappa of the sample distribution of the empirical correlation
   coefficient depends both on the sample size n and the number p of investigated variables, 
   i.e. whether simple or partial correlation coefficients are being considered.
   For p=2 (simple correlation coefficient) the degree of freedom equals \code{kappa = n-1},
@@ -37,11 +37,11 @@ n2kappa(n, p=2)
 
 
 \author{
-  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Juliane Schaefer (\url{http://www.stat.math.ethz.ch/~schaefer/}) and
   Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 
-\seealso{\code{\link{dcor0}}, \code{\link{cor0.estimate.kappa}}.}
+\seealso{\code{\link{dcor0}}.}
 
 \examples{
 # load GeneTS library

@@ -15,7 +15,7 @@ data(ecoli)
 }
 
 \format{
-  \code{caulobacter} is a \code{\link{longitudinal}} object
+  \code{caulobacter} is a \code{\link[longitudinal]{longitudinal}} object
   containing the data from the Schmidt-Heck et al. (2004) experiment.
   Essentially, this is a matrix with with 102 columns (=genes)
   and 9 rows (=time points).  All expression levels are given in

@@ -40,6 +40,8 @@ robust.g.test <- function(y, index, perm = FALSE, x, noOfPermutations = 5000)
   # 'y' is the matrix consisting of the spectral estimates
   # as column vectors. 
   
+  y <- as.matrix(y)
+  
   # 'index' is an index to the spectral
   # estimates that is to be used in the testing for periodicity.
   # If 'index' is missing, the maximum component of the spectral

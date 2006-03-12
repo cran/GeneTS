@@ -23,7 +23,7 @@ ggm.simulate.data(sample.size, pcor)
   A multinormal data matrix.
 }
 \author{
-  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Juliane Schaefer (\url{http://www.stat.math.ethz.ch/~schaefer/}) and
   Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \references{
@@ -46,13 +46,13 @@ true.pcor <- ggm.simulate.pcor(40)
 m.sim <- ggm.simulate.data(40, true.pcor)
 
 # simple estimate of partial correlations
-estimated.pcor <- ggm.estimate.pcor(m.sim, method = c("observed.pcor"))
+estimated.pcor <- cor2pcor( cor(m.sim) )
 
-# comparison of estimated and true model
+# comparison of estimated and true values
 sum((true.pcor-estimated.pcor)^2)
 
 # a slightly better estimate ...
-estimated.pcor.2 <- ggm.estimate.pcor(m.sim, method = c("bagged.pcor"))
+estimated.pcor.2 <- ggm.estimate.pcor(m.sim)
 sum((true.pcor-estimated.pcor.2)^2)
 
 }

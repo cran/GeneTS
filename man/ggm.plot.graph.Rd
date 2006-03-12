@@ -6,21 +6,22 @@
 \title{Graphical Gaussian Models: Plotting the Network}
 
 \usage{
-ggm.make.graph(edge.list, num.nodes)
+ggm.make.graph(edge.list, node.labels, drop.singles=FALSE)
 show.edge.weights(gr)
-ggm.plot.graph(gr, node.labels=NULL, show.edge.labels=TRUE, col.pos="black", col.neg="grey", \dots)
+ggm.plot.graph(gr, 
+    layoutType=c("fdp", "neato", "circo", "dot", "twopi"), 
+    show.edge.labels=FALSE, \dots)
 }
 
 \arguments{
   \item{edge.list}{a data frame, as obtained by \code{\link{ggm.test.edges}}, listing all
           edges to be included in the graph}
-  \item{num.nodes}{the total number of nodes in the network}
+  \item{node.labels}{a vector with labels for each node (will be converted to type character)} 
+  \item{drop.singles}{remove unconnected nodes}
   \item{gr}{a graph object}
-  \item{node.labels}{a vector with labels for each node (optional)} 
-  \item{show.edge.labels}{plot correlation values as edge labels (default: TRUE)}
-  \item{col.pos}{edge color for positive correlation (default: "black")}
-  \item{col.neg}{edge color for positive correlation (default: "grey")}
-  \item{\dots}{options passed to \code{plot.graph}}
+  \item{layoutType}{type of plot of the graph. Defaults to "fdp".}
+  \item{show.edge.labels}{plot correlation values as edge labels (default: FALSE)}
+  \item{\dots}{options passed to \code{plot} functions}
 }
 \description{
   \code{ggm.make.graph} converts an edge list as obtained by \code{\link{ggm.test.edges}}
@@ -32,7 +33,7 @@ ggm.plot.graph(gr, node.labels=NULL, show.edge.labels=TRUE, col.pos="black", col
   the "Rgraphviz" library is not installed). 
 
   \code{ggm.plot.graph} visualizes the network structure of the graphical Gaussian model 
-  using the Rgraphviz network plot package. The correlation coefficients are
+  using the Rgraphviz network plot package. The correlation coefficients can be 
   printed as edge labels.
 }
 
@@ -43,9 +44,15 @@ ggm.plot.graph(gr, node.labels=NULL, show.edge.labels=TRUE, col.pos="black", col
   complete set of Bioconductor packages, only "graph" and "Rgraphviz" are needed by the
   GeneTS package (however, these may in turn require additional packages from Bioconductor).
 
-  \code{ggm.plot.graph} is a simple utility function to plots the graph in "neato" format
-  with ellipsoid node shapes.  See the documentation of \code{plot.graph} in the "Rgraphviz"
-  package for many other options.
+  \code{ggm.plot.graph} is a utility function to plot a graph in "dfp" layout format.
+  The line width and color depends on the relative strength of the partial correlation 
+  assigned to an edge: the top 80%-100% edges are drawn in "black" with "lwd=2", 
+  the range from 20% to 80% will be drawn in "black" with "lwd=1", and the lower
+  20% will be plotted in "grey" with "lwd=1".
+  
+  The "Rgraphviz" package offers many other options - please consult the manual of
+  "Rgraphviz" for the details.
+
  
 }
 \value{
@@ -57,7 +64,7 @@ ggm.plot.graph(gr, node.labels=NULL, show.edge.labels=TRUE, col.pos="black", col
   \code{ggm.plot.graph} plots  the network on the current graphic device.
 }
 \author{
-  Juliane Schaefer (\url{http://www.statistik.lmu.de/~schaefer/}) and
+  Juliane Schaefer (\url{http://www.stat.math.ethz.ch/~schaefer/}) and
   Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
 }
 \seealso{
@@ -72,20 +79,21 @@ library("GeneTS")
 true.pcor <- ggm.simulate.pcor(20, 0.1)
 
 # convert to edge list 
-test.results <- ggm.test.edges(true.pcor, eta0=0.9, kappa=1000)[1:19,]
+test.results <- ggm.list.edges(true.pcor)[1:19,]
 
 # generate graph object 
 # NOTE: this requires the installation of the "graph" package
 # (in the following "try" is used to avoid an error if the library is not installed)
-try( gr <- ggm.make.graph( test.results, 20) )
+nlab <- LETTERS[1:20]
+try( gr <- ggm.make.graph( test.results, nlab) )
 try( gr )
 try( show.edge.weights(gr) )
+try( gr2 <- ggm.make.graph( test.results, nlab, drop.singles=TRUE) )
+try( gr2 )
 
 # plot network
 # NOTE: this requires the installation of the "Rgraphviz" library
-try ( ggm.plot.graph(gr))
-nlab <- c("A","B","C","D","E","F","G","H","I","J","K",
-            "L","M","N","O","P","Q","R","S", "T")
-try( ggm.plot.graph(gr, nlab) )
+try ( ggm.plot.graph(gr, main = "A graph"))
+try ( ggm.plot.graph(gr2, main = "The same graph with singles removed" ))
 }
 \keyword{hplot}

@@ -15,7 +15,7 @@ data(caulobacter)
 }
 
 \format{
-  \code{caulobacter} is a \code{\link{longitudinal}} object
+  \code{caulobacter} is a \code{\link[longitudinal]{longitudinal}} object
   containing the data from the Laub et al. (2000) experiment.
   Essentially, this is a matrix with with 1444 columns (=genes)
   and 11 rows (=time points) 
