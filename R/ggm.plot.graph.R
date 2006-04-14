@@ -1,4 +1,4 @@
-### ggm.plot.graph  (2006-03-10)
+### ggm.plot.graph  (2006-03-29)
 ###
 ###   Plotting the GGM network
 ###
@@ -40,9 +40,7 @@ ggm.make.graph <- function(edge.list, node.labels, drop.singles=FALSE)
      
     
     # create empty graph with no edges
-    edL <- vector("list", length=length(V))
-    names(edL) <- V
-    gR <- new("graphNEL", nodes=V, edgeL=edL)
+    gR <- new("graphNEL", nodes=V)
    
     # add edges and edge weights (correlations)
     gX <- addEdge(V[edge.list[,2]],

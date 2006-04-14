@@ -1,3 +1,16 @@
+		CHANGES IN GeneTS VERSION 2.10.0
+
+
+This is the offical Bioconductor version 1.8 release (27 April 2006).
+
+CHANGES
+    
+    o some small internal changes were made in order to make GeneTS 
+      work with the graph/Rgraphviz packages from BioC 1.8.
+    
+    o new functions sm2vec(), sm.indexes() and vec2sm() 
+      (these used to be part of "corpcor").
+    
 
 		CHANGES IN GeneTS VERSION 2.9.0
 
