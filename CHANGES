@@ -1,3 +1,15 @@
+
+		CHANGES IN GeneTS VERSION 2.10.1
+
+CHANGES
+    
+    o because of code changes (LAPACK.svd -> svd)
+      ggm.simulate.data() didn't work anymore - now fixed.
+      
+    o example script for estimation of a relevance network added.
+    
+    
+
 		CHANGES IN GeneTS VERSION 2.10.0
 
 

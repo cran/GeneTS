@@ -1,8 +1,8 @@
-### ggm.simulate.data  (2005-07-19)
+### ggm.simulate.data  (2006-05-14)
 ###
 ###     Simulate GGM data
 ###
-### Copyright 2003-05 Juliane Schaefer and Korbinian Strimmer
+### Copyright 2003-06 Juliane Schaefer and Korbinian Strimmer
 ###
 ###
 ### This file is part of the `GeneTS' library for R and related languages.
@@ -41,7 +41,7 @@ ggm.simulate.data <- function(sample.size, pcor)
 # generate multinormal data with given mean vector and covariance 
 myrmvnorm <- function(n, mean, sigma)
 {
-  sigsvd <- LAPACK.svd(sigma)
+  sigsvd <- svd(sigma)
   retval <- t(sigsvd$v %*% (t(sigsvd$u) * sqrt(sigsvd$d)))
   retval <- matrix(rnorm(n * ncol(sigma)), nrow = n) %*% retval
   retval <- sweep(retval, 2, mean, "+")

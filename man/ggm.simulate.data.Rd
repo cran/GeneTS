@@ -33,7 +33,6 @@ ggm.simulate.data(sample.size, pcor)
 \seealso{\code{\link{ggm.simulate.pcor}}, \code{\link{ggm.estimate.pcor}}.}
 
 \examples{
-\dontrun{
 
 # load GeneTS library
 library("GeneTS")
@@ -55,6 +54,5 @@ sum((true.pcor-estimated.pcor)^2)
 estimated.pcor.2 <- ggm.estimate.pcor(m.sim)
 sum((true.pcor-estimated.pcor.2)^2)
 
-}
 }
 \keyword{multivariate}
