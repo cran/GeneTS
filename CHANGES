@@ -1,5 +1,23 @@
 
+		CHANGES IN GeneTS VERSION 2.10.2
+
+
+    o dependencies have been increased: now corpcor (>= 1.4.2)
+      and longitudinal (>= 1.1.2) are required.  This enables
+      one to use the protected shrinkage estimators.  The fraction
+      of protected components can be specified via the parameter
+      "protect" in ggm.estimate.pcor().
+   
+    o the functions sm2vec(), vec2sm(), and sm.index() have been
+      moved to corpcor package.
+    
+    o in the documentation all web links to the Strimmer group
+      page now point to strimmerlab.org.
+      
+      
+
 		CHANGES IN GeneTS VERSION 2.10.1
+
 
 CHANGES
     

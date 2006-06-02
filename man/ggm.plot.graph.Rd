@@ -65,7 +65,7 @@ ggm.plot.graph(gr,
 }
 \author{
   Juliane Schaefer (\url{http://www.stat.math.ethz.ch/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://strimmerlab.org}).
 }
 \seealso{
 \code{\link{ggm.test.edges}}, \code{plot.graph}.

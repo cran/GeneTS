@@ -59,7 +59,7 @@ Notes:
 }
 \author{
   Konstantinos Fokianos (\url{http://www.ucy.ac.cy/~fokianos/}) and
-  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://strimmerlab.org}).
   
   Adapted in part from S-PLUS code by  Y. Benjamini (\url{http://www.math.tau.ac.il/~roee/FDR_Splus.txt})
   and R code from J.D. Storey (\url{http://faculty.washington.edu/~jstorey/}). 

@@ -50,7 +50,7 @@ cor.fit.mixture(r, df=7, plot.locfdr=0)
 
 \author{
   Juliane Schaefer (\url{http://www.stat.math.ethz.ch/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://strimmerlab.org}).
 }
 \references{
   Efron, B. (2004). Large-scale simulataneous hypothesis testing: the choice

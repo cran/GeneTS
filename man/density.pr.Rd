@@ -44,7 +44,7 @@ density.pr(x, ncells=100, trim.lo=1/1000, trim.up=1/1000, df=7, plot=FALSE, \dot
 
 }
 \author{
-  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://strimmerlab.org}).
   
   Part of the code of the \code{density.pr} function was adopted from the \code{locfdr} package.
 }

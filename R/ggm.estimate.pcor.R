@@ -1,4 +1,4 @@
-### ggm.estimate.pcor  (2006-03-10)
+### ggm.estimate.pcor  (2006-06-02)
 ###
 ###     Small-samples estimate of GGM partial correlation coefficients
 ###

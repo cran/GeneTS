@@ -27,7 +27,7 @@
 ggm.list.edges <- function(r.mat)
 {
    pcor <- sm2vec(r.mat)
-   indexes <- sm.indexes(r.mat)
+   indexes <- sm.index(r.mat)
    colnames(indexes) <- c("node1", "node2")
 
    result <- cbind(pcor, indexes)

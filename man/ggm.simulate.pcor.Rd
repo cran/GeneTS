@@ -27,7 +27,7 @@ ggm.simulate.pcor(num.nodes, etaA=0.05)
 }
 \author{
   Juliane Schaefer (\url{http://www.stat.math.ethz.ch/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://strimmerlab.org}).
 }
 \references{
   Schaefer, J., and Strimmer, K. (2005).  An empirical Bayes approach to inferring

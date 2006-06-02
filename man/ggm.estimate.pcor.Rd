@@ -44,9 +44,9 @@ ggm.estimate.pcor(x, method = c("static", "dynamic"), \dots)
   An estimated partial correlation matrix.
 }
 \author{
-  Rainer Opgen-Rhein (\url{http://www.statistik.lmu.de/~opgen/}),
+  Rainer Opgen-Rhein (\url{http://opgen-rhein.de}),
   Juliane Schaefer (\url{http://www.stat.math.ethz.ch/~schaefer/}) and
-  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://strimmerlab.org}).
 }
 \references{
  Opgen-Rhein, R., and K. Strimmer. 2006a. Inferring gene dependency networks from 

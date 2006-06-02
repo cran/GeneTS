@@ -17,7 +17,7 @@ is.constant(x)
 }
 
 \author{
-  Korbinian Strimmer (\url{http://www.statistik.lmu.de/~strimmer/}).
+  Korbinian Strimmer (\url{http://strimmerlab.org}).
 }
 
 \examples{
