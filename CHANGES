@@ -1,6 +1,27 @@
 
+		CHANGES IN GeneTS VERSION 2.12.0
+
+
+From this version "GeneTS" is a meta-package only, with 
+not own functions.  It exists for reasons of backward compatibility. 
+
+
+CHANGES
+
+    o the functions related to inference of gene networks
+      have been moved into the package "GeneNet"
+    
+    o the functions connected with periodicity testing are
+      now in the package "GeneCycle"
+      
+    o the functions for fdr controlling an testing are now
+      in the package "fdrtool"
+
+
+
 		CHANGES IN GeneTS VERSION 2.10.2
 
+CHANGES
 
     o dependencies have been increased: now corpcor (>= 1.4.2)
       and longitudinal (>= 1.1.2) are required.  This enables
